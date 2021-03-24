@@ -1,0 +1,72 @@
+<header role="banner" class="oj-hybrid-applayout-header">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link href="css/product.css" rel="stylesheet" type="text/css">
+	<link
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+		rel="stylesheet">
+	<oj-module config="[[headerConfig]]"></oj-module>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+
+	<div style="display: flex;">
+		<input type="text" data-bind="value : nombre"
+			placeholder="Nombre del producto"> <input type="text"
+			data-bind="value : precio" placeholder="Precio">
+		&nbsp;&nbsp;&nbsp;
+		<div class="file-input">
+			<input type="file" id="file" class="file" data-bind="event : {change : setImage }"> 
+			<label for="file">Select file</label>
+			<!-- ko if : image -->
+					<img data-bind="attr: { src : image}" width="100" height="100">
+			<!-- /ko -->
+		</div>&nbsp;&nbsp;&nbsp;
+		<oj-button chroming="callToAction" class="oj-button-sm"
+			data-bind="click : add">Guardar producto</oj-button>
+		&nbsp;&nbsp;&nbsp;
+		<div data-bind="html : message" style="color: blue"></div>
+		<div data-bind="html : error" style="color: red"></div>
+	</div>
+	<table style="margin-left: 150px;">
+		<tr>
+			<th>Unidades</th>
+			<th>Producto</th>
+		</tr>
+		<!-- ko foreach : carrito -->
+		<tr>
+			<td data-bind="html : amount"></td>
+			<td data-bind="html : name"></td>
+		</tr>
+		<!-- /ko -->
+	</table>
+</header>
+
+<div class="container">
+	<div class="row clearfix">
+		<!-- ko foreach : productos -->
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="boxs project_widget">
+				<div class="pw_img">
+					<!-- ko if : image -->
+						<img data-bind="attr: { src : image}" id="foton">
+					<!-- /ko -->
+				</div>
+				<div class="pw_content">
+					<div class="pw_header">
+						<h6 data-bind="html : nombre"></h6>
+						<small class="text-muted">Last Update: 12 Dec 2017</small>
+					</div>
+					<div class="pw_meta">
+						<span data-bind="html : precio"></span> <br />
+						<oj-button chroming="outlined" class="oj-button-sm"
+							data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</oj-button>
+
+						<oj-button chroming="callToAction" class="oj-button-sm"
+							data-bind="click : function() { $parent.addAlCarrito(nombre,precio); }">A&ntilde;adir
+						al carrito</oj-button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+</div>
