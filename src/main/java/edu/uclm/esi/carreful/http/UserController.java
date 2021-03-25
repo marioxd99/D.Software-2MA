@@ -124,4 +124,21 @@ public class UserController extends CookiesController {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 	}
+	
+	@PutMapping("/edit")
+	public void edit(HttpServletRequest request,@RequestBody Map<String, Object> info) {
+		try {
+			JSONObject jso = new JSONObject(info);
+			String email = jso.optString("email");
+			request.getSession().setAttribute("userEmail", email);
+			User user = userDao.findByEmail(email);
+			user.setEmail(jso.optString("email"));
+			user.setPicture(jso.optString("picture"));
+			userDao.save(user);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	
+	
 }

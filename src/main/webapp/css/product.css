@@ -3,8 +3,8 @@ body{
     margin-top:20px;}
     
 #foton{
-	width:200px;
-	heigth:200px;
+	width:180px;
+	heigth:180px;
 	
 }
 .file {
@@ -40,10 +40,8 @@ input:focus + label {
     position: relative;
     display:flex;
     align-items: center;
-    float: left;
-    margin:7px;
-    margin-bottom: 30px;
-    margin-top: 10px;
+    float:left;
+    margin:7px 10px 5px 10px;
     color: #4d585f;
     background-color: white;
     filter: alpha(opacity=100);

@@ -5,8 +5,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
-			self.email = ko.observable("macario.polo@uclm.es");
-			self.pwd = ko.observable("pepep");
+			self.email = ko.observable("marioxd99@gmail.com");
+			self.pwd = ko.observable("marioxd99");
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
@@ -37,7 +37,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					app.router.go( { path : "menu"} );
+					//$("#navList").hide();
+					app.router.go( { path : "product"} );
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);

@@ -29,7 +29,6 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
         { path: 'product', detail : { label : 'Producto'} },      
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-avatar' } },
         { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-avatar' } },
-        { path: 'editProfile', detail: { label: 'Editar Perfil', iconClass: 'oj-ux-ico-avatar' } },
         { path: 'menu', detail: { label: 'Menú', iconClass: 'oj-ux-ico-fire' } },
         { path: 'about', detail: { label: 'About', iconClass: 'oj-ux-ico-information-s' } }
       ];
