@@ -1,0 +1,38 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+      <div class="oj-hybrid-padding">
+        <h1>Editar Producto</h1>
+         <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nombre:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" data-bind="html : nombre">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Codigo:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Precio:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" data-bind="html : precio">
+            </div>
+          </div>
+          <br/>
+          <oj-button chroming="callToAction" class="oj-button-sm"
+								data-bind="click : function() { $parent.editar(nombre); }">Editar</oj-button>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

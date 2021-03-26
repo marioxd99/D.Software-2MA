@@ -1,34 +1,59 @@
-<div class="oj-hybrid-applayout-page">
-	<div class="oj-applayout-fixed-top">
-		<header role="banner" class="oj-hybrid-applayout-header">
-			<oj-module config="[[headerConfig]]"></oj-module>
-		</header>
-	</div>
-	<!-- This is where your main page content will be loaded -->
-	<div class="oj-applayout-content">
-		<div role="main" class="oj-hybrid-applayout-content">
-			<div class="oj-hybrid-padding">
-				<h1>Creación de cuenta</h1>
-				<div>
-					<input type="text" placeholder="Nombre de usuario"
-						data-bind="value : userName"> <input type="email"
-						placeholder="Correo electrónico" data-bind="value : email">
-					<input type="password" placeholder="Contraseña"
-						data-bind="value : pwd1"> <input type="password"
-						placeholder="Repite contraseña" data-bind="value : pwd2">
-					<input type="file" size="50"
-						data-bind="event : {change : setPicture }"><br>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link href="css/register.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+</head>
+<body>
+<body>
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Crear Cuenta</h1>
+			</div>
+
+			<div class="login-form">
+				<div class="control-group">
+					<input type="text" class="login-field"
+						placeholder="Nombre de usuario" data-bind="value : userName">
+					<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+				<div class="control-group">
+					<input type="email" class="login-field"
+						placeholder="Correo electronico" data-bind="value : email">
+				</div>
+				<div class="control-group">
+					<input type="password" class="login-field" placeholder="Contraseña"
+						data-bind="value : pwd1">
+				</div>
+				<div class="control-group">
+					<input type="password" class="login-field" placeholder="Repite Contraseña"
+						data-bind="value : pwd2">
+				</div>
+
+				<div class="file-input">
+					<input type="file" id="file" class="file login-field"
+						data-bind="event : {change : setPicture }"> <label
+						for="file">Select file</label>
 					<!-- ko if : picture -->
 					<img data-bind="attr: { src : picture}" width="100" height="100">
 					<!-- /ko -->
-					<button id="btnCrearCuenta" data-bind="click : register">Crear
-						cuenta</button>
-					<div class="oj-sm-12" data-bind="html : message" style="color : blue">
-	            	</div>
-	            	<div class="oj-sm-12" data-bind="html : error" style="color : red">
-	            	</div>						
 				</div>
+
+				<oj-button chroming="callToAction" class="oj-button-lg" id="btnCrearCuenta"
+					data-bind="click : register">Crear cuenta</oj-button>
+				<div class="oj-sm-12" data-bind="html : message" style="color: blue"></div>
+				<div class="oj-sm-12" data-bind="html : error" style="color: red"></div>
+				<div class="text-center mt-3"></div>
 			</div>
 		</div>
 	</div>
-</div>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,6 @@ import org.springframework.web.server.ResponseStatusException;
 import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Product;
-import edu.uclm.esi.carreful.service.ProductService;
 
 @RestController
 @RequestMapping("product")
@@ -36,10 +36,12 @@ public class ProductController extends CookiesController {
 		JSONObject jso = new JSONObject(info);
 		String nombre = jso.optString("nombre");
 		String precio = jso.optString("precio");
+		String codigo = jso.optString("codigo");
 		try {
 			Product product = new Product();
 			product.setNombre(nombre);
 			product.setPrecio(precio);
+			product.setCodigo(codigo);
 			product.setImage(jso.optString("image"));
 			productDao.save(product);
 		} catch(Exception e) {
@@ -91,5 +93,13 @@ public class ProductController extends CookiesController {
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
+	}
+	
+	@GetMapping("/editar/{nombre}")
+	public String editar(@PathVariable String nombre,Model model) {
+		Optional<Product> product = productDao.findById(nombre);
+		model.addAttribute("product",product);
+		return "editarProducto";	
+			
 	}
 }

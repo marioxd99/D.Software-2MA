@@ -1,43 +1,55 @@
-<div class="oj-hybrid-applayout-page">
-  <div class="oj-applayout-fixed-top">
-    <header role="banner" class="oj-hybrid-applayout-header">
-      <oj-module config="[[headerConfig]]"></oj-module>
-    </header>
-  </div>
-  <!-- This is where your main page content will be loaded -->
-  <div class="oj-applayout-content">
-    <div role="main" class="oj-hybrid-applayout-content">
-      <div class="oj-hybrid-padding">
-        <h1>Login</h1>
-        <div>
-            <div class="oj-flex">
-            	<div class="oj-sm-12">
-            		<input type="email" placeholder="email" data-bind="value : email">
-            	</div>
-            	<div class="oj-sm-12">
-            		<input type="password" placeholder="Contraseña" data-bind="value : pwd">
-            	</div>
-            	<div class="oj-sm-12">
-            		<button data-bind="click : login">Entrar</button>
-            	</div>
-            	<div class="oj-sm-12" data-bind="html : message" style="color : blue">
-            	</div>
-            	<div class="oj-sm-12" data-bind="html : error" style="color : red">
-            	</div>
-            </div>
-            
-            <div class="oj-flex">
-            	<div class="oj-sm-12">
-            		<a data-bind="click : recoverPwd">Recuperar contraseña</a>
-            	</div>
-            </div>
-            <div class="oj-flex">
-            	<div class="oj-sm-12">
-            		<a data-bind="click : register">Crear cuenta</a>
-            	</div>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link href="css/login.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container bootstrap snippets bootdey">
+		<div class="header">
+			<h3 class="text-muted prj-name" style="padding:10px;">Carreful</h3>
+		</div>
+
+		<div style="height: auto; min-height: 300px;" class="jumbotron" id="loginForm">
+			<div class="col-md-4">
+				<img class="img-responsive center-block img-user"
+					src="https://bootdey.com/img/Content/Manbrown2.png" id="imagen">
+			</div>
+			<div class="col-md-6 form-content" id="formulario">
+				<form accept-charset="utf-8" method="post" id="UserLoginForm"
+					class="form-signin" action="">
+					<h1 class="form-signin-heading text-muted" style="margin-bottom:20px;">Login</h1>
+					<input type="email" id="username" autofocus="autofocus"
+						class="form-control" placeholder="email" data-bind="value : email">
+					<input type="password" id="password" class="form-control"
+						placeholder="ContraseÃ±a" data-bind="value : pwd">
+					<button class="btn btn-lg btn-info btn-block"
+						data-bind="click : login" id="botonLogin">
+						 Login
+					</button>
+
+				</form>
+				<div class="oj-sm-12" data-bind="html : message" style="color: blue"></div>
+				<div class="oj-sm-12" data-bind="html : error" style="color: red">
+				</div>
+				<div class="oj-flex">
+					<div class="oj-sm-12">
+						<a data-bind="click : recoverPwd">Recuperar contraseña</a>
+					</div>
+				</div>
+				<div class="oj-flex">
+					<div class="oj-sm-12">
+						<a data-bind="click : register">Crear cuenta</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

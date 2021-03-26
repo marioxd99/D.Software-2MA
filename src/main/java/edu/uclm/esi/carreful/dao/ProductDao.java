@@ -7,4 +7,5 @@ import edu.uclm.esi.carreful.model.Product;
 
 @Repository
 public interface ProductDao extends JpaRepository <Product, String> {
+	
 }

@@ -7,6 +7,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			self.nombre = ko.observable("Detergente");
 			self.precio = ko.observable("8,50 €");
+			self.codigo = ko.observable("001");
 			self.image = ko.observable();
 
 			self.productos = ko.observableArray([]);
@@ -44,6 +45,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			let info = {
 				nombre : this.nombre(),
 				precio : this.precio(),
+				codigo : this.codigo(),
 				image : this.image()
 			};
 			let data = {
@@ -124,13 +126,17 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		editar(nombre) {
+			app.router.go( { path : "editarProducto"} );
+		}
+		
 		register() {
 			app.router.go( { path : "register" } );
 		}
 
 		connected() {
-			accUtils.announce('Login page loaded.');
-			document.title = "Login";
+			accUtils.announce('Product page loaded.');
+			document.title = "Product";
 			
 			this.getProductos();
 		};
