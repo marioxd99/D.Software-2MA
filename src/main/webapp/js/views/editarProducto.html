@@ -1,39 +1,51 @@
 <div class="oj-hybrid-applayout-page">
-  <div class="oj-applayout-fixed-top">
-    <header role="banner" class="oj-hybrid-applayout-header">
-      <oj-module config="[[headerConfig]]"></oj-module>
-    </header>
-  </div>
-  <div class="oj-applayout-content">
-    <div role="main" class="oj-hybrid-applayout-content">
-      <div class="oj-hybrid-padding">
-        <h1>Editar Producto</h1>
-        <!-- ko with : producto -->
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Nombre:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" data-bind="value : nombre">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Codigo:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" data-bind="value : codigo">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Precio:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" data-bind="value : precio">
-            </div>
-          </div>
-         <!-- /ko -->
-          <br/>
-          <oj-button chroming="callToAction" class="oj-button-sm"
-								data-bind="click : function() { $parent.editar(nombre); }">Editar</oj-button>
-        <div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="oj-applayout-fixed-top">
+		<header role="banner" class="oj-hybrid-applayout-header">
+			<oj-module config="[[headerConfig]]"></oj-module>
+			<link href="css/editProduct.css" rel="stylesheet" type="text/css">
+		</header>
+	</div>
+	<div class="oj-applayout-content">
+		<div role="main" class="oj-hybrid-applayout-content">
+			<div class="oj-hybrid-padding">
+				<h1>Editar Producto</h1>
+				<!-- ko with : producto -->
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Nombre:</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="text" data-bind="value : nombre">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Codigo:</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="text" data-bind="value : codigo">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Precio:</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="text" data-bind="value : precio">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Imagen:</label>
+					<div class="pw_img">
+						<!-- ko if : image -->
+						<img data-bind="attr: { src : image}" id="foton">
+						<!-- /ko -->
+					</div>
+					<br/>
+					<div class="file-input">
+						<input type="file" id="file" class="file" data-bind="event : {change : setImage }"> 
+						<label for="file">Select file</label>
+					</div>
+				</div>
+				<br/>
+				<button chroming="callToAction" class="oj-button-sm"
+					data-bind="click : function() { $parent.editar(nombre); }">Editar</button>
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
 </div>

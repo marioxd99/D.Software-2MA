@@ -95,11 +95,18 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
-	@GetMapping("/editar/{nombre}")
-	public String editar(@PathVariable String nombre,Model model) {
-		Optional<Product> product = productDao.findById(nombre);
-		model.addAttribute("product",product);
-		return "editarProducto";	
+	@PutMapping("/editar/{nombre}")
+	public void editar(@PathVariable String nombre) {
+		try {
+		Product product = productDao.findById(nombre).get();
+		product.setNombre(product.getNombre());
+		product.setPrecio(product.getPrecio());
+		product.setCodigo(product.getCodigo());
+		product.setImage(product.getImage());
+		productDao.save(product);
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
 			
 	}
 }
