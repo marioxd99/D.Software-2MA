@@ -13,38 +13,36 @@
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Nombre:</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" data-bind="value : nombre">
+						<input class="form-control" id="nombreProducto" type="text" data-bind="value : nombre">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Codigo:</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" data-bind="value : codigo">
+						<input class="form-control" id="codigoProducto" type="text" data-bind="value : codigo">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Precio:</label>
 					<div class="col-lg-8">
-						<input class="form-control" type="text" data-bind="value : precio">
+						<input class="form-control" id="precioProducto" type="text" data-bind="value : precio">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Imagen:</label>
-					<div class="pw_img">
-						<!-- ko if : image -->
-						<img data-bind="attr: { src : image}" id="foton">
-						<!-- /ko -->
-					</div>
-					<br/>
 					<div class="file-input">
-						<input type="file" id="file" class="file" data-bind="event : {change : setImage }"> 
+						<!-- ko if : image -->
+							<img data-bind="attr: { src : image}" id="foton">
+						<!-- /ko -->
+						<br/>
+						
 						<label for="file">Select file</label>
 					</div>
 				</div>
 				<br/>
-				<button chroming="callToAction" class="oj-button-sm"
-					data-bind="click : function() { $parent.editar(nombre); }">Editar</button>
+				
 				<!-- /ko -->
+				<button class="oj-button-sm" data-bind="click : edit">Guardar Cambios</button>
 			</div>
 		</div>
 	</div>

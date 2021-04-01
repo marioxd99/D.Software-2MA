@@ -6,8 +6,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			var self = this;
 			
 			self.nombre = ko.observable("Detergente");
-			self.precio = ko.observable("8,50 €");
 			self.codigo = ko.observable("001");
+			self.precio = ko.observable("8,50 €");
 			self.image = ko.observable();
 
 			self.productos = ko.observableArray([]);
@@ -73,7 +73,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					//self.productos(response);
 					
-					
 					 for (let i=0; i<response.length; i++) {
 						let producto = {
 							codigo : response[i].codigo,
@@ -131,10 +130,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				}
 			};
 			$.ajax(data);
-		}
-		
-		editar(nombre) {
-			app.router.go( { path : "editarProducto"} );
 		}
 		
 		register() {

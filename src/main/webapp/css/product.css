@@ -2,6 +2,16 @@ body{
     background-color: #f0f3f5;
     margin-top:20px;}
     
+#editable {
+   color: #222;
+   display: inline-block;
+   font-family: 'segoe ui';
+   padding: .5rem .8rem;
+}
+#editable:focus {
+  outline: none;
+  border: 1px solid #2980b9;
+}
 #foton{
 	width:180px;
 	height:auto;

@@ -95,15 +95,19 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
-	@PutMapping("/editar/{nombre}")
-	public void editar(@PathVariable String nombre) {
+	@PutMapping("/editar")
+	public void editar(@RequestBody Map<String, Object> info) {
 		try {
-		Product product = productDao.findById(nombre).get();
-		product.setNombre(product.getNombre());
-		product.setPrecio(product.getPrecio());
-		product.setCodigo(product.getCodigo());
-		product.setImage(product.getImage());
-		productDao.save(product);
+			JSONObject jso = new JSONObject(info);
+			String nombre = jso.optString("nombre");
+			String precio = jso.optString("precio");
+			String codigo = jso.optString("codigo");
+			System.out.println("El nombre es "+nombre);
+			Product product = productDao.findById(nombre).get();
+			product.setNombre(nombre);
+			product.setPrecio(precio);
+			product.setCodigo(codigo);
+			productDao.save(product);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

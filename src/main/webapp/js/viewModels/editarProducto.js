@@ -1,9 +1,19 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
 
-	class MenuViewModel {
+	class EditarProductoViewModel {
 		constructor() {
 			var self = this;
+			
+			self.nombre = ko.observable();
+			self.codigo = ko.observable();
+			self.precio = ko.observable();
+			self.image = ko.observable();
+			
+			self.message = ko.observable(null);
+			self.error = ko.observable(null);
+			
+			self.productos = ko.observableArray([]);
 			
 			self.setImage = function(widget, event) {
 				var file = event.target.files[0];
@@ -13,16 +23,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				}
 				reader.readAsBinaryString(file);
 			}
-			
+
 			self.producto = ko.observable(app.producto); // ko.observable(JSON.parse(sessionStorage.producto));
 			sessionStorage.removeItem("producto");
+			
 			// Header Config
 			self.headerConfig = ko.observable({
 				'view' : [],
 				'viewModel' : null
 			});
-			
-			
 			
 			moduleUtils.createView({
 				'viewPath' : 'views/header.html'
@@ -32,20 +41,46 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					'viewModel' : app.getHeaderModel()
 				})
 			})
-			
 		}
 		
-		edit(nombre) {
+		getProductos() {
+			let self = this;
+			let data = {
+				url : "product/getTodos",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					//self.productos(response);
+					
+					 for (let i=0; i<response.length; i++) {
+						let producto = {
+							codigo : response[i].codigo,
+							nombre : response[i].nombre,
+							precio : response[i].precio,
+							image  : response[i].image,
+						};
+						self.productos.push(producto);
+					}
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
+		edit() {
+		console.log("dentro de edit");
 			var self = this;
 			let info = {
-				nombre : this.nombre(),
-				precio : this.precio(),
-				codigo : this.codigo(),
+				nombre : document.getElementById("nombreProducto").value,
+				precio : document.getElementById("precioProducto").value,
+				codigo : document.getElementById("codigoProducto").value,
 				image : this.image()
 			};
 			let data = {
 				data : JSON.stringify(info),
-				url : "product/editar" + nombre,
+				url : "product/editar" ,
 				type : "put",
 				contentType : 'application/json',
 				success : function(response) {
@@ -62,7 +97,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 		connected() {
 			accUtils.announce('Edit Product page loaded.');
-			document.title = "Editar";
+			document.title = "Editar Producto";
 		};
 
 		disconnected() {
@@ -74,5 +109,5 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		};
 	}
 
-	return MenuViewModel;
+	return EditarProductoViewModel;
 });
