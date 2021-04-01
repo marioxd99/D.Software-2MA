@@ -9,40 +9,44 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<h1>Editar Producto</h1>
-				<!-- ko with : producto -->
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Nombre:</label>
-					<div class="col-lg-8">
-						<input class="form-control" id="nombreProducto" type="text" data-bind="value : nombre">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Codigo:</label>
-					<div class="col-lg-8">
-						<input class="form-control" id="codigoProducto" type="text" data-bind="value : codigo">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Precio:</label>
-					<div class="col-lg-8">
-						<input class="form-control" id="precioProducto" type="text" data-bind="value : precio">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Imagen:</label>
-					<div class="file-input">
-						<!-- ko if : image -->
-							<img data-bind="attr: { src : image}" id="foton">
-						<!-- /ko -->
-						<br/>
-						
-						<label for="file">Select file</label>
-					</div>
-				</div>
-				<br/>
 				
-				<!-- /ko -->
-				<button class="oj-button-sm" data-bind="click : edit">Guardar Cambios</button>
+				<div class="container">
+				<!-- ko with : producto -->
+					<div class="form-group" id="imagenProducto">
+						<div class="file-input">
+							<!-- ko if : image -->
+							<img data-bind="attr: { src : image}" id="foton">
+							<!-- /ko -->
+							<br /> <input type="file" id="file" class="file"> <label
+								for="file">Select file</label>
+						</div>
+					</div>
+					<!-- /ko -->
+					<div class="form-group" id="datosProducto">
+					<!-- ko with : producto -->
+						<label class="col-lg-3 control-label">Nombre:</label>
+						<div class="col-lg-8">
+							<input class="form-control productos" size="50" id="nombreProducto"
+								type="text" data-bind="value : nombre">
+						</div>
+						<br /> <label class="col-lg-3 control-label">Codigo:</label>
+						<div class="col-lg-8">
+							<input class="form-control productos" size="50" id="codigoProducto"
+								type="text" data-bind="value : codigo">
+						</div>
+						<br /> <label class="col-lg-3 control-label">Precio:</label>
+						<div class="col-lg-8">
+							<input class="form-control productos" size="50" id="precioProducto"
+								type="text" data-bind="value : precio">
+						</div>
+						<br />
+						<!-- /ko -->
+						<button class="oj-button-sm" id="guardarCambios" data-bind="click : edit">Guardar
+							Cambios</button>
+					</div>
+					
+					
+				</div>								
 			</div>
 		</div>
 	</div>
