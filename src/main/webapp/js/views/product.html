@@ -30,6 +30,41 @@
 	</div>
 </header>
 <body>
+<section class="panel">
+			<table>
+		         <header class="panel-heading">
+		             <h6>Categorias</h6>
+		        </header>
+	            <tbody>
+	            <div class="categoriasP">
+		            <div class='img'>
+		            <img id="fotoCategoria" style="magin-top:40px;" src='img/mercado.png'/><figcaption>SuperMercado</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/informatica.png'/><figcaption>Tecnologia</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/farmacia.png'/><figcaption>Farmacia</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/limpieza.png'/><figcaption>Limpieza</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/moda.png'/><figcaption>Ropa</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/bebidas.png'/><figcaption>Bebidas</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/mascotas.png'/><figcaption>Mascotas</figcaption>
+		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div class='img'>
+		            <img id="fotoCategoria" src='img/ofertas.png'/><figcaption>Ofertas</figcaption>
+		            </div>
+	            </div>
+	            </tbody>
+            </table>
+        </section>
 	<div class="container">
 		<div class="row clearfix">
 			<!-- ko foreach : productos -->
@@ -48,7 +83,7 @@
 						</div>
 						<div class="pw_meta">
 							<span id="precioProducto" data-bind="html : precio"></span> <br />
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<oj-button chroming="outlined" class="oj-button-sm"
 								data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</oj-button>
 

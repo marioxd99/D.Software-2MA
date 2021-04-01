@@ -9,19 +9,21 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<h1>Editar Producto</h1>
-				
 				<div class="container">
-				<!-- ko with : producto -->
+
 					<div class="form-group" id="imagenProducto">
 						<div class="file-input">
+						<!-- ko with : producto -->
 							<!-- ko if : image -->
-							<img data-bind="attr: { src : image}" id="foton">
+								<img data-bind="attr: { src : image}" id="foton">
 							<!-- /ko -->
-							<br /> <input type="file" id="file" class="file"> <label
-								for="file">Select file</label>
+						<!-- /ko -->
+							<br /> 
+							<input type="file" id="file" class="file" data-bind="event : {change : setImage }"> 
+							<label for="file">Select file</label>		
 						</div>
 					</div>
-					<!-- /ko -->
+					
 					<div class="form-group" id="datosProducto">
 					<!-- ko with : producto -->
 						<label class="col-lg-3 control-label">Nombre:</label>

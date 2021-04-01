@@ -16,6 +16,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.productos = ko.observableArray([]);
 			
 			self.setImage = function(widget, event) {
+				console.log("dentro del setImage");
 				var file = event.target.files[0];
 				var reader = new FileReader();
 				reader.onload = function () {
@@ -76,7 +77,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				nombre : document.getElementById("nombreProducto").value,
 				precio : document.getElementById("precioProducto").value,
 				codigo : document.getElementById("codigoProducto").value,
-				image : this.image()
+				//image  :  document.getElementById("file").value
 			};
 			let data = {
 				data : JSON.stringify(info),

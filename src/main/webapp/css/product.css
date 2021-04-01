@@ -1,17 +1,8 @@
 body{
     background-color: #f0f3f5;
-    margin-top:20px;}
-    
-#editable {
-   color: #222;
-   display: inline-block;
-   font-family: 'segoe ui';
-   padding: .5rem .8rem;
+    margin-top:20px;
 }
-#editable:focus {
-  outline: none;
-  border: 1px solid #2980b9;
-}
+
 #foton{
 	width:180px;
 	height:auto;
@@ -134,4 +125,76 @@ input:focus + label {
 
 .project_widget .pw_content .pw_meta span {
     font-weight: 500
+}
+
+
+/*Categorias*/
+
+.panel {
+    border-radius: 5px;
+    box-shadow: none;
+    background: white;
+  
+}
+
+.panel-heading {
+    border-color:#eff2f7 ;
+    font-size: 16px;
+    font-weight: 300;
+    text-align:center;
+    
+}
+
+#fotoCategoria{
+	width:auto;
+	heigth:auto;
+	max-width:140px;
+	max-width:140px;
+}
+#fotoCategoria:hover{
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+div.img{
+  display:table;
+  float: left;
+  margin-left:5px;
+  margin-right:10px;
+}
+div.img img{
+ margin:0;
+ padding:5;
+ filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
+}
+
+div.img span{
+ line-height:normal;
+ font-size:11px;
+ display:table-caption;
+ margin:0;
+ background:#646464;
+ color:white;
+ font-style:italic;
+ padding:5px;
+ text-align:center;
+}
+figcaption{
+ line-height:normal;
+ font-size:16px;
+ font-style:bold;
+ padding:5px;
+ text-align:center;
+  margin-bottom:10px;
+}
+
+.categoriasP{
+	margin-left:100px;
+	padding:0;
+	margin-top:0;
+}
+
+.vl {
+  border-left: 6px solid green;
+  height: 50px;
 }
