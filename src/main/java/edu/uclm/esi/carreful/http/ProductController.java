@@ -37,11 +37,13 @@ public class ProductController extends CookiesController {
 		String nombre = jso.optString("nombre");
 		String precio = jso.optString("precio");
 		String codigo = jso.optString("codigo");
+		String categoria =  jso.optString("categoria");
 		try {
 			Product product = new Product();
 			product.setNombre(nombre);
 			product.setPrecio(precio);
 			product.setCodigo(codigo);
+			product.setCategoria(categoria);
 			product.setImage(jso.optString("image"));
 			productDao.save(product);
 		} catch(Exception e) {
@@ -53,6 +55,15 @@ public class ProductController extends CookiesController {
 	public List<Product> get() {
 		try {
 			return productDao.findAll();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/getCategoria/{categoria}")
+	public List<Product> getCategoria(@PathVariable String categoria) {
+		try {
+			return productDao.findByCategoria(categoria);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}

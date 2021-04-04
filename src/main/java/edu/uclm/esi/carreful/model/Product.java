@@ -11,6 +11,7 @@ public class Product {
 	private String nombre;
 	private String precio;
 	private String codigo;
+	private String categoria;
 	@Lob
 	@Column
 	private String image;
@@ -18,6 +19,17 @@ public class Product {
 	public String getImage() {
 		return image;
 	}
+	
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 
 	public void setImage(String image) {
 		this.image = image;

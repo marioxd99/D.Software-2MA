@@ -8,6 +8,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.nombre = ko.observable("Detergente");
 			self.codigo = ko.observable("001");
 			self.precio = ko.observable("8,50 €");
+			self.categoria = ko.observable("Tecnologia");
 			self.image = ko.observable();
 
 			self.productos = ko.observableArray([]);
@@ -46,6 +47,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				nombre : this.nombre(),
 				precio : this.precio(),
 				codigo : this.codigo(),
+				categoria : this.categoria(),
 				image : this.image()
 			};
 			let data = {
@@ -64,6 +66,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		
+		
 		getProductos() {
 			let self = this;
 			let data = {
@@ -78,6 +82,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							codigo : response[i].codigo,
 							nombre : response[i].nombre,
 							precio : response[i].precio,
+							categoria : response[i].categoria,
 							image  : response[i].image,
 							eliminar : function() {
 								self.eliminarProducto(response[i].nombre);
@@ -86,7 +91,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 								//sessionStorage.producto = JSON.stringify(response[i]);
 								app.producto = this;
 								app.router.go( { path : "editarProducto"} );
-							}
+							},
+							getCategoria : function() {
+								self.getProductoCategoria(response[i].categoria);
+							}						
 						};
 						self.productos.push(producto);
 					}
@@ -94,6 +102,20 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
 				}
+			};
+			$.ajax(data);
+		}
+		
+		getProductoCategoria(categoria) {
+			let self = this;
+			console.log("dentro de categoria");
+			let data = {
+				url : "product/getCategoria/" + categoria,
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {	 
+						self.productos.push(producto);
+					}
 			};
 			$.ajax(data);
 		}
@@ -138,7 +160,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 		connected() {
 			accUtils.announce('Product page loaded.');
-			document.title = "Product";
+			document.title = "Producto";
 			
 			this.getProductos();
 		};

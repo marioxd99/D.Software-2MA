@@ -20,6 +20,7 @@
 
   </head>
   <body>
+  
     <!-- template for rendering navigation bar items -->
     <script type="text/html" id="navTemplate">
       <li><a href="#">
@@ -27,8 +28,14 @@
         <oj-bind-text value="[[$data.detail.label]]"></oj-bind-text>
       </a></li>
     </script>
+    
     <div id="globalBody">
-
+		<div class="oj-applayout-fixed-bottom">
+        <div role="navigation" class="oj-hybrid-applayout-navbar-app">
+          <oj-navigation-list id="navList" class="oj-navigationlist-stack-icon-label" data="[[navDataProvider]]" edge="top" item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]" selection="{{selection.path}}">
+          </oj-navigation-list>
+        </div>
+      </div>
       <div id="announce" tabindex="-1" class="sendOffScreen" :aria-live="[[manner]]" aria-atomic="true">
         <p id="ariaLiveMessage"><oj-bind-text value="[[message]]"></oj-bind-text></p>
       </div>
@@ -40,12 +47,7 @@
          ** and the CSS documentation under Support/API Docs/Non-Component Styling
          ** on the JET website for more information on how to use this pattern.
       -->
-      <div class="oj-applayout-fixed-bottom">
-        <div role="navigation" class="oj-hybrid-applayout-navbar-app">
-          <oj-navigation-list id="navList" class="oj-navigationlist-stack-icon-label" data="[[navDataProvider]]" edge="top" item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]" selection="{{selection.path}}">
-          </oj-navigation-list>
-        </div>
-      </div>
+      
     </div>
 
     <script type="text/javascript" src="js/libs/require/require.js"></script>
