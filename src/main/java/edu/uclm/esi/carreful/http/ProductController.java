@@ -62,6 +62,7 @@ public class ProductController extends CookiesController {
 	
 	@GetMapping("/getCategoria/{categoria}")
 	public List<Product> getCategoria(@PathVariable String categoria) {
+		System.out.println("la categoria es "+categoria);
 		try {
 			return productDao.findByCategoria(categoria);
 		} catch(Exception e) {

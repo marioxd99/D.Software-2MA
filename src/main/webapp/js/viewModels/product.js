@@ -93,6 +93,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 								app.router.go( { path : "editarProducto"} );
 							},
 							getCategoria : function() {
+								console.log("hola");
 								self.getProductoCategoria(response[i].categoria);
 							}						
 						};
@@ -108,14 +109,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		getProductoCategoria(categoria) {
 			let self = this;
-			console.log("dentro de categoria");
+			console.log(categoria);
 			let data = {
 				url : "product/getCategoria/" + categoria,
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {	 
-						self.productos.push(producto);
-					}
+					self.productos.push(producto);
+				}
 			};
 			$.ajax(data);
 		}
