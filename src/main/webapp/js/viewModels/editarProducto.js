@@ -71,14 +71,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		edit() {
-		console.log("dentro de edit");
 			var self = this;
 			let info = {
+				id : document.getElementById("idProducto").value,
 				nombre : document.getElementById("nombreProducto").value,
 				precio : document.getElementById("precioProducto").value,
 				codigo : document.getElementById("codigoProducto").value,
-				//image  :  document.getElementById("file").value
+				image  : this.image()
 			};
+			console.log(info.image);
 			let data = {
 				data : JSON.stringify(info),
 				url : "product/editar" ,

@@ -64,8 +64,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				}
 			};
 			$.ajax(data);
-		}
-		
+		}	
 		
 		
 		getProductos() {
@@ -79,17 +78,19 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					
 					 for (let i=0; i<response.length; i++) {
 						let producto = {
+							id : response[i].id,
 							codigo : response[i].codigo,
 							nombre : response[i].nombre,
 							precio : response[i].precio,
 							categoria : response[i].categoria,
 							image  : response[i].image,
 							eliminar : function() {
-								self.eliminarProducto(response[i].nombre);
+								self.eliminarProducto(response[i].nombre); 
 							},
 							editar : function() {
 								//sessionStorage.producto = JSON.stringify(response[i]);
 								app.producto = this;
+								console.log(response[i].id);
 								app.router.go( { path : "editarProducto"} );
 							},
 							getCategoria : function() {
@@ -114,8 +115,17 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				url : "product/getCategoria/" + categoria,
 				type : "get",
 				contentType : 'application/json',
-				success : function(response) {	 
-					self.productos.push(producto);
+				success : function(response) {
+					for (let i=0; i<response.length; i++) {
+						let producto = {
+							codigo : response[i].codigo,
+							nombre : response[i].nombre,
+							precio : response[i].precio,
+							categoria : response[i].categoria,
+							image  : response[i].image,
+						};
+					}
+					self.productos.push(producto.categoria);
 				}
 			};
 			$.ajax(data);

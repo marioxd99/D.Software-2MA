@@ -111,16 +111,17 @@ public class ProductController extends CookiesController {
 	public void editar(@RequestBody Map<String, Object> info) {
 		try {
 			JSONObject jso = new JSONObject(info);
+			String id = jso.optString("id");
+			Long idFinal = Long.valueOf(id);
 			String nombre = jso.optString("nombre");
 			String precio = jso.optString("precio");
 			String codigo = jso.optString("codigo");
 			String image =  jso.optString("image");
-			System.out.println("El nombre es "+nombre);
-			Product product = productDao.findById(nombre).get();
+			Product product =  productDao.findById(idFinal);
 			product.setNombre(nombre);
 			product.setPrecio(precio);
 			product.setCodigo(codigo);
-			//product.setImage(image);
+			product.setImage(image);
 			System.out.println("El imagen es "+image);
 			productDao.save(product);
 		} catch(Exception e) {

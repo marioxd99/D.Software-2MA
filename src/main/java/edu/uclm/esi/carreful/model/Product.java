@@ -2,12 +2,16 @@ package edu.uclm.esi.carreful.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
 public class Product {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nombre;
 	private String precio;
 	private String codigo;
@@ -20,6 +24,16 @@ public class Product {
 		return image;
 	}
 	
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 
 	public String getCategoria() {
 		return categoria;
