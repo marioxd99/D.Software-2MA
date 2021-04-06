@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,12 +95,13 @@ public class ProductController extends CookiesController {
 		return carrito;
 	}
 	
-	@DeleteMapping("/borrarProducto/{nombre}")
-	public void borrarProducto(@PathVariable String nombre) {
+	@Transactional
+	@DeleteMapping("/borrarProducto/{id}")
+	public void borrarProducto(@PathVariable Long id) {
 		try {
-			Optional<Product> optProduct = productDao.findById(nombre);
+			Product optProduct = productDao.findById(id);
 			if (optProduct.isPresent())
-				productDao.deleteById(nombre);
+				productDao.deleteById(id);
 			else
 				throw new Exception("El producto no existe");
 		} catch(Exception e) {

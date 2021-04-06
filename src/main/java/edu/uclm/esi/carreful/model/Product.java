@@ -72,4 +72,10 @@ public class Product {
 	public String getCodigo() {
 		return codigo;
 	}
+
+
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
