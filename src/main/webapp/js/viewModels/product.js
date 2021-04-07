@@ -57,7 +57,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.message("Producto guardado");
-					self.getProductos();
+					location.reload();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -146,7 +146,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.message("Producto eliminado");
-					self.getProductos();
+					location.reload();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
