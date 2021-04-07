@@ -27,7 +27,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       var navData = [
         { path: '', redirect: 'product' },
         { path: 'product', detail : { label : 'Producto'} },
-        { path: 'pay', detail : { label : 'Pagos'} },
+        { path: 'payment', detail : { label : 'Pagos'} },
         { path: 'editarProducto', detail : { label : 'Editar Producto'} },     
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-avatar' } },
         { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-avatar' } },
