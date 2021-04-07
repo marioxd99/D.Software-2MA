@@ -17,6 +17,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			self.setImage = function(widget, event) {
 				console.log("dentro del setImage");
+				var dentroImagen = true;
 				var file = event.target.files[0];
 				var reader = new FileReader();
 				reader.onload = function () {
@@ -76,9 +77,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				id : document.getElementById("idProducto").value,
 				nombre : document.getElementById("nombreProducto").value,
 				precio : document.getElementById("precioProducto").value,
-				codigo : document.getElementById("codigoProducto").value,
-				image  : this.image()
+				codigo : document.getElementById("codigoProducto").value,	
+				image  : this.image(),
 			};
+			if (info.image == null){
+				info.image =  $("img").attr("src");
+			}else{
+				info.image = this.image();
+			}
 			console.log(info.image);
 			let data = {
 				data : JSON.stringify(info),

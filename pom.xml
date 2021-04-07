@@ -70,6 +70,11 @@
 			<version>2.4.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>7.26.0</version>
+		</dependency>
 
 		<!-- Spring -->
 		<dependency>
