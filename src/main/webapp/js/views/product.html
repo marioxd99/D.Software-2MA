@@ -43,10 +43,11 @@
 				<!-- ko foreach : categorias -->
 					<div class='img'>				
 						<img data-bind="attr : {src : imagen}" width="100" height="100" >
-						<div data-bind="html : nombre, click :  function() { $parent.getProductoCategoria(nombre); }"></div>						
+						<div class="nombreCategoria" data-bind="html : nombre, click :  function() { $parent.getProductoCategoria(nombre); }"></div>						
 						&nbsp;					
 					</div>
-					<!-- /ko -->
+				<!-- /ko -->
+				</div>
 			</tbody>
 		</table>
 	</section>
