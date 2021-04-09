@@ -16,6 +16,8 @@ import com.stripe.Stripe;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
+import edu.uclm.esi.carreful.model.Carrito;
+
 @RestController
 @RequestMapping("payments")
 public class PaymentsController extends CookiesController {
@@ -26,6 +28,7 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
+			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
 					.setAmount(5000L)

@@ -10,8 +10,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.precio = ko.observable("8,50 €");
 			self.categoria = ko.observable("Tecnologia");
 			self.image = ko.observable();
+			self.imagen = ko.observable();
 
 			self.productos = ko.observableArray([]);
+			self.categorias = ko.observableArray([]);
 			self.carrito = ko.observableArray([]);
 			
 			self.message = ko.observable(null);
@@ -104,6 +106,42 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		getCategorias() {
+			let self = this;
+			let data = {
+				url : "product/getCategorias",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {	
+					for (let i=0; i<response.length; i++) {
+						let categoria = {
+							nombre : response[i],
+							imagen :  ko.observable(null)
+						};
+						self.getImagen(categoria);
+						self.categorias.push(categoria);
+					}	
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
+		getImagen(categoria) {
+			let self = this;
+			let data = {
+				url : "product/getImagen/" + categoria.nombre,
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					categoria.imagen(response);					
+				}
+			};
+			$.ajax(data);
+		}
+		
 		getProductoCategoria(categoria) {
 			let self = this;
 			console.log(categoria);
@@ -112,6 +150,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
+					self.productos([]);
 					for (let i=0; i<response.length; i++) {
 						let producto = {
 							id: response[i].id,
@@ -180,6 +219,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			accUtils.announce('Product page loaded.');
 			document.title = "Producto";
 			
+			this.getCategorias();
 			this.getProductos();
 		};
 

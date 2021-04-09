@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import edu.uclm.esi.carreful.dao.CategoryDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Product;
@@ -31,6 +32,8 @@ public class ProductController extends CookiesController {
 	
 	@Autowired
 	private ProductDao productDao;
+	@Autowired
+	private CategoryDao categoryDao;
 	
 	@PutMapping("/add")
 	public void add(@RequestBody Map<String, Object> info) {
@@ -61,6 +64,15 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
+	@GetMapping("/getCategorias")
+	public List<String> getCategorias() {
+		try {
+			return categoryDao.findCategorias();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
 	@GetMapping("/getCategoria/{categoria}")
 	public List<Product> getCategoria(@PathVariable String categoria) {
 		System.out.println("la categoria es "+categoria);
@@ -68,6 +80,15 @@ public class ProductController extends CookiesController {
 			return productDao.findByCategoria(categoria);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/getImagen/{categoria}")
+	public String getImagen(@PathVariable String categoria) {
+		try {
+			return categoryDao.getImagen(categoria);
+		} catch(Exception e) {
+			return null;
 		}
 	}
 	

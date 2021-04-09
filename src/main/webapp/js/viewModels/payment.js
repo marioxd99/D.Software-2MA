@@ -92,6 +92,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		payWithCard(card){
+			let self = this;
 			self.stripe.confirmCardPayment(self.clientSecret, {
 				payment_method: {
 					card: card

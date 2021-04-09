@@ -1,18 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="css/product.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/product.css" rel="stylesheet" type="text/css">
 </head>
 <header role="banner" class="oj-hybrid-applayout-header">
 	<div style="display: flex;">
-		<p style="font-weight: bold; margin: 10px 10px 10px;">Añadir Producto</p>
-		    <input type="text" data-bind="value : nombre" placeholder="Nombre del producto">&nbsp;&nbsp; 
-			<input type="text" data-bind="value : codigo" placeholder="Codigo del producto">&nbsp;&nbsp; 
-			<input type="text" data-bind="value : precio" placeholder="Precio">&nbsp;&nbsp; 
-			<input type="text" data-bind="value : categoria" placeholder="Categoria">
-		&nbsp;&nbsp;&nbsp;
+		<p style="font-weight: bold; margin: 10px 10px 10px;">Añadir
+			Producto</p>
+		<input type="text" data-bind="value : nombre"
+			placeholder="Nombre del producto">&nbsp;&nbsp; <input
+			type="text" data-bind="value : codigo"
+			placeholder="Codigo del producto">&nbsp;&nbsp; <input
+			type="text" data-bind="value : precio" placeholder="Precio">&nbsp;&nbsp;
+		<input type="text" data-bind="value : categoria"
+			placeholder="Categoria"> &nbsp;&nbsp;&nbsp;
 		<div class="file-input">
 			<input type="file" id="file" class="file"
 				data-bind="event : {change : setImage }"> <label for="file">Select
@@ -30,49 +33,23 @@
 	</div>
 </header>
 <body>
-<section class="panel">
-			<table>
-		         <header class="panel-heading">
-		             <h6>Categorias</h6>
-		        </header>
-	            <tbody>
-	            <div class="categoriasP">
-	            	<div class='img'>
-		            <img id="fotoCategoria" style="margin-left:40px;" />
-		            </div>
-		            <div class='img'>
-		            <img id="fotoCategoria" />
-		            </div>
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('supermercado'); }"><img id="fotoCategoria" style="margin-left:30px;" src='img/mercado.png'/></div>
-		            <figcaption> &nbsp;&nbsp;&nbsp;&nbsp;SuperMercado</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('tecnologia'); }"><img id="fotoCategoria" src='img/informatica.png'/></div><figcaption>Tecnologia</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('farmacia'); }"><img id="fotoCategoria" src='img/farmacia.png'/></div><figcaption>Farmacia</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('limpieza'); }"><img id="fotoCategoria" src='img/limpieza.png'/></div><figcaption>Limpieza</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('ropa'); }"><img id="fotoCategoria" src='img/moda.png'/></div><figcaption>Ropa</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('bebidas'); }"><img id="fotoCategoria" src='img/bebidas.png'/></div><figcaption>Bebidas</figcaption>
-		            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('mascotas'); }"><img id="fotoCategoria" src='img/mascotas.png'/></div><figcaption>Mascotas</figcaption>
-		            </div>
-		            <div class='img'>
-		            <div data-bind="click :  function() { getProductoCategoria('ofertas'); }"><img id="fotoCategoria" src='img/ofertas.png'/></div><figcaption>Ofertas</figcaption>
-		            </div>
-		            
-	            </div>
-	            </tbody>
-            </table>
-        </section>
+	<section class="panel">
+		<table>
+			<header class="panel-heading">
+				<h6>Categorias</h6>
+			</header>
+			<tbody>
+				<div class="categoriasP">
+				<!-- ko foreach : categorias -->
+					<div class='img'>				
+						<img data-bind="attr : {src : imagen}" width="100" height="100" >
+						<div data-bind="html : nombre, click :  function() { $parent.getProductoCategoria(nombre); }"></div>						
+						&nbsp;					
+					</div>
+					<!-- /ko -->
+			</tbody>
+		</table>
+	</section>
 	<div class="container">
 		<div class="row clearfix">
 			<!-- ko foreach : productos -->
@@ -86,9 +63,9 @@
 					<div class="pw_content">
 						<div class="pw_header">
 							<h6 id="nombreProducto" data-bind="html : nombre"></h6>
-							<a  style="text-decoration: none; cursor: default">Codigo :</a> <small
-								class="text-muted" id="codigoProducto"  data-bind="html : codigo"></small>
-								<a style="visibility: hidden" data-bind="html : id"></a>
+							<a style="text-decoration: none; cursor: default">Codigo :</a> <small
+								class="text-muted" id="codigoProducto" data-bind="html : codigo"></small>
+							<a style="visibility: hidden" data-bind="html : id"></a>
 						</div>
 						<div class="pw_meta">
 							<span id="precioProducto" data-bind="html : precio"></span> <br />
