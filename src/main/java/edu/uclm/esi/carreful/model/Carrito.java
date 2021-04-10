@@ -19,6 +19,12 @@ public class Carrito {
 			orderedProduct.addAmount(amount);
 		}
 	}
+	
+	public void delete(Product product,double amount) {
+		OrderedProduct orderedProduct = this.products.get(product.getNombre());
+		this.products.remove(product.getNombre(),orderedProduct);
+		orderedProduct.removeAmount(amount);
+	}
 
 	public Collection<OrderedProduct> getProducts() {
 		return products.values();

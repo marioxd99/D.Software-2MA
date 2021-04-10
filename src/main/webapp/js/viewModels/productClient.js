@@ -144,6 +144,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		getProductoCategoria(categoria) {
 			let self = this;
+			console.log(categoria);
 			let data = {
 				url : "product/getCategoria/" + categoria,
 				type : "get",
@@ -193,10 +194,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		addAlCarrito(nombre) {
+		addAlCarrito(id) {
 			let self = this;
 			let data = {
-				url : "product/addAlCarrito/" + nombre,
+				url : "product/addAlCarrito/" + id,
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
@@ -217,7 +218,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "delete",
 				contentType : 'application/json',
 				success : function(response) {
-					self.message("Producto eliminado al carrito");
+					self.message("Producto eliminado del carrito");
 					self.carrito(response.products);
 				},
 				error : function(response) {

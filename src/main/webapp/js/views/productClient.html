@@ -7,26 +7,20 @@
 </head>
 <header role="banner" class="oj-hybrid-applayout-header">
 	<div style="display: flex;">
-		<p style="font-weight: bold; margin: 10px 10px 10px;">Añadir
-			Producto</p>
-		<input type="text" data-bind="value : nombre"
-			placeholder="Nombre del producto">&nbsp;&nbsp; <input
-			type="text" data-bind="value : codigo"
-			placeholder="Codigo del producto">&nbsp;&nbsp; <input
-			type="text" data-bind="value : precio" placeholder="Precio">&nbsp;&nbsp;
-		<input type="text" data-bind="value : categoria"
-			placeholder="Categoria"> &nbsp;&nbsp;&nbsp;
-		<div class="file-input">
-			<input type="file" id="file" class="file"
-				data-bind="event : {change : setImage }"> <label for="file">Select
-				file</label>
-			<!-- ko if : image -->
-			<img data-bind="attr: { src : image}" width="100" height="100">
-			<!-- /ko -->
-		</div>
-		&nbsp;&nbsp;&nbsp;
-		<oj-button chroming="callToAction" class="oj-button-sm"
-			data-bind="click : add">Guardar producto</oj-button>
+		<p style="font-weight: bold; margin: 10px 10px 10px;">Producto</p>
+		<div class="margen"></div>
+		<img src="img/carrefour.png" style="width:auto;height:50px;margin-right:250px;">
+		 <table>
+        	<tr>
+        		<th>Unidades</th><th>Producto</th>
+        	</tr>
+        	<!-- ko foreach : carrito -->
+        		<tr>
+        			<td data-bind="html : amount"></td>
+        			<td data-bind="html : name"></td>
+        		</tr>
+        	<!-- /ko -->
+        </table>
 		&nbsp;&nbsp;&nbsp;
 		<div data-bind="html : message" style="color: blue"></div>
 		<div data-bind="html : error" style="color: red"></div>
@@ -38,9 +32,10 @@
 			<header class="panel-heading">
 				<h6>Categorias</h6>
 			</header>
+			
 			<tbody>
 				<div class="categoriasP">
-		            <div class="margen2"></div>
+				
 				<!-- ko foreach : categorias -->
 					<div class='img'>				
 						<img id="fotoCategoria" data-bind="attr : {src : imagen} , click :  function() { $parent.getProductoCategoria(nombre); }" width="100" height="100" >
@@ -74,10 +69,8 @@
 							<span id="precioProducto" data-bind="html : precio"></span> <br />
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<oj-button chroming="outlined" class="oj-button-sm"
-								data-bind="click : function() { $parent.eliminarProducto(id); }">Eliminar</oj-button>
-
-							<oj-button chroming="callToAction" class="oj-button-sm"
-								data-bind="click : editar">Editar</oj-button>
+								data-bind="click : function() { $parent.eliminarCarrito(id); }">Eliminar</oj-button>
+							<oj-button chroming="callToAction" class="oj-button-sm" data-bind="click : function() { $parent.addAlCarrito(id); }">Carrito</oj-button>
 						</div>
 					</div>
 				</div>

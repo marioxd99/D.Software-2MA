@@ -26,12 +26,12 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
 
       var navData = [
         { path: '', redirect: 'product' },
+        { path: 'productClient', detail : { label : 'ProductoCliente'} },
         { path: 'product', detail : { label : 'Producto'} },
         { path: 'payment', detail : { label : 'Pagos'} },
         { path: 'editarProducto', detail : { label : 'Editar Producto'} },     
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-avatar' } },
         { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-avatar' } },
-        { path: 'menu', detail: { label: 'Menú', iconClass: 'oj-ux-ico-fire' } },
         { path: 'about', detail: { label: 'About', iconClass: 'oj-ux-ico-information-s' } }
       ];
       // Router setup

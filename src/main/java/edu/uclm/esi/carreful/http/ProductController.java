@@ -75,7 +75,6 @@ public class ProductController extends CookiesController {
 	
 	@GetMapping("/getCategoria/{categoria}")
 	public List<Product> getCategoria(@PathVariable String categoria) {
-		System.out.println("la categoria es "+categoria);
 		try {
 			return productDao.findByCategoria(categoria);
 		} catch(Exception e) {
@@ -104,15 +103,28 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
-	@PostMapping("/addAlCarrito/{nombre}")
-	public Carrito addAlCarrito(HttpServletRequest request, @PathVariable String nombre) {
+	@PostMapping("/addAlCarrito/{id}")
+	public Carrito addAlCarrito(HttpServletRequest request, @PathVariable Long id) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		if (carrito==null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute("carrito", carrito);
 		}
-		Product producto = productDao.findById(nombre).get();
+		Product producto = productDao.findById(id);
 		carrito.add(producto, 1);
+		return carrito;
+	}
+	
+	@Transactional
+	@DeleteMapping("/eliminarCarrito/{id}")
+	public Carrito eliminarCarrito(HttpServletRequest request, @PathVariable Long id) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		Product producto = productDao.findById(id);
+		carrito.delete(producto, 1);
 		return carrito;
 	}
 	
