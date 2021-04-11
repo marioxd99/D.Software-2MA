@@ -116,8 +116,16 @@ public class ProductController extends CookiesController {
 			request.getSession().setAttribute("carrito", carrito);
 		}
 		Product producto = productDao.findById(id);
-		carrito.add(producto, 1);
+		int stock = Integer.parseInt(producto.getStock());
+		try {
+		if(stock>0) 
+			carrito.add(producto, 1);
+		else
+			throw new Exception("No hay stock suficiente");
 		return carrito;
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 	
 	@Transactional
