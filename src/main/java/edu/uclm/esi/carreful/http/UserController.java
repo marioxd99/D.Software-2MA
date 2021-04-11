@@ -43,7 +43,7 @@ public class UserController extends CookiesController {
 	TokenDao tokenDao;	
 	
 	@GetMapping("usarToken/{tokenId}")
-	public void usarToken(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
+	public String usarToken(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
 		Optional<Token> optToken = tokenDao.findById(tokenId);
 		if (optToken.isPresent()) {
 			Token token = optToken.get();
@@ -51,10 +51,12 @@ public class UserController extends CookiesController {
 				response.sendError(409, "El token ya se utilizó");
 			else {
 				response.sendRedirect("http://localhost?ojr=setNewPassword&token="+tokenId+"&email="+token.getEmail());
+				return "redirect:recoverPwd";
 			}
 		} else {
 			response.sendError(404, "El token no existe");
 		}
+		return null;
 	}
 	
 	@GetMapping("/recoverPwd")

@@ -16,6 +16,8 @@
 			type="text" data-bind="value : precio" placeholder="Precio">&nbsp;&nbsp;
 		<input type="text" data-bind="value : categoria"
 			placeholder="Categoria"> &nbsp;&nbsp;&nbsp;
+			<input type="text" data-bind="value : stock"
+			placeholder="Stock"> &nbsp;&nbsp;&nbsp;
 		<div class="file-input">
 			<input type="file" id="file" class="file"
 				data-bind="event : {change : setImage }"> <label for="file">Select
@@ -70,6 +72,10 @@
 							<h6 id="nombreProducto" data-bind="html : nombre"></h6>
 							<a style="text-decoration: none; cursor: default">Codigo :</a> <small
 								class="text-muted" id="codigoProducto" data-bind="html : codigo"></small>
+							<br/>
+							<a style="text-decoration: none; cursor: default">Stock :</a> 
+							<a class="text-muted" id="codigoProducto" data-bind="html : stock"></a>
+							<a  id="codigoProducto">unidades</a>
 							<a style="visibility: hidden" data-bind="html : id"></a>
 						</div>
 						<div class="pw_meta">

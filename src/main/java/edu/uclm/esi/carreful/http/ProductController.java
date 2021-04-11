@@ -42,12 +42,14 @@ public class ProductController extends CookiesController {
 		String precio = jso.optString("precio");
 		String codigo = jso.optString("codigo");
 		String categoria =  jso.optString("categoria");
+		String stock =  jso.optString("stock");
 		try {
 			Product product = new Product();
 			product.setNombre(nombre);
 			product.setPrecio(precio);
 			product.setCodigo(codigo);
 			product.setCategoria(categoria);
+			product.setStock(stock);
 			product.setImage(jso.optString("image"));
 			productDao.save(product);
 		} catch(Exception e) {
@@ -155,11 +157,13 @@ public class ProductController extends CookiesController {
 			String precio = jso.optString("precio");
 			String codigo = jso.optString("codigo");
 			String image =  jso.optString("image");
+			String stock =  jso.optString("stock");
 			Product product =  productDao.findById(idFinal);
 			product.setNombre(nombre);
 			product.setPrecio(precio);
 			product.setCodigo(codigo);
 			product.setImage(image);
+			product.setStock(stock);
 			System.out.println("El imagen es "+image);
 			productDao.save(product);
 		} catch(Exception e) {

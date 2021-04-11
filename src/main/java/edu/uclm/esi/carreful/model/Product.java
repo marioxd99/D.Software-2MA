@@ -16,6 +16,7 @@ public class Product {
 	private String precio;
 	private String codigo;
 	private String categoria;
+	private String stock;
 	@Lob
 	@Column
 	private String image;
@@ -77,5 +78,15 @@ public class Product {
 	public boolean isPresent() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+
+	public String getStock() {
+		return stock;
+	}
+
+
+	public void setStock(String stock) {
+		this.stock = stock;
 	}
 }

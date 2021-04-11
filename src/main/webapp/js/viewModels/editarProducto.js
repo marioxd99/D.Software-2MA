@@ -77,7 +77,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				id : document.getElementById("idProducto").value,
 				nombre : document.getElementById("nombreProducto").value,
 				precio : document.getElementById("precioProducto").value,
-				codigo : document.getElementById("codigoProducto").value,	
+				codigo : document.getElementById("codigoProducto").value,
+				stock  : document.getElementById("stockProducto").value,
 				image  : this.image(),
 			};
 			if (info.image == null){

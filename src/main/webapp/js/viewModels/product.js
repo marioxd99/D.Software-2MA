@@ -9,6 +9,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.codigo = ko.observable("001");
 			self.precio = ko.observable("8,50 €");
 			self.categoria = ko.observable("Tecnologia");
+			self.stock = ko.observable();
 			self.image = ko.observable();
 			self.imagen = ko.observable();
 
@@ -50,6 +51,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				precio : this.precio(),
 				codigo : this.codigo(),
 				categoria : this.categoria(),
+				stock: this.stock(),
 				image : this.image()
 			};
 			let data = {
@@ -85,6 +87,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							nombre : response[i].nombre,
 							precio : response[i].precio,
 							categoria : response[i].categoria,
+							stock : response[i].stock,
 							image  : response[i].image,
 							eliminar : function() {
 								self.eliminarProducto(response[i].nombre); 
@@ -157,6 +160,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							nombre : response[i].nombre,
 							precio : response[i].precio,
 							categoria : response[i].categoria,
+							stock : response[i].stock,
 							image  : response[i].image,
 							eliminar : function() {
 								self.eliminarProducto(response[i].nombre); 
