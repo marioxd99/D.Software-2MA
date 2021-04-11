@@ -100,6 +100,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							},						
 						};
 						self.productos.push(producto);
+						var numeroProductos = response.length;
+						numeroProductos = numeroProductos.toString();
+						var numeroProductosHTML = document.getElementById('nProducto').innerHTML = numeroProductos;
 					}
 				},
 				error : function(response) {
@@ -173,6 +176,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							},
 						};
 						self.productos.push(producto);
+						var numeroProductos = response.length;
+						numeroProductos = numeroProductos.toString();
+						var numeroProductosHTML = document.getElementById('nProducto').innerHTML = numeroProductos;
 					}
 					
 				}
