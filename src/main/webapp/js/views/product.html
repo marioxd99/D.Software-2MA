@@ -42,12 +42,14 @@
 				<div class="categoriasP">
 		            <div class="margen2"></div>
 				<!-- ko foreach : categorias -->
+				<td>
 					<div class='img'>				
 						<img id="fotoCategoria" data-bind="attr : {src : imagen} , click :  function() { $parent.getProductoCategoria(nombre); }" width="100" height="100" >
 						<figcaption class="nombreCategoria" data-bind="html : nombre">
 						</figcaption>						
 						&nbsp;					
 					</div>
+				  </td>
 				<!-- /ko -->
 				</div>
 			</tbody>
