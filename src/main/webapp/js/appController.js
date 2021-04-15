@@ -24,11 +24,23 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       // Save the theme so we can perform platform specific navigational animations
       var platform = ThemeUtils.getThemeTargetPlatform();
 
+     this.navDataMenu = [
+        { path: '', redirect: 'product' },
+        { path: 'productClient', detail : { label : 'ProductoCliente'} },
+        { path: 'showCart', detail : { label : 'showCart'} },
+        { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-avatar' } },
+        { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-avatar' } },
+        { path: 'about', detail: { label: 'About', iconClass: 'oj-ux-ico-information-s' } }
+      ];
+   
+
       var navData = [
         { path: '', redirect: 'product' },
         { path: 'productClient', detail : { label : 'ProductoCliente'} },
         { path: 'product', detail : { label : 'Producto'} },
         { path: 'payment', detail : { label : 'Pagos'} },
+        { path: 'showCart', detail : { label : 'showCart'} },
+        { path: 'setNewPassword', detail : { label : 'setNewPassword'} },
         { path: 'editarProducto', detail : { label : 'Editar Producto'} },     
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-avatar' } },
         { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-avatar' } },
@@ -52,7 +64,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
 
       // Setup the navDataProvider with the routes, excluding the first redirected
       // route.
-      this.navDataProvider = new ArrayDataProvider(navData.slice(1), {keyAttributes: "path"});
+      this.navDataProvider = new ArrayDataProvider(this.navDataMenu.slice(1), {keyAttributes: "path"});
 
       // Used by modules to get the current page title and adjust padding
       self.getHeaderModel = function() {

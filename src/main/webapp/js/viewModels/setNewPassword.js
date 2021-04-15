@@ -1,53 +1,36 @@
-/**
- * @license
- * Copyright (c) 2014, 2020, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your dashboard ViewModel code goes here
- */
+
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
 
 	function RegisterViewModel() {
 		var self = this;
 		
-		self.userName = ko.observable("");
 		self.email = ko.observable("");
+		self.pwd = ko.observable("");
 		self.pwd1 = ko.observable("");
 		self.pwd2 = ko.observable("");
-		self.picture=ko.observable();
 
 		self.message = ko.observable();
 		self.error = ko.observable();
 		
-		self.setPicture = function(widget, event) {
-			var file = event.target.files[0];
-			var reader = new FileReader();
-			reader.onload = function () {
-				self.picture ("data:image/png;base64," + btoa(reader.result));
-			}
-			reader.readAsBinaryString(file);
-		}
-		
-		self.register = function() {
+		self.setPassword = function() {
+			var url = location.href;
+			console.log("La ruta actual es ",url);
+			url = url.substring(86)
 			var info = {
-				userName : self.userName(),
-				email : self.email(),
+				email : url,
+				pwd : self.pwd(),
 				pwd1 : self.pwd1(),
 				pwd2 : self.pwd2(),
-				picture : self.picture()
 			};
 			var data = {
 					data : JSON.stringify(info),
-					url : "user/register",
+					url : "user/setPassword",
 					type : "put",
 					contentType : 'application/json',
 					success : function(response) {
 						self.error("");
-						self.message("Te hemos enviado un correo para confirmar tu registro");
+						self.message("Contraseña cambiada correctamente");
 					},
 					error : function(response) {
 						self.message("");
@@ -70,10 +53,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				'viewModel' : app.getHeaderModel()
 			})
 		})
-
+		
 		self.connected = function() {
-			accUtils.announce('Register page loaded.');
-			document.title = "Registro";
+			accUtils.announce('Cambiar Contraseña page loaded.');
+			document.title = "Cambio de Contraseña";
+			
+			var url = location.href;
+			console.log("La ruta actual es ",url);
+			url = url.substring(86)
+			console.log("La ruta nueva es ",url);
 			// Implement further logic if needed
 		};
 

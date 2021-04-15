@@ -128,6 +128,18 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
+	@GetMapping("/mostrarCarrito/")
+	public Carrito mostrarCarrito(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		return carrito;
+	}
+	
+	
+	
 	@Transactional
 	@DeleteMapping("/eliminarCarrito/{id}")
 	public Carrito eliminarCarrito(HttpServletRequest request, @PathVariable Long id) {

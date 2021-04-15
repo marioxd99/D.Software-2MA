@@ -23,7 +23,7 @@ public class Carrito {
 	public void delete(Product product,double amount) {
 		OrderedProduct orderedProduct = this.products.get(product.getNombre());
 		this.products.remove(product.getNombre(),orderedProduct);
-		orderedProduct.removeAmount(amount);
+		orderedProduct.removeAmount(1);
 	}
 
 	public Collection<OrderedProduct> getProducts() {

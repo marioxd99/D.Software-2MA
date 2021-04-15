@@ -37,7 +37,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "post",
 				contentType : 'application/json',
 				success : function(response) {
-					//$("#navList").hide();
+					app.navDataMenu.push({ path: 'editarProducto', detail : { label : 'Editar Producto'} });    
+					//this.navDataProvider = new ArrayDataProvider(this.navData.slice(1), {keyAttributes: "path"});
 					app.router.go( { path : "product"} );
 				},
 				error : function(response) {

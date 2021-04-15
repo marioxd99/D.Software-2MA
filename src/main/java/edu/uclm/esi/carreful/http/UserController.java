@@ -51,7 +51,6 @@ public class UserController extends CookiesController {
 				response.sendError(409, "El token ya se utilizó");
 			else {
 				response.sendRedirect("http://localhost?ojr=setNewPassword&token="+tokenId+"&email="+token.getEmail());
-				return "redirect:recoverPwd";
 			}
 		} else {
 			response.sendError(404, "El token no existe");
@@ -122,6 +121,32 @@ public class UserController extends CookiesController {
 					"http://localhost/user/usarToken/" + token.getId() + "";
 				smtp.send(email, "Carreful: Confirmacion de Cuenta", texto);
 			}
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	
+	@PutMapping("/setPassword")
+	public void setPassword(@RequestBody Map<String, Object> info) {
+		try {
+			JSONObject jso = new JSONObject(info);
+			String email = jso.optString("email");
+			System.out.println("el email es "+email);
+			User user = userDao.findByEmail(email);
+//			String passActual = user.getPwd();
+//			String pwd = jso.optString("pwd");
+//			pwd =  DigestUtils.sha512Hex(pwd);
+//			if (!pwd.equals(passActual))
+//				throw new Exception("La contraseña no coincide con la actual");
+//			
+			String pwd1 = jso.optString("pwd1");
+			String pwd2 = jso.optString("pwd2");
+			if (!pwd1.equals(pwd2))
+				throw new Exception("La contraseña no coincide con su confirmación");
+			if (pwd1.length()<8)
+				throw new Exception("La contraseña tiene que tener al menos 8 caracteres");
+			user.setPwd(pwd1);
+			userDao.save(user);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

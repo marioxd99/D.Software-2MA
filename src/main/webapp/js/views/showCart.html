@@ -1,0 +1,29 @@
+<div class="oj-hybrid-applayout-page">
+  <div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-hybrid-applayout-header">
+      <oj-module config="[[headerConfig]]"></oj-module>
+    </header>
+  </div>
+  <div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+      <div class="oj-hybrid-padding">
+        <h1>Carrito</h1>
+        <div>
+        		<!-- ko with : carrito -->
+						<label class="col-lg-3 control-label">Nombre:</label>
+						<div class="col-lg-8">
+							<input class="form-control productos" size="50" id="nombreProducto"
+								type="text" data-bind="value : name">
+						</div>
+						<label class="col-lg-3 control-label">Cantidad:</label>
+						<div class="col-lg-8">
+							<input class="form-control productos" size="50" 
+								type="text" data-bind="value : amount">
+						</div>					
+						<br />
+				<!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

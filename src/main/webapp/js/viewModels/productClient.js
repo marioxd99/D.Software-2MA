@@ -147,7 +147,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 								app.producto = this;
 								console.log(response[i].id);
 								app.router.go( { path : "editarProducto"} );
-							},	
+							},
+							
 						};
 						self.productos.push(producto);
 						var numeroProductos = response.length;
@@ -169,6 +170,24 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					self.message("Producto añadido al carrito");
 					self.carrito(response.products);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
+		mostrarCarrito() {
+			let self = this;
+			let data = {
+				url : "product/mostrarCarrito/",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {
+					console.log(response.products);
+					sessionStorage.carrito = JSON.stringify(response.products);
+					app.router.go( { path : "showCart"} );
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
