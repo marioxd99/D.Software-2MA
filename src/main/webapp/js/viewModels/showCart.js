@@ -30,20 +30,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		precioCarrito() {
 			let self = this;
+			let precio = 0;
 			let data = {
 				url : "product/precioCarrito/",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {			
 					console.log(response);
+					for (let i=0; i<response.length; i++) {
+							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);										
+					};	
+					console.log(precio);
+					document.getElementById('precioTotal').innerHTML = precio;		
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
 				}
 			};
 			$.ajax(data);
-		}
-
+		};
 
 		connected() {
 			accUtils.announce('Cart page loaded.');

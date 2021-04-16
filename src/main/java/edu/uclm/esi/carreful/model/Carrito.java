@@ -18,7 +18,6 @@ public class Carrito {
 			orderedProduct.setPrecio(product.getPrecio());
 		} else {
 			orderedProduct.addAmount(amount);
-			System.out.println(product.getPrecio());
 			orderedProduct.setPrecio(product.getPrecio());
 		}
 	}
