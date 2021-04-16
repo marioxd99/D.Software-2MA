@@ -10,10 +10,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.message = ko.observable();
 				self.error = ko.observable();
 
-				// Header Config
 				self.headerConfig = ko.observable({
-					'view': [],
-					'viewModel' : null
+				'view' : [],
+				'viewModel' : null
 				});
 				moduleUtils.createView({
 					'viewPath' : 'views/header.html'
@@ -104,8 +103,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				} else {
 					// The payment has been processed!
 					if (result.paymentIntent.status === 'succeeded') {
-						alert("Pago exitoso");
-						orderComplete(result.paymentIntent.id);
+						var mensajeExito = document.getElementById('mensajeExitoso');
+						mensajeExito.style.display = 'block';
 					}
 				}
 			});			

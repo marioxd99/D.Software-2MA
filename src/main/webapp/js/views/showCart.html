@@ -1,29 +1,40 @@
-<div class="oj-hybrid-applayout-page">
-  <div class="oj-applayout-fixed-top">
-    <header role="banner" class="oj-hybrid-applayout-header">
-      <oj-module config="[[headerConfig]]"></oj-module>
-    </header>
-  </div>
-  <div class="oj-applayout-content">
-    <div role="main" class="oj-hybrid-applayout-content">
-      <div class="oj-hybrid-padding">
-        <h1>Carrito</h1>
-        <div>
-        		<!-- ko foreach : carrito -->
-						<label class="col-lg-3 control-label">Nombre:</label>
-						<div class="col-lg-8">
-							<input class="form-control productos" size="50"
-								type="text" data-bind="value : name">
-						</div>
-						<label class="col-lg-3 control-label">Cantidad:</label>
-						<div class="col-lg-8">
-							<input class="form-control productos" size="50"
-								type="text" data-bind="value : amount">
-						</div>					
-						<br />
-				<!-- /ko -->
-        </div>
-      </div>
+<link href="css/showCart.css" rel="stylesheet" type="text/css">
+<div class="container padding-bottom-3x mb-1">
+    <!-- Alert-->
+    <div class="alert alert-info alert-dismissible fade show text-center" style="margin-bottom: 30px;">
+       <!-- Shopping Cart-->
+    <div class="table-responsive shopping-cart">
+        <table class="table">
+            <thead>
+                <tr>&nbsp;&nbsp;
+                    <th>Product Name</th>&nbsp;&nbsp;&nbsp;
+                    <th class="text-center">Cantidad</th>&nbsp;&nbsp;&nbsp;
+                    <th class="text-center">Subtotal</th>&nbsp;
+                    <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- ko foreach : carrito -->
+                <tr>&nbsp;&nbsp;
+                    <td>
+                        <a data-bind="html : name"></a>
+                    </td>&nbsp;&nbsp;&nbsp;
+                    <td class="text-center">
+                        <a data-bind="html : amount"></a>
+                    </td>&nbsp;&nbsp;&nbsp;
+                    <td class="text-center text-lg text-medium"><a data-bind="html : precio"></a></td>&nbsp;
+                    <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                </tr>
+             <!-- /ko -->
+            </tbody>
+        </table>
     </div>
-  </div>
+    <div class="shopping-cart-footer">
+        <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>
+    </div>
+    <div class="shopping-cart-footer">
+        <div class="column"><a class="btn btn-outline-secondary" href="#"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+        <div class="column"><a class="btn btn-primary" href="#" data-toast="" data-toast-type="success"  data-toast-icon="icon-circle-check" data-toast-title="Your cart" data-toast-message="is updated successfully!">Update Cart</a>
+        <a class="btn btn-success" href="#">Checkout</a></div>
+    </div>
 </div>

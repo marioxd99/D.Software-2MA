@@ -15,8 +15,11 @@ public class Carrito {
 		if (orderedProduct==null) {
 			orderedProduct = new OrderedProduct(product, amount);
 			this.products.put(product.getNombre(), orderedProduct);
+			orderedProduct.setPrecio(product.getPrecio());
 		} else {
 			orderedProduct.addAmount(amount);
+			System.out.println(product.getPrecio());
+			orderedProduct.setPrecio(product.getPrecio());
 		}
 	}
 	

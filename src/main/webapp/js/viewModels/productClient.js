@@ -202,7 +202,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {			
 					//app.carrito = response.products;
-					console.log(app.carrito);
+					//console.log(app.carrito);
 					sessionStorage.carrito = JSON.stringify(response.products);
 					app.router.go( { path : "showCart"} );
 				},

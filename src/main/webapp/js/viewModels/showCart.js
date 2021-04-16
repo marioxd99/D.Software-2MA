@@ -27,11 +27,28 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				})
 			})
 		}
+		
+		precioCarrito() {
+			let self = this;
+			let data = {
+				url : "product/precioCarrito/",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {			
+					console.log(response);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
 
 
 		connected() {
 			accUtils.announce('Cart page loaded.');
 			document.title = "Cart";
+			this.precioCarrito();
 		};
 
 		disconnected() {

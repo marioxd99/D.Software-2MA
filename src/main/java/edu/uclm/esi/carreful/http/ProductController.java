@@ -1,5 +1,7 @@
 package edu.uclm.esi.carreful.http;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 import edu.uclm.esi.carreful.dao.CategoryDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.model.Carrito;
+import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Product;
 
 @RestController
@@ -136,6 +139,17 @@ public class ProductController extends CookiesController {
 			request.getSession().setAttribute("carrito", carrito);
 		}
 		return carrito;
+	}
+	
+	@GetMapping("/precioCarrito/")
+	public Collection<OrderedProduct> precioCarrito(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		Collection<OrderedProduct> product = carrito.getProducts();
+		return product;
 	}
 	
 	@Transactional
