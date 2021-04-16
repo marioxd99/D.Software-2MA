@@ -1,12 +1,13 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
-
+let precio = 0;
 	class CartViewModel {
 		constructor() {
 			var self = this;
 			
 			self.message = ko.observable();
 			self.error = ko.observable();
+			
 			
 			self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
 			//sessionStorage.removeItem("carrito");
@@ -30,7 +31,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		precioCarrito() {
 			let self = this;
-			let precio = 0;
 			let data = {
 				url : "product/precioCarrito/",
 				type : "get",
@@ -74,8 +74,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		};
 		
 		aPagar() {
+			sessionStorage.pago = JSON.stringify(precio);
 			app.router.go( { path : "payment"} );
-			$.ajax(data);
 		};
 		
 		

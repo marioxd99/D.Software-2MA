@@ -144,6 +144,10 @@ input:focus+label {
 	max-width: 90px;
 	max-width: 90px;
 }
+#carrito:hover{
+	transform: scale(1.2);
+	cursor: pointer;
+}
 
 #fotoCategoria:hover {
 	transform: scale(1.2);

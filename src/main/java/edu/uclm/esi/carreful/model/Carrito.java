@@ -19,8 +19,6 @@ public class Carrito {
 			orderedProduct.setImage(product.getImage());
 		} else {
 			orderedProduct.addAmount(amount);
-			orderedProduct.setPrecio(product.getPrecio());
-			orderedProduct.setImage(product.getImage());
 		}
 	}
 	

@@ -1,12 +1,15 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
-
+let precio = sessionStorage.pago;
 		class PaymentViewModel {
 			constructor() {
 				var self = this;
 
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 
+				self.pago = ko.observable(sessionStorage.pago);			
+				console.log(precio);
+				
 				self.message = ko.observable();
 				self.error = ko.observable();
 
@@ -27,7 +30,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			connected() {
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
-				this.solicitarPreautorizacion()
+				this.solicitarPreautorizacion();
+				document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
 			};
 
 			solicitarPreautorizacion() {
@@ -39,7 +43,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				let data = {
 					data: JSON.stringify(purchase),
-					url: "payments/solicitarPreautorizacion",
+					url: "payments/solicitarPreautorizacion/" + precio,
 					type : "post",
 					contentType : 'application/json',
 					success: function(response) {

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +26,14 @@ public class PaymentsController extends CookiesController {
 		Stripe.apiKey = "sk_test_51Idbt0JCT0Jnu2KVa2a6iJ4bzSqcUzxgbBAA3CBAtamPSJ6AKmGIgmg0mqLgCTFwXiqFZxthUIibwveehLvhuYh500oO4f6WcD";
 	}
 	
-	@PostMapping("/solicitarPreautorizacion")
-	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
+	@PostMapping("/solicitarPreautorizacion/{precio}")
+	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
 		try {
+			System.out.println(precio);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
-					.setAmount(5000L)
+					.setAmount(precio)
 					.build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
