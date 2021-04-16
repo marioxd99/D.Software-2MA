@@ -29,7 +29,7 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion/{precio}")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
 		try {
-			System.out.println(precio);
+			//System.out.println(precio);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")

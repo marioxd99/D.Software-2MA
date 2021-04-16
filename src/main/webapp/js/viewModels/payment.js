@@ -1,6 +1,8 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
+	
 let precio = sessionStorage.pago;
+
 		class PaymentViewModel {
 			constructor() {
 				var self = this;
@@ -26,11 +28,15 @@ let precio = sessionStorage.pago;
 					})
 				})
 			}
+			
+			volver() {
+				app.router.go( { path : "showCart"} );
+			};
 
 			connected() {
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
-				this.solicitarPreautorizacion();
+				this.solicitarPreautorizacion()
 				document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
 			};
 
