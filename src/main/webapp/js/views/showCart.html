@@ -9,16 +9,16 @@
       <div class="oj-hybrid-padding">
         <h1>Carrito</h1>
         <div>
-        		<!-- ko with : carrito -->
+        		<!-- ko foreach : carrito -->
 						<label class="col-lg-3 control-label">Nombre:</label>
 						<div class="col-lg-8">
-							<input class="form-control productos" size="50" id="nombreProducto"
+							<input class="form-control productos" size="50"
 								type="text" data-bind="value : name">
 						</div>
 						<label class="col-lg-3 control-label">Cantidad:</label>
 						<div class="col-lg-8">
 							<input class="form-control productos" size="50"
-								type="text" >
+								type="text" data-bind="value : amount">
 						</div>					
 						<br />
 				<!-- /ko -->

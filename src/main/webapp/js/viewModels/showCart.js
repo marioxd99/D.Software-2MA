@@ -8,9 +8,9 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
-			//self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
+			self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
 			//sessionStorage.removeItem("carrito");
-			self.carrito = ko.observable(app.carrito);
+			//self.carrito = ko.observable(app.carrito);
 			
 			 
 			// Header Config
@@ -28,9 +28,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 
-		register() {
-			app.router.go( { path : "register" } );
-		}
 
 		connected() {
 			accUtils.announce('Cart page loaded.');

@@ -22,7 +22,7 @@ import edu.uclm.esi.carreful.model.Carrito;
 @RequestMapping("payments")
 public class PaymentsController extends CookiesController {
 	static {
-		Stripe.apiKey = "sk_test_51IdbtOE3xk4z0l3iN9AVWJ8eQSx7Ifhhk13OAeKS3TQjW2eN66yCmS3xwXV265bvot1p0ldgabUugmSLk3310dP000A4Z1Kszx";
+		Stripe.apiKey = "sk_test_51Idbt0JCT0Jnu2KVa2a6iJ4bzSqcUzxgbBAA3CBAtamPSJ6AKmGIgmg0mqLgCTFwXiqFZxthUIibwveehLvhuYh500oO4f6WcD";
 	}
 	
 	@PostMapping("/solicitarPreautorizacion")

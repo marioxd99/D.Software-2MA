@@ -14,7 +14,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.headerConfig = ko.observable({
 					'view': [],
 					'viewModel' : null
-			});
+				});
 				moduleUtils.createView({
 					'viewPath' : 'views/header.html'
 				}).then(function(view) {
