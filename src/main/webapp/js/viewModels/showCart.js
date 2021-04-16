@@ -49,6 +49,36 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			};
 			$.ajax(data);
 		};
+		
+		eliminarCarrito(id) {
+			let self = this;
+			let data = {
+				url : "product/eliminarCarrito/" + id,
+				type : "delete",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Producto eliminado del carrito");
+					self.carrito(response.products);
+					self.precioCarrito();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
+		volver() {
+			app.router.go( { path : "productClient"} );
+			$.ajax(data);
+		};
+		
+		aPagar() {
+			app.router.go( { path : "payment"} );
+			$.ajax(data);
+		};
+		
+		
 
 		connected() {
 			accUtils.announce('Cart page loaded.');

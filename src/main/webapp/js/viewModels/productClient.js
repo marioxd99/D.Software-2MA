@@ -123,7 +123,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		getProductoCategoria(categoria) {
 			let self = this;
-			console.log(categoria);
 			let data = {
 				url : "product/getCategoria/" + categoria,
 				type : "get",
@@ -170,6 +169,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					self.message("Producto añadido al carrito");
 					self.carrito(response.products);
+					self.precioCarrito();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -178,21 +178,25 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		mostrarCarritoActual() {
+		precioCarrito() {
 			let self = this;
+			let precio = 0;
 			let data = {
-				url : "product/mostrarCarrito/",
+				url : "product/precioCarrito/",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {			
-					self.carrito(response.products);
+					for (let i=0; i<response.length; i++) {
+							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);										
+					};	
+					document.getElementById('precioTotal').innerHTML = precio;		
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
 				}
 			};
 			$.ajax(data);
-		}
+		};
 		
 		mostrarCarrito() {
 			let self = this;
@@ -222,6 +226,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					self.message("Producto eliminado del carrito");
 					self.carrito(response.products);
+					self.precioCarrito();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -240,7 +245,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			this.getCategorias();
 			this.getProductos();
-			this.mostrarCarritoActual();
+			this.precioCarrito();
 		};
 
 		disconnected() {

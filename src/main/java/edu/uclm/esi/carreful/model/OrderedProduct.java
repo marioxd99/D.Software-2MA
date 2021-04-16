@@ -1,11 +1,24 @@
 package edu.uclm.esi.carreful.model;
 
+import javax.persistence.Column;
+import javax.persistence.Lob;
+
 public class OrderedProduct {
 	private Product product;
 	private double amount;
 	private String precio;
+	@Lob
+	private String image;
 	
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public Product getProduct() {
 		return product;
 	}

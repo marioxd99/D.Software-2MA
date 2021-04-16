@@ -16,9 +16,11 @@ public class Carrito {
 			orderedProduct = new OrderedProduct(product, amount);
 			this.products.put(product.getNombre(), orderedProduct);
 			orderedProduct.setPrecio(product.getPrecio());
+			orderedProduct.setImage(product.getImage());
 		} else {
 			orderedProduct.addAmount(amount);
 			orderedProduct.setPrecio(product.getPrecio());
+			orderedProduct.setImage(product.getImage());
 		}
 	}
 	
