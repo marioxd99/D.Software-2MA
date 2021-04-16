@@ -138,8 +138,6 @@ public class ProductController extends CookiesController {
 		return carrito;
 	}
 	
-	
-	
 	@Transactional
 	@DeleteMapping("/eliminarCarrito/{id}")
 	public Carrito eliminarCarrito(HttpServletRequest request, @PathVariable Long id) {

@@ -8,8 +8,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
-			self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
-			sessionStorage.removeItem("carrito");
+			//self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
+			//sessionStorage.removeItem("carrito");
+			self.carrito = ko.observable(app.carrito);
+			
 			 
 			// Header Config
 			self.headerConfig = ko.observable({

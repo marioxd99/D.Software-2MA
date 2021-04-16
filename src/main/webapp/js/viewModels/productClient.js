@@ -184,9 +184,10 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				url : "product/mostrarCarrito/",
 				type : "get",
 				contentType : 'application/json',
-				success : function(response) {
-					console.log(response.products);
-					sessionStorage.carrito = JSON.stringify(response.products);
+				success : function(response) {			
+					app.carrito = response.products;
+					console.log(app.carrito);
+					//sessionStorage.carrito = JSON.stringify(response.products);
 					app.router.go( { path : "showCart"} );
 				},
 				error : function(response) {
