@@ -178,6 +178,22 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		mostrarCarritoActual() {
+			let self = this;
+			let data = {
+				url : "product/mostrarCarrito/",
+				type : "get",
+				contentType : 'application/json',
+				success : function(response) {			
+					self.carrito(response.products);
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		mostrarCarrito() {
 			let self = this;
 			let data = {
@@ -224,6 +240,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			this.getCategorias();
 			this.getProductos();
+			this.mostrarCarritoActual();
 		};
 
 		disconnected() {

@@ -22,10 +22,13 @@ public class Carrito {
 	
 	public void delete(Product product,double amount) {
 		OrderedProduct orderedProduct = this.products.get(product.getNombre());
-		orderedProduct.removeAmount(amount);
-		if(orderedProduct.getAmount()<1) {
-			this.products.remove(product.getNombre(),orderedProduct);
+		if ( orderedProduct!=null) {
+			orderedProduct.removeAmount(amount);
+			if(orderedProduct.getAmount()<1) {
+				this.products.remove(product.getNombre(),orderedProduct);
+			}
 		}
+		
 	}
 
 	public Collection<OrderedProduct> getProducts() {
