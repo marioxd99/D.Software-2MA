@@ -12,7 +12,8 @@
                 <thead>
                   <tr>
                     <!-- Set columns width -->
-                    <th>Producto </th>&nbsp;&nbsp;&nbsp;
+                    <th>Producto </th>&nbsp;
+                    <th>Nombre </th>&nbsp;&nbsp;&nbsp;
                     <th>Precio</th>&nbsp;&nbsp;&nbsp;
                     <th>Cantidad</th>
                   </tr>
@@ -25,14 +26,13 @@
                       <div class="media align-items-center">
                         <div class="media-body">
                         <img style="margin-left:20px;border-radius:20px;border-color:black;" id="fotoCategoria" data-bind="attr : {src : image}" width="100" height="100" >
-<!--                           <a style="text-align:center;justify-content:center;" data-bind="html : name"></a> -->
-                        </div>
-                        
-                      </div>
-                    </td>&nbsp;&nbsp;&nbsp;
-                    <td class="text-right font-weight-semibold align-middle p-4" data-bind="html : precio"></td>
+                        </div>                       
+                      </div>               
+                    </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <td style="margin-left:40px;text-align:center;" class="align-middle p-4" data-bind="html : nombre"></td>&nbsp;&nbsp;&nbsp;
+                    <td style="text-align:center;" class="text-right font-weight-semibold align-middle p-4" data-bind="html : precio"></td>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <td class="align-middle p-4" data-bind="html : amount"></td>
+                    <td style="text-align:center;" class="align-middle p-4" data-bind="html : amount"></td>
                   </tr>
         		<!-- /ko -->
                 </tbody>

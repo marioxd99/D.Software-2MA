@@ -5,12 +5,21 @@ import javax.persistence.Lob;
 
 public class OrderedProduct {
 	private Product product;
+	private String nombre;
 	private double amount;
 	private String precio;
 	@Lob
 	private String image;
 	
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public String getImage() {
 		return image;
 	}
