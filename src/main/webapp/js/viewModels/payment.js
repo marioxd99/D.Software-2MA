@@ -29,6 +29,30 @@ let precio = sessionStorage.pago;
 				})
 			}
 			
+			guardarCambios() {
+				var self = this;
+				let info = {
+					email : document.getElementById("email").value,
+					ciudad : document.getElementById("ciudad").value,
+					calle : document.getElementById("calle").value,
+					cp : document.getElementById("cp").value,
+					precioTotal : precio
+				};
+				let data = {
+					data : JSON.stringify(info),
+					url : "payments/guardarCambios/",
+					type : "put",
+					contentType : 'application/json',
+					success : function(response) {
+						self.message("Cambios guardados");
+					},
+					error : function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
 			volver() {
 				app.router.go( { path : "showCart"} );
 			};

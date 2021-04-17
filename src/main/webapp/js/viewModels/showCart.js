@@ -1,6 +1,8 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
+		
 let precio = 0;
+
 	class CartViewModel {
 		constructor() {
 			var self = this;
@@ -31,6 +33,7 @@ let precio = 0;
 		
 		precioCarrito() {
 			let self = this;
+			precio = 0;
 			let data = {
 				url : "product/precioCarrito/",
 				type : "get",

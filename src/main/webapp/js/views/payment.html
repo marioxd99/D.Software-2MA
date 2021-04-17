@@ -15,9 +15,15 @@
         	<form id="payment-form" style="margin-right:40px;">
         	  <h5>Datos Personales</h5>
 		      <input type="text" id="email" placeholder="Email" />
- 			  <input type="text" id="text" placeholder="Ciudad" /> 
-		      <input type="text" id="text" placeholder="Calle" /> 
-		      <input type="text" id="text" placeholder="Codigo postal" /> 
+ 			  <input type="text" id="ciudad" placeholder="Ciudad" /> 
+		      <input type="text" id="calle" placeholder="Calle" /> 
+		      <input type="text" id="cp" placeholder="Codigo postal" />
+		      <div class="oj-sm-12" data-bind="html : message" style="color: blue"></div>
+				<div class="oj-sm-12" data-bind="html : error" style="color: red"></div>
+		      <oj-button data-bind="click : guardarCambios" chroming="callToAction" class="oj-button-lg" 
+		      		style="margin-left:150px;margin-top:10px;">
+		     			 Guardar</oj-button>
+		     	
 		    </form>
 		    <form id="payment-form">
 		      <h5>Datos de la Tarjeta</h5>
@@ -34,7 +40,7 @@
 		      </p>
 		    </form>		     
         </div>
-        <oj-button chroming="solid"  style="margin-top:30px;" data-bind="click : volver">Back to Cart</oj-button>
+        <oj-button chroming="solid"  data-bind="click : volver">Back to Cart</oj-button>
       </div>
     </div>
   </div>
