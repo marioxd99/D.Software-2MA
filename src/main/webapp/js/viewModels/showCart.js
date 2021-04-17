@@ -73,7 +73,6 @@ let precio = 0;
 		
 		volver() {
 			app.router.go( { path : "productClient"} );
-			$.ajax(data);
 		};
 		
 		aPagar() {

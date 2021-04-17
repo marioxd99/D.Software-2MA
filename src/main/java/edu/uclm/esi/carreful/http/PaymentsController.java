@@ -21,10 +21,13 @@ import com.stripe.param.PaymentIntentCreateParams;
 
 import edu.uclm.esi.carreful.dao.CorderDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
+import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Corder;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Product;
+import edu.uclm.esi.carreful.tokens.Email;
+import edu.uclm.esi.carreful.tokens.Token;
 
 @RestController
 @RequestMapping("payments")
@@ -35,6 +38,8 @@ public class PaymentsController extends CookiesController {
 	
 	@Autowired
 	private CorderDao corderDao;
+	@Autowired
+	TokenDao tokenDao;
 	
 	@PostMapping("/solicitarPreautorizacion/{precio}")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
@@ -63,14 +68,8 @@ public class PaymentsController extends CookiesController {
 			String calle = jso.optString("calle");
 			String cp =  jso.optString("cp");
 			String precio =  jso.optString("precioTotal");
-			if (email.length()==0)
-				throw new Exception("Debes indicar el correo");
-			if (ciudad.length()==0)
-				throw new Exception("Debes indicar la ciudad");
-			if (calle.length()==0)
-				throw new Exception("Debes indicar el calle");
-			if (cp.length()==0)
-				throw new Exception("Debes indicar el cp");
+			if (email.length()==0 || ciudad.length()==0 || calle.length()==0 || cp.length()==0)
+				throw new Exception("Debes rellenar todos los campos");
 			Corder oproduct = new Corder();
 			oproduct.setEmail(email);
 			oproduct.setCiudad(ciudad);
@@ -79,6 +78,13 @@ public class PaymentsController extends CookiesController {
 			oproduct.setState("pendiente de envio");
 			oproduct.setPrecioTotal(Double.parseDouble(precio));
 			corderDao.save(oproduct);
+			//System.out.println(oproduct.getId());	
+			Token token = new Token(oproduct.getId());
+			tokenDao.save(token);
+			Email smtp = new Email();
+			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
+				"http://localhost/orders/usarToken/" + token.getId() + "";
+			smtp.send(email, "Carreful: Seguimiento del pedido", texto);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

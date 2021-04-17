@@ -60,8 +60,8 @@ let precio = sessionStorage.pago;
 			connected() {
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
-				this.solicitarPreautorizacion()
-				document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
+				this.solicitarPreautorizacion();
+				document.getElementById('precioApagar').innerHTML = precio;
 			};
 
 			solicitarPreautorizacion() {
@@ -145,14 +145,14 @@ let precio = sessionStorage.pago;
 		};
 
 
-disconnected() {
-	// Implement if needed
-};
+		disconnected() {
+			// Implement if needed
+		};
+		
+		transitionCompleted() {
+			// Implement if needed
+		};
+			}
 
-transitionCompleted() {
-	// Implement if needed
-};
-	}
-
-return PaymentViewModel;
-});
+		return PaymentViewModel;
+	});

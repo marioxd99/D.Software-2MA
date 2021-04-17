@@ -39,6 +39,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
         { path: 'product', detail : { label : 'Producto'} },
         { path: 'showCart', detail : { label : 'showCart'} },
         { path: 'payment', detail : { label : 'Pagos'} },
+        { path: 'order', detail : { label : 'Pedido'} },
         { path: 'showCart', detail : { label : 'showCart'} },
         { path: 'setNewPassword', detail : { label : 'setNewPassword'} },
         { path: 'editarProducto', detail : { label : 'Editar Producto'} },     

@@ -133,12 +133,6 @@ public class UserController extends CookiesController {
 			String email = jso.optString("email");
 			System.out.println("el email es "+email);
 			User user = userDao.findByEmail(email);
-//			String passActual = user.getPwd();
-//			String pwd = jso.optString("pwd");
-//			pwd =  DigestUtils.sha512Hex(pwd);
-//			if (!pwd.equals(passActual))
-//				throw new Exception("La contraseña no coincide con la actual");
-//			
 			String pwd1 = jso.optString("pwd1");
 			String pwd2 = jso.optString("pwd2");
 			if (!pwd1.equals(pwd2))
