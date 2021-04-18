@@ -65,7 +65,7 @@ public class PaymentsController extends CookiesController {
 		}
 	}
 	
-	public void controlStock(Carrito carrito) {
+	public void controlStock(HttpServletRequest request,Carrito carrito) {
 		Collection<OrderedProduct> product = carrito.getProducts();
 		Iterator<OrderedProduct> it = product.iterator();
 		Iterator<OrderedProduct> it2 = product.iterator();
@@ -83,6 +83,7 @@ public class PaymentsController extends CookiesController {
 			productDao.save(optProduct);
 			i++;
 		}	
+		request.getSession().removeAttribute("carrito");
 	}
 	
 	@PutMapping("/guardarCambios/")
@@ -106,7 +107,7 @@ public class PaymentsController extends CookiesController {
 			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-			controlStock(carrito);
+			controlStock(request,carrito);
 			//Enviar email al ususario para el seguimiento del pedido
 			Token token = new Token(oproduct.getId());
 			tokenDao.save(token);
