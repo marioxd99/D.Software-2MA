@@ -41,7 +41,7 @@ let precio = 0;
 				success : function(response) {			
 					console.log(response);
 					for (let i=0; i<response.length; i++) {
-							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);										
+							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	
 					console.log(precio);
 					document.getElementById('precioTotal').innerHTML = precio;		

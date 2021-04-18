@@ -3,6 +3,9 @@ package edu.uclm.esi.carreful.model;
 import java.util.Collection;
 import java.util.HashMap;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 public class Carrito {
 	private HashMap<String, OrderedProduct> products;
 	
@@ -19,7 +22,14 @@ public class Carrito {
 			orderedProduct.setImage(product.getImage());
 			orderedProduct.setNombre(product.getNombre());
 		} else {
-			orderedProduct.addAmount(amount);
+			try {
+			if(Integer.parseInt(product.getStock())>orderedProduct.getAmount()) { 
+				orderedProduct.addAmount(amount);
+			}else 
+				throw new Exception("No hay stock suficiente de "+product.getNombre());			
+			} catch(Exception e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			}
 		}
 	}
 	

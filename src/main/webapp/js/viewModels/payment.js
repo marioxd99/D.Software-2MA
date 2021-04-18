@@ -2,6 +2,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
 	
 let precio = sessionStorage.pago;
+var productos = JSON.parse(sessionStorage.carrito);
 
 		class PaymentViewModel {
 			constructor() {
@@ -10,7 +11,8 @@ let precio = sessionStorage.pago;
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 
 				self.pago = ko.observable(sessionStorage.pago);			
-				console.log(precio);
+				//self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
+				console.log(productos[1].amount);
 				
 				self.message = ko.observable();
 				self.error = ko.observable();
@@ -28,7 +30,7 @@ let precio = sessionStorage.pago;
 					})
 				})
 			}
-			
+
 			guardarCambios() {
 				var self = this;
 				let info = {
@@ -61,7 +63,7 @@ let precio = sessionStorage.pago;
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
 				this.solicitarPreautorizacion();
-				document.getElementById('precioApagar').innerHTML = precio;
+				document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
 			};
 
 			solicitarPreautorizacion() {
