@@ -44,7 +44,13 @@ let precio = 0;
 							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	
 					console.log(precio);
-					document.getElementById('precioTotal').innerHTML = precio;		
+					document.getElementById('precioTotal').innerHTML = precio;
+					var checkout = document.getElementById('checkout');	
+					if(precio == 0){
+						checkout.style.display = 'none';
+					}else{
+						checkout.removeAttribute("display");
+					}
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
