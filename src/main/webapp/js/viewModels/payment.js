@@ -1,7 +1,7 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
-	
-let precio = sessionStorage.pago;
+
+		let precio = sessionStorage.pago;
 
 		class PaymentViewModel {
 			constructor() {
@@ -9,71 +9,83 @@ let precio = sessionStorage.pago;
 
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 
-				self.pago = ko.observable(sessionStorage.pago);			
-				
+				self.pago = ko.observable(sessionStorage.pago);
+
 				self.message = ko.observable();
 				self.error = ko.observable();
 
 				self.headerConfig = ko.observable({
-				'view' : [],
-				'viewModel' : null
+					'view': [],
+					'viewModel': null
 				});
 				moduleUtils.createView({
-					'viewPath' : 'views/header.html'
+					'viewPath': 'views/header.html'
 				}).then(function(view) {
 					self.headerConfig({
-						'view' : view,
-						'viewModel' : app.getHeaderModel()
+						'view': view,
+						'viewModel': app.getHeaderModel()
 					})
 				})
 			}
-			
+
 			finalizarPago() {
 				var self = this;
 				var data = {
-					url : "payments/finalizarPago/",
-					type : "get",
-					contentType : 'application/json',
-					success : function(response) {
+					url: "payments/finalizarPago/",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
 						self.message("Pago realizado correctamente");
 						alert("Pago realizado correctamente");
-						app.router.go( { path : "productClient"} );
+						app.router.go({ path: "productClient" });
 					},
-					error : function(response) {
+					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
 					}
 				};
 				$.ajax(data);
-		   };
+			};
+			
+			loading() {
+				document.querySelector("button").disabled = true;
+				document.querySelector("#spinner").classList.remove("hidden");
+				document.querySelector("#button-text").classList.add("hidden");	
+			};
+			
+			loading2() {
+					document.querySelector("button").disabled = false;
+					document.querySelector("#spinner").classList.add("hidden");
+					document.querySelector("#button-text").classList.remove("hidden");
+			};
 
 			guardarCambios() {
 				var self = this;
 				let info = {
-					email : document.getElementById("email").value,
-					ciudad : document.getElementById("ciudad").value,
-					calle : document.getElementById("calle").value,
-					cp : document.getElementById("cp").value,
-					precioTotal : precio
+					email: document.getElementById("email").value,
+					ciudad: document.getElementById("ciudad").value,
+					calle: document.getElementById("calle").value,
+					cp: document.getElementById("cp").value,
+					precioTotal: precio
 				};
 				let data = {
-					data : JSON.stringify(info),
-					url : "payments/guardarCambios/",
-					type : "put",
-					contentType : 'application/json',
-					success : function(response) {
+					data: JSON.stringify(info),
+					url: "payments/guardarCambios/",
+					type: "put",
+					contentType: 'application/json',
+					success: function(response) {
 						self.message("Cambios guardados");
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
 					},
-					error : function(response) {
+					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
 					}
 				};
 				$.ajax(data);
 			}
-	
+
 			volver() {
-				app.router.go( { path : "showCart"} );
+				app.router.go({ path: "showCart" });
 			};
 
 			connected() {
@@ -95,8 +107,8 @@ let precio = sessionStorage.pago;
 				let data = {
 					data: JSON.stringify(purchase),
 					url: "payments/solicitarPreautorizacion/" + precio,
-					type : "post",
-					contentType : 'application/json',
+					type: "post",
+					contentType: 'application/json',
 					success: function(response) {
 						self.clientSecret = response;
 						self.rellenarFormulario();
@@ -141,40 +153,33 @@ let precio = sessionStorage.pago;
 				form.addEventListener("submit", function(event) {
 					event.preventDefault();
 					// Complete payment when the submit button is clicked
+					self.loading(true);
 					self.payWithCard(card);
 				});
 			}
 
-			payWithCard(card){
+			payWithCard(card) {
 				let self = this;
 				self.stripe.confirmCardPayment(self.clientSecret, {
-				payment_method: {
-					card: card
-				}
-			}).then(function(result) {
-				if (result.error) {
-					// Show error to your customer (e.g., insufficient funds)
-					self.error(result.error.message);
-				} else {
-					// The payment has been processed!
-					if (result.paymentIntent.status === 'succeeded') {
-						var mensajeExito = document.getElementById('mensajeExitoso');
-						mensajeExito.style.display = 'block';
-						self.finalizarPago();
+					payment_method: {
+						card: card
 					}
-				}
-			});			
-		};
-
-
-		disconnected() {
-			// Implement if needed
+				}).then(function(result) {
+					if (result.error) {
+						// Show error to your customer (e.g., insufficient funds)
+						self.error(result.error.message);
+					} else {
+						// The payment has been processed!
+						if (result.paymentIntent.status === 'succeeded') {
+							var mensajeExito = document.getElementById('mensajeExitoso');
+							mensajeExito.style.display = 'block';
+							self.finalizarPago();
+							self.loading2();
+						}
+					}
+				});
+			};
 		};
 		
-		transitionCompleted() {
-			// Implement if needed
-		};
-			}
-
 		return PaymentViewModel;
 	});
