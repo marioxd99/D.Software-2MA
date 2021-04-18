@@ -105,8 +105,7 @@ public class PaymentsController extends CookiesController {
 			oproduct.setCalle(calle);
 			oproduct.setCp(cp);
 			oproduct.setState("pendiente de envio");
-			oproduct.setPrecioTotal(Double.parseDouble(precio));
-			corderDao.save(oproduct);
+			oproduct.setPrecioTotal(Double.parseDouble(precio));	
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
@@ -114,6 +113,7 @@ public class PaymentsController extends CookiesController {
 	@GetMapping("/finalizarPago/")
 	public void finalizarPago(HttpServletRequest request) {
 		try {	
+			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			controlStock(request,carrito);

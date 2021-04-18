@@ -36,6 +36,8 @@ let precio = sessionStorage.pago;
 					contentType : 'application/json',
 					success : function(response) {
 						self.message("Pago realizado correctamente");
+						alert("Pago realizado correctamente");
+						app.router.go( { path : "productClient"} );
 					},
 					error : function(response) {
 						self.error(response.responseJSON.errorMessage);
