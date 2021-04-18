@@ -2,7 +2,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
 	
 let precio = sessionStorage.pago;
-var productos = JSON.parse(sessionStorage.carrito);
 
 		class PaymentViewModel {
 			constructor() {
@@ -11,8 +10,6 @@ var productos = JSON.parse(sessionStorage.carrito);
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 
 				self.pago = ko.observable(sessionStorage.pago);			
-				//self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
-				console.log(productos[1].amount);
 				
 				self.message = ko.observable();
 				self.error = ko.observable();
@@ -30,6 +27,22 @@ var productos = JSON.parse(sessionStorage.carrito);
 					})
 				})
 			}
+			
+			finalizarPago() {
+				var self = this;
+				var data = {
+					url : "payments/finalizarPago/",
+					type : "get",
+					contentType : 'application/json',
+					success : function(response) {
+						self.message("Pago realizado correctamente");
+					},
+					error : function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+		   };
 
 			guardarCambios() {
 				var self = this;
@@ -47,6 +60,8 @@ var productos = JSON.parse(sessionStorage.carrito);
 					contentType : 'application/json',
 					success : function(response) {
 						self.message("Cambios guardados");
+						var formPago = document.getElementById('pagosForm');
+						formPago.style.display = 'block';
 					},
 					error : function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -54,7 +69,7 @@ var productos = JSON.parse(sessionStorage.carrito);
 				};
 				$.ajax(data);
 			}
-			
+	
 			volver() {
 				app.router.go( { path : "showCart"} );
 			};
@@ -64,6 +79,8 @@ var productos = JSON.parse(sessionStorage.carrito);
 				document.title = "Pago";
 				this.solicitarPreautorizacion();
 				document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
+				var formPago = document.getElementById('pagosForm');
+				formPago.style.display = 'none';
 			};
 
 			solicitarPreautorizacion() {
@@ -141,6 +158,7 @@ var productos = JSON.parse(sessionStorage.carrito);
 					if (result.paymentIntent.status === 'succeeded') {
 						var mensajeExito = document.getElementById('mensajeExitoso');
 						mensajeExito.style.display = 'block';
+						self.finalizarPago();
 					}
 				}
 			});			

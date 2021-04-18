@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +47,7 @@ public class PaymentsController extends CookiesController {
 	TokenDao tokenDao;
 	@Autowired
 	ProductDao productDao;
+	Corder oproduct = new Corder();	
 	
 	@PostMapping("/solicitarPreautorizacion/{precio}")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
@@ -83,9 +85,9 @@ public class PaymentsController extends CookiesController {
 			productDao.save(optProduct);
 			i++;
 		}	
-		request.getSession().removeAttribute("carrito");
 	}
 	
+
 	@PutMapping("/guardarCambios/")
 	public void guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info) {
 		JSONObject jso = new JSONObject(info);
@@ -97,7 +99,7 @@ public class PaymentsController extends CookiesController {
 			String precio =  jso.optString("precioTotal");
 			if (email.length()==0 || ciudad.length()==0 || calle.length()==0 || cp.length()==0)
 				throw new Exception("Debes rellenar todos los campos");
-			Corder oproduct = new Corder();
+
 			oproduct.setEmail(email);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
@@ -105,16 +107,24 @@ public class PaymentsController extends CookiesController {
 			oproduct.setState("pendiente de envio");
 			oproduct.setPrecioTotal(Double.parseDouble(precio));
 			corderDao.save(oproduct);
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	@GetMapping("/finalizarPago/")
+	public void finalizarPago(HttpServletRequest request) {
+		try {	
 			//Control de Stock de los pedidos
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			controlStock(request,carrito);
+			request.getSession().removeAttribute("carrito");
 			//Enviar email al ususario para el seguimiento del pedido
 			Token token = new Token(oproduct.getId());
 			tokenDao.save(token);
 			Email smtp = new Email();
 			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
 				"http://localhost/orders/usarToken/" + token.getId() + "";
-			smtp.send(email, "Carreful: Seguimiento del pedido", texto);
+			smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

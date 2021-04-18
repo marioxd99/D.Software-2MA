@@ -12,7 +12,7 @@
       <div class="oj-hybrid-padding">
         <h1>Pago</h1>
           <div style="display:flex;padding:10px;margin-left:100px;">
-        	<form id="payment-form" style="margin-right:40px;">
+        	<form  style="margin-right:40px;">
         	  <h5>Datos Personales</h5>
 		      <input type="text" id="email" placeholder="Email" />
  			  <input type="text" id="ciudad" placeholder="Ciudad" /> 
@@ -27,17 +27,19 @@
 		    </form>
 		    <form id="payment-form">
 		      <h5>Datos de la Tarjeta</h5>
-		      <label><b>Total a pagar :</b> </label><label id="precioApagar"></label><label>&euro;</label><br /><br />
-		      <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-		      <button id="submit">
-		        <div class="spinner hidden" id="spinner"></div>
-		        <span id="button-text">Pay now</span>
-		      </button>
-		      <p id="card-error" role="alert"></p>
-		      <p id="mensajeExitoso">
-		        Payment succeeded, see the result in your
-		        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-		      </p>
+		      <div id="pagosForm">
+			      <label><b>Total a pagar :</b> </label><label id="precioApagar"></label><label>&euro;</label><br /><br />
+			      <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+			      <button id="submit">
+			        <div class="spinner hidden" id="spinner"></div>
+			        <span id="button-text">Pay now</span>
+			      </button>
+			      <p id="card-error" role="alert"></p>
+			      <p id="mensajeExitoso">
+			        Payment succeeded, see the result in your
+			        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+			      </p>
+		      </div>
 		    </form>		     
         </div>
         <oj-button chroming="solid"  data-bind="click : volver">Back to Cart</oj-button>
