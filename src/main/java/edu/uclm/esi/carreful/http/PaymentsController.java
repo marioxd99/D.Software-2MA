@@ -52,7 +52,7 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion/{precio}")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
 		try {
-			//System.out.println(precio);
+			System.out.println(precio);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
@@ -88,31 +88,33 @@ public class PaymentsController extends CookiesController {
 	}
 	
 
-	@PutMapping("/guardarCambios/")
-	public void guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info) {
+	@PutMapping("/guardarCambios/{express}")
+	public void guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info, @PathVariable boolean express) {
 		JSONObject jso = new JSONObject(info);
+		//System.out.println(express);
 		try {
-			String email = jso.optString("email");
 			String ciudad = jso.optString("ciudad");
 			String calle = jso.optString("calle");
 			String cp =  jso.optString("cp");
 			String precio =  jso.optString("precioTotal");
-			if (email.length()==0 || ciudad.length()==0 || calle.length()==0 || cp.length()==0)
+			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
 				throw new Exception("Debes rellenar todos los campos");
-
-			oproduct.setEmail(email);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
-			oproduct.setCp(cp);
-			oproduct.setState("pendiente de envio");
-			oproduct.setPrecioTotal(Double.parseDouble(precio));	
+			oproduct.setCp(cp);	
+			if(express) 
+				oproduct.setPrecioTotal(Double.parseDouble(precio)+5.5);
+			else
+				oproduct.setPrecioTotal(Double.parseDouble(precio)+3.25);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 	}
-	@GetMapping("/finalizarPago/")
-	public void finalizarPago(HttpServletRequest request) {
+	@GetMapping("/finalizarPago/{receipt_email}")
+	public void finalizarPago(HttpServletRequest request, @PathVariable String receipt_email) {
 		try {	
+			oproduct.setState("pendiente de envio");
+			oproduct.setEmail(receipt_email);
 			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");

@@ -187,7 +187,7 @@ figcaption {
 }
 
 .categoriasP {
-	margin-left: 155px;
+	margin-left: 100px;
 	padding: 0;
 	margin-top: 0;
 }
@@ -209,4 +209,16 @@ figcaption {
 #codigoProducto{
 	cursor: default;
 	text-decoration:none;
+}
+
+.scroll{
+	height:600px;
+	overflow:hidden;
+	overflow-y : scroll;
+}
+.scroll::-webkit-scrollbar{
+	width:7px;
+}
+.scroll::-webkit-scrollbar-thumb{
+	background : #ff9d00;
 }

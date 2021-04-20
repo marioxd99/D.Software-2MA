@@ -8,10 +8,19 @@ public class OrderedProduct {
 	private String nombre;
 	private double amount;
 	private String precio;
+	private String categoria;
 	@Lob
 	private String image;
 	
 	
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

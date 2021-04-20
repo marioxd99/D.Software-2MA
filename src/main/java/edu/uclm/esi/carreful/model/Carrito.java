@@ -21,6 +21,7 @@ public class Carrito {
 			orderedProduct.setPrecio(product.getPrecio());
 			orderedProduct.setImage(product.getImage());
 			orderedProduct.setNombre(product.getNombre());
+			orderedProduct.setCategoria(product.getCategoria());
 		} else {
 			try {
 			if(Integer.parseInt(product.getStock())>orderedProduct.getAmount()) { 
