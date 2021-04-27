@@ -121,9 +121,9 @@ public class ProductController extends CookiesController {
 		Product producto = productDao.findById(id);
 		int stock = Integer.parseInt(producto.getStock());
 		try {
-		if(stock>0) 
+		if(stock>0) { 
 			carrito.add(producto, 1);
-		else
+		}else
 			throw new Exception("No hay stock suficiente");
 		return carrito;
 		} catch(Exception e) {

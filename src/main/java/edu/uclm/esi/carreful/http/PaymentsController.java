@@ -49,14 +49,14 @@ public class PaymentsController extends CookiesController {
 	ProductDao productDao;
 	Corder oproduct = new Corder();	
 	
-	@PostMapping("/solicitarPreautorizacion/{precio}")
-	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precio) {
+	@PostMapping("/solicitarPreautorizacion/{precioFinal}")
+	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precioFinal) {
 		try {
-			System.out.println(precio);
+			//System.out.println(precio);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
-					.setAmount(precio*100)
+					.setAmount(precioFinal*100)
 					.build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
@@ -102,10 +102,11 @@ public class PaymentsController extends CookiesController {
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
 			oproduct.setCp(cp);	
-			if(express) 
+			if(express) {
 				oproduct.setPrecioTotal(Double.parseDouble(precio)+5.5);
-			else
+			}else {
 				oproduct.setPrecioTotal(Double.parseDouble(precio)+3.25);
+			}
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

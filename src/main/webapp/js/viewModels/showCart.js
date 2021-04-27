@@ -33,13 +33,12 @@ let precio = 0;
 		
 		precioCarrito() {
 			let self = this;
-			precio = 0;
+			precio = 0.0;
 			let data = {
 				url : "product/precioCarrito/",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {			
-					console.log(response);
 					for (let i=0; i<response.length; i++) {
 							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	

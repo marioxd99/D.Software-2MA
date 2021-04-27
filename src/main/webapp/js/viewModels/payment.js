@@ -1,8 +1,13 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
 
-		let precio = sessionStorage.pago;
-		var express = false;
+let precio = sessionStorage.pago;
+var express = false;
+let precioFinal = precio.replace('.', ',');
+precioFinal = precio.toString();
+console.log(precioFinal);
+
+
 		class PaymentViewModel {
 			constructor() {
 				var self = this;
@@ -59,6 +64,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			continuar() {
 				if(document.getElementById("recogida").checked){
+					document.getElementById("express").disabled = true;
+					document.getElementById("casa").disabled = true;
 					document.getElementById("datosPersonales").style.display = 'none';
 					this.solicitarPreautorizacion();
 					document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
@@ -66,9 +73,13 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					formPago.style.display = 'block';
 					document.getElementById("continue").style.display = 'none';
 				}else if(document.getElementById("express").checked){
+					document.getElementById("casa").disabled = true;
+					document.getElementById("recogida").disabled = true;
 					document.getElementById("datosPersonales").style.display = 'block';
 					document.getElementById("continue").style.display = 'none';
 				}else  if(document.getElementById("casa").checked){
+					document.getElementById("express").disabled = true;
+					document.getElementById("recogida").disabled = true;
 					document.getElementById("datosPersonales").style.display = 'block';
 					document.getElementById("continue").style.display = 'none';
 				}
@@ -154,6 +165,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 			solicitarPreautorizacion() {
 				let self = this;
+				
 				// The items the customer wants to buy
 				let purchase = {
 					items: [{ id: "xl-tshirt" }]
@@ -161,7 +173,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				let data = {
 					data: JSON.stringify(purchase),
-					url: "payments/solicitarPreautorizacion/" + precio,
+					url: "payments/solicitarPreautorizacion/" + precioFinal,
 					type: "post",
 					contentType: 'application/json',
 					success: function(response) {

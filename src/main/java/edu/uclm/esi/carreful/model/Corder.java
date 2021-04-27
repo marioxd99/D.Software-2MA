@@ -1,10 +1,12 @@
 package edu.uclm.esi.carreful.model;
 
+import java.beans.Transient;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 @Entity
 public class Corder {
@@ -16,7 +18,8 @@ public class Corder {
 	private String cp;
 	private double precioTotal;
 	private String state;
-	
+
+
 	public String getEmail() {
 		return email;
 	}

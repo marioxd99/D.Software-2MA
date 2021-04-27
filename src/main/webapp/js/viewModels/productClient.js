@@ -180,14 +180,14 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		
 		precioCarrito() {
 			let self = this;
-			let precio = 0;
+			let precio = 0.0;
 			let data = {
 				url : "product/precioCarrito/",
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {			
 					for (let i=0; i<response.length; i++) {
-							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);										
+							precio += parseFloat(response[i].precio) *  (response[i].amount);										
 					};	
 					document.getElementById('precioTotal').innerHTML = precio;		
 				},
