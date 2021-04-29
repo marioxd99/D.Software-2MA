@@ -55,12 +55,12 @@ public class PaymentsController extends CookiesController {
 		try {
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			JSONObject json = new JSONObject(info);
-			//System.out.println(json.optString("precio"));
+			System.out.println(json.optString("precio"));
 			String precioFinal = (json.optString("precio")).replace(".","");
 			Long precio =  Long.parseLong(precioFinal);
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
-					.setAmount(precio)
+					.setAmount(precio*100)
 					.build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
@@ -100,16 +100,15 @@ public class PaymentsController extends CookiesController {
 			String cp =  jso.optString("cp");
 			String precio =  jso.optString("precioTotal");
 			String modoEnvio = jso.optString("shippingMethod");
-			System.out.println(modoEnvio);
 			Double precioFinal = 0.0;
-			if(modoEnvio.equals("recogida")) {
-				oproduct.setState("Buscando en el almacen");
+			if(modoEnvio.equals("express")) {
+				precioFinal = Double.parseDouble(precio) + 5.5;
+				oproduct.setState("Envio en 24h");			
 			}else if(modoEnvio.equals("casa")) {
 				precioFinal = Double.parseDouble(precio) + 3.25;
 				oproduct.setState("pendiente de envio");
 			}else {
-				precioFinal = Double.parseDouble(precio) + 5.5;
-				oproduct.setState("Envio en 24h");
+				oproduct.setState("Buscando en el almacen");
 			}
 			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
 				throw new Exception("Debes rellenar todos los campos");

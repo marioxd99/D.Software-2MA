@@ -30,17 +30,6 @@ public class CorderController extends CookiesController {
 	@Autowired
 	TokenDao tokenDao;
 	
-	@GetMapping("setShippingMode/{shippingMode}")
-	public Corder setShippingMode(HttpServletRequest request,@PathVariable String shippingMode) {
-		try {
-			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-			throw new Exception("No se encuentra el pedido");
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-		}
-		
-	}
-	
 	@GetMapping("get/{orderId}")
 	public Corder get(@PathVariable String orderId) {
 		try {

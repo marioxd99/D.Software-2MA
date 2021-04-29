@@ -2,7 +2,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
 
 let precio = sessionStorage.pago;
-var express = false;
 
 		class PaymentViewModel {
 			constructor() {
@@ -89,8 +88,7 @@ var express = false;
 						formPago.style.display = 'block';
 						document.getElementById("datosPersonales").style.display = 'none';	
 						document.getElementById('precioApagar').innerHTML = response;
-						
-						self.solicitarPreautorizacion();	
+						precio = response;	
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -98,10 +96,23 @@ var express = false;
 				};
 				$.ajax(data);
 			}
-
+			
+			
 			volver() {
 				app.router.go({ path: "showCart" });
 			};
+			
+			
+			continuar() {
+				if ($('#email').val().length == 0) {
+					 	alert('Ingrese el email');
+				}else{
+					document.getElementById("continue").style.display = 'none';
+					document.getElementById("pagoFinal").style.display = 'block';
+					this.solicitarPreautorizacion();	
+				}
+			};
+			
 			
 			precioCarrito() {
 				let self = this;
@@ -115,7 +126,7 @@ var express = false;
 									document.getElementById("casas").style.display = 'none';
 									document.getElementById("mensajeCongelados").style.display = 'block';
 								}											
-						};	
+						};
 						console.log(precio);
 					},
 					error : function(response) {
@@ -129,30 +140,9 @@ var express = false;
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
 				this.precioCarrito();
-				this.solicitarPreautorizacion();
-				document.getElementById("mensajeCongelados").style.display = 'none';
-				var formPago = document.getElementById('pagosForm');
-				formPago.style.display = 'none';
-				document.getElementById("datosPersonales").style.display = 'none';
+				document.getElementById("mensajeCongelados").style.display = 'none';pagoFinal
+				document.getElementById("pagoFinal").style.display = 'none';
 			};
-			
-			setShippingMode(shippingMode) {
-				let self = this;
-				self.shippingMode(shippingMode);
-				let data = {
-					url: "orders/setShippingMode/" + shippingMode,
-					type: "get",
-					contentType: 'application/json',
-					success: function(response) {
-						self.gastosEnvio(response);
-					},
-					erro: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-			
 
 			solicitarPreautorizacion() {
 				let self = this;
