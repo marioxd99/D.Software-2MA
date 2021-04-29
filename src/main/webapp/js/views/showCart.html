@@ -17,6 +17,7 @@
                     <th>Precio</th>&nbsp;&nbsp;&nbsp;
                     <th>Cantidad</th>
                     <th>Eliminar</th>
+                    <th>A&ntilde;adir</th>
                   </tr>
                 </thead >
                 <tbody > 
@@ -35,6 +36,7 @@
                     <td style="text-align:center;" class="align-middle p-4" data-bind="html : amount"></td>
                     <td><oj-button chroming="solid" class="oj-button-sm"
 								data-bind="click : function() { $parent.eliminarCarrito(product.id); }">Eliminar</oj-button></td>
+					<td><oj-button style="margin-left:10px;" chroming="callToAction" class="oj-button-sm" data-bind="click : function() { $parent.addAlCarrito(product.id); }">A&ntilde;adir</oj-button></td>
                   </tr>
         		<!-- /ko -->
                 </tbody>

@@ -76,6 +76,24 @@ let precio = 0;
 			$.ajax(data);
 		}
 		
+		addAlCarrito(id) {
+			let self = this;
+			let data = {
+				url : "product/addAlCarrito/" + id,
+				type : "post",
+				contentType : 'application/json',
+				success : function(response) {
+					self.message("Producto añadido al carrito");
+					self.carrito(response.products);
+					self.precioCarrito();
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		volver() {
 			app.router.go( { path : "productClient"} );
 		};
