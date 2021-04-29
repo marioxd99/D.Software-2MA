@@ -2,13 +2,14 @@ package edu.uclm.esi.carreful.model;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 public class Carrito {
 	private HashMap<String, OrderedProduct> products;
-	
+	private double importeTotal;
 	public Carrito() {
 		this.products = new HashMap<>();
 	}
@@ -48,4 +49,5 @@ public class Carrito {
 	public Collection<OrderedProduct> getProducts() {
 		return products.values();
 	}
+
 }

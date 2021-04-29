@@ -16,10 +16,10 @@
                     <th>Nombre </th>&nbsp;&nbsp;&nbsp;
                     <th>Precio</th>&nbsp;&nbsp;&nbsp;
                     <th>Cantidad</th>
+                    <th>Eliminar</th>
                   </tr>
                 </thead >
-                <tbody >
-                
+                <tbody > 
      			<!-- ko foreach : carrito -->
                   <tr>
                     <td class="p-4">
@@ -31,8 +31,10 @@
                     </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <td style="margin-left:40px;text-align:center;" class="align-middle p-4" data-bind="html : nombre"></td>&nbsp;&nbsp;&nbsp;
                     <td style="text-align:center;" class="text-right font-weight-semibold align-middle p-4" data-bind="html : precio"></td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
                     <td style="text-align:center;" class="align-middle p-4" data-bind="html : amount"></td>
+                    <td><oj-button chroming="solid" class="oj-button-sm"
+								data-bind="click : function() { $parent.eliminarCarrito(product.id); }">Eliminar</oj-button></td>
                   </tr>
         		<!-- /ko -->
                 </tbody>

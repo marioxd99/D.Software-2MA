@@ -3,10 +3,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 let precio = sessionStorage.pago;
 var express = false;
-let precioFinal = precio.replace('.', ',');
-precioFinal = precio.toString();
-console.log(precioFinal);
-
 
 		class PaymentViewModel {
 			constructor() {
@@ -15,6 +11,14 @@ console.log(precioFinal);
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 
 				self.pago = ko.observable(sessionStorage.pago);
+				self.email = ko.observable();
+				self.calle = ko.observable();
+				self.ciudad = ko.observable();
+				self.cp = ko.observable();
+				self.shippingMode = ko.observable();
+				self.gastosEnvio = ko.observable();
+				self.precioApagar = ko.observable(sessionStorage.pago);
+				
 				self.message = ko.observable();
 				self.error = ko.observable();
 
@@ -62,63 +66,31 @@ console.log(precioFinal);
 					document.querySelector("#button-text").classList.remove("hidden");
 			};
 			
-			continuar() {
-				if(document.getElementById("recogida").checked){
-					document.getElementById("express").disabled = true;
-					document.getElementById("casa").disabled = true;
-					document.getElementById("datosPersonales").style.display = 'none';
-					this.solicitarPreautorizacion();
-					document.getElementById('precioApagar').innerHTML = sessionStorage.pago;
-					var formPago = document.getElementById('pagosForm');
-					formPago.style.display = 'block';
-					document.getElementById("continue").style.display = 'none';
-				}else if(document.getElementById("express").checked){
-					document.getElementById("casa").disabled = true;
-					document.getElementById("recogida").disabled = true;
-					document.getElementById("datosPersonales").style.display = 'block';
-					document.getElementById("continue").style.display = 'none';
-				}else  if(document.getElementById("casa").checked){
-					document.getElementById("express").disabled = true;
-					document.getElementById("recogida").disabled = true;
-					document.getElementById("datosPersonales").style.display = 'block';
-					document.getElementById("continue").style.display = 'none';
-				}
-
-			};
 
 			guardarCambios() {
 				var self = this;
 				let info = {
-					email: document.getElementById("email").value,
-					ciudad: document.getElementById("ciudad").value,
-					calle: document.getElementById("calle").value,
-					cp: document.getElementById("cp").value,
-					precioTotal: precio
+					email: self.email(),
+					ciudad: self.ciudad(),
+					calle: self.calle(),
+					cp: self.cp(),
+					shippingMethod: self.shippingMode(),
+					precioTotal: self.precioApagar()
 				};
-
-				if(document.getElementById("express").checked){
-					express = true;
-				}
+				
 				let data = {
 					data: JSON.stringify(info),
-					url: "payments/guardarCambios/" + express,
+					url: "payments/guardarCambios/",
 					type: "put",
 					contentType: 'application/json',
 					success: function(response) {
 						self.message("Cambios guardados");
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
-						if(express){
-							precio = parseFloat(sessionStorage.pago) + 5,5;
-							console.log(precio);
-							document.getElementById('precioApagar').innerHTML = precio;
-						}else{
-							precio = parseFloat(sessionStorage.pago) + 3,25;
-							console.log(precio);
-							document.getElementById('precioApagar').innerHTML = precio;
-						}
-						self.solicitarPreautorizacion();
-						document.getElementById("datosPersonales").style.display = 'none';		
+						document.getElementById("datosPersonales").style.display = 'none';	
+						document.getElementById('precioApagar').innerHTML = response;
+						
+						self.solicitarPreautorizacion();	
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -157,23 +129,40 @@ console.log(precioFinal);
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
 				this.precioCarrito();
+				this.solicitarPreautorizacion();
 				document.getElementById("mensajeCongelados").style.display = 'none';
 				var formPago = document.getElementById('pagosForm');
 				formPago.style.display = 'none';
 				document.getElementById("datosPersonales").style.display = 'none';
 			};
+			
+			setShippingMode(shippingMode) {
+				let self = this;
+				self.shippingMode(shippingMode);
+				let data = {
+					url: "orders/setShippingMode/" + shippingMode,
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.gastosEnvio(response);
+					},
+					erro: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
 
 			solicitarPreautorizacion() {
 				let self = this;
-				
-				// The items the customer wants to buy
-				let purchase = {
-					items: [{ id: "xl-tshirt" }]
+				let compra = {
+					precio: precio
 				};
 
 				let data = {
-					data: JSON.stringify(purchase),
-					url: "payments/solicitarPreautorizacion/" + precioFinal,
+					data: JSON.stringify(compra),
+					url: "payments/solicitarPreautorizacion",
 					type: "post",
 					contentType: 'application/json',
 					success: function(response) {

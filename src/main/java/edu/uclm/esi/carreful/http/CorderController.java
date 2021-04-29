@@ -3,6 +3,7 @@ package edu.uclm.esi.carreful.http;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.CorderDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
+import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Corder;
 import edu.uclm.esi.carreful.tokens.Token;
 
@@ -27,6 +29,17 @@ public class CorderController extends CookiesController {
 	
 	@Autowired
 	TokenDao tokenDao;
+	
+	@GetMapping("setShippingMode/{shippingMode}")
+	public Corder setShippingMode(HttpServletRequest request,@PathVariable String shippingMode) {
+		try {
+			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+			throw new Exception("No se encuentra el pedido");
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+		
+	}
 	
 	@GetMapping("get/{orderId}")
 	public Corder get(@PathVariable String orderId) {

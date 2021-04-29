@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -49,14 +50,17 @@ public class PaymentsController extends CookiesController {
 	ProductDao productDao;
 	Corder oproduct = new Corder();	
 	
-	@PostMapping("/solicitarPreautorizacion/{precioFinal}")
-	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info, @PathVariable Long precioFinal) {
+	@PostMapping("/solicitarPreautorizacion")
+	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
-			//System.out.println(precio);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+			JSONObject json = new JSONObject(info);
+			//System.out.println(json.optString("precio"));
+			String precioFinal = (json.optString("precio")).replace(".","");
+			Long precio =  Long.parseLong(precioFinal);
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
-					.setAmount(precioFinal*100)
+					.setAmount(precio)
 					.build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
@@ -80,7 +84,6 @@ public class PaymentsController extends CookiesController {
 			Long id = it.next().getProduct().getId();
 			Product optProduct = productDao.findById(id);
 			String stockActual = String.valueOf(Integer.parseInt(optProduct.getStock()) - cantidades.get(i));
-			System.out.println(stockActual);
 			optProduct.setStock(stockActual);
 			productDao.save(optProduct);
 			i++;
@@ -88,33 +91,41 @@ public class PaymentsController extends CookiesController {
 	}
 	
 
-	@PutMapping("/guardarCambios/{express}")
-	public void guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info, @PathVariable boolean express) {
+	@PutMapping("/guardarCambios/")
+	public Double guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info) {
 		JSONObject jso = new JSONObject(info);
-		//System.out.println(express);
 		try {
 			String ciudad = jso.optString("ciudad");
 			String calle = jso.optString("calle");
 			String cp =  jso.optString("cp");
 			String precio =  jso.optString("precioTotal");
+			String modoEnvio = jso.optString("shippingMethod");
+			System.out.println(modoEnvio);
+			Double precioFinal = 0.0;
+			if(modoEnvio.equals("recogida")) {
+				oproduct.setState("Buscando en el almacen");
+			}else if(modoEnvio.equals("casa")) {
+				precioFinal = Double.parseDouble(precio) + 3.25;
+				oproduct.setState("pendiente de envio");
+			}else {
+				precioFinal = Double.parseDouble(precio) + 5.5;
+				oproduct.setState("Envio en 24h");
+			}
 			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
 				throw new Exception("Debes rellenar todos los campos");
+			oproduct.setPrecioTotal(precioFinal);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
 			oproduct.setCp(cp);	
-			if(express) {
-				oproduct.setPrecioTotal(Double.parseDouble(precio)+5.5);
-			}else {
-				oproduct.setPrecioTotal(Double.parseDouble(precio)+3.25);
-			}
+			return precioFinal;
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 	}
+	
 	@GetMapping("/finalizarPago/{receipt_email}")
 	public void finalizarPago(HttpServletRequest request, @PathVariable String receipt_email) {
 		try {	
-			oproduct.setState("pendiente de envio");
 			oproduct.setEmail(receipt_email);
 			corderDao.save(oproduct);
 			//Control de Stock de los pedidos

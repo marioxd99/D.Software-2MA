@@ -42,7 +42,7 @@ let precio = 0;
 					for (let i=0; i<response.length; i++) {
 							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	
-					console.log(precio);
+					
 					document.getElementById('precioTotal').innerHTML = precio;
 					var checkout = document.getElementById('checkout');	
 					if(precio == 0){
@@ -81,6 +81,7 @@ let precio = 0;
 		};
 		
 		aPagar() {
+			console.log(precio);
 			sessionStorage.pago = JSON.stringify(precio);
 			app.router.go( { path : "payment"} );
 		};

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 
-public class TipoPedido {
+public abstract class TipoPedido {
 	private double gastosEnvio;
 	
 	public TipoPedido(double gastosEnvio) {
