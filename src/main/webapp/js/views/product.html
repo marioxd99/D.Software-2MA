@@ -12,10 +12,10 @@
 		<input type="text" data-bind="value : nombre"
 			placeholder="Nombre del producto">&nbsp;&nbsp; <input
 			type="text" data-bind="value : codigo"
-			placeholder="Codigo del producto">&nbsp;&nbsp; <input
+			placeholder="Codigo del producto">&nbsp;&nbsp; <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 			type="text" data-bind="value : precio" placeholder="Precio">&nbsp;&nbsp;
 		<input type="text" data-bind="value : categoria"
-			placeholder="Categoria"> &nbsp;&nbsp;&nbsp; <input
+			placeholder="Categoria"> &nbsp;&nbsp;&nbsp; <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 			type="text" data-bind="value : stock" placeholder="Stock">
 		&nbsp;&nbsp;&nbsp;
 		<div class="file-input">

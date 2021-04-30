@@ -14,7 +14,7 @@ public class Carrito {
 		this.products = new HashMap<>();
 	}
 
-	public void add(Product product, double amount) {
+	public int add(Product product, double amount) {
 		OrderedProduct orderedProduct = this.products.get(product.getNombre());
 		if (orderedProduct==null) {
 			orderedProduct = new OrderedProduct(product, amount);
@@ -28,11 +28,12 @@ public class Carrito {
 			if(Integer.parseInt(product.getStock())>orderedProduct.getAmount()) { 
 				orderedProduct.addAmount(amount);
 			}else 
-				throw new Exception("No hay stock suficiente de "+product.getNombre());			
+				return 1;			
 			} catch(Exception e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 			}
 		}
+		return 0;
 	}
 	
 	public void delete(Product product,double amount) {

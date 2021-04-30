@@ -31,7 +31,7 @@
                       </div>               
                     </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <td style="margin-left:40px;text-align:center;" class="align-middle p-4" data-bind="html : nombre"></td>&nbsp;&nbsp;&nbsp;
-                    <td style="text-align:center;" class="text-right font-weight-semibold align-middle p-4" data-bind="html : precio"></td>
+                    <td><label style="text-align:center;" class="text-right font-weight-semibold align-middle p-4" data-bind="html : precio"></label><label>&euro;</label></td>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
                     <td style="text-align:center;" class="align-middle p-4" data-bind="html : amount"></td>
                     <td><oj-button chroming="solid" class="oj-button-sm"
@@ -44,6 +44,7 @@
               </div>
             </div>
         	<br/>
+        	<div data-bind="html : error" style="color: red;margin:10px;"></div>
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-4" style="margin-left:25px;">
               <div class="d-flex">
                 <div class="text-right mt-4">
@@ -52,7 +53,6 @@
                 </div>
               </div>
             </div>
-        
             <div class="float-right" style="padding:20px; margin-bottom:500px;">
               <oj-button chroming="solid"  data-bind="click : volver">Back to shopping</oj-button>
               <oj-button id="checkout" chroming="callToAction" style="margin-left:50px;" data-bind="click : aPagar">Checkout</oj-button>

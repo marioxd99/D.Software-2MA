@@ -28,7 +28,7 @@
 					<!-- ko with : producto -->
 						<label class="col-lg-3 control-label">Nombre:</label>
 						<div class="col-lg-8">
-							<input class="form-control productos" size="50" id="nombreProducto"
+							<input  class="form-control productos" size="50" id="nombreProducto"
 								type="text" data-bind="value : nombre">
 						</div>
 						<br /> <label class="col-lg-3 control-label">Codigo:</label>
@@ -38,14 +38,14 @@
 						</div>
 						<br /> <label class="col-lg-3 control-label">Precio:</label>
 						<div class="col-lg-8">
-							<input class="form-control productos" size="50" id="precioProducto"
+							<input onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control productos" size="50" id="precioProducto"
 								type="text" data-bind="value : precio">
 								<input style="visibility: hidden" class="form-control productos" id="idProducto"
 								type="text" data-bind="value : id">
 						</div>
 						<label class="col-lg-3 control-label">Stock:</label>
 						<div class="col-lg-8">
-							<input class="form-control productos" size="50" id="stockProducto"
+							<input onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control productos" size="50" id="stockProducto"
 								type="text" data-bind="value : stock">
 						</div>
 						<br />

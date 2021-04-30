@@ -37,7 +37,7 @@
 		       <h5>Datos Personales</h5>
 	 			  <input type="text" placeholder="Ciudad" data-bind="value : ciudad"/> 
 			      <input type="text" placeholder="Calle"  data-bind="value : calle"/> 
-			      <input type="text"  placeholder="Codigo postal"  data-bind="value : cp"/>
+			      <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"  placeholder="Codigo postal"  data-bind="value : cp"/>
 			      <oj-button data-bind="click : guardarCambios " chroming="callToAction" class="oj-button-lg" 
 		      		style="margin-left:150px;margin-top:10px;">
 		     			 Guardar</oj-button>
