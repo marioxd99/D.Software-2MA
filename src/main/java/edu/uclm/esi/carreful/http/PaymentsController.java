@@ -55,12 +55,18 @@ public class PaymentsController extends CookiesController {
 		try {
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			JSONObject json = new JSONObject(info);
-			System.out.println(json.optString("precio"));
-			String precioFinal = (json.optString("precio")).replace(".","");
-			Long precio =  Long.parseLong(precioFinal);
+			Double precio = Double.parseDouble(json.optString("precio"));
+			System.out.println(precio);
+			if (String.valueOf(precio).contains(".")) {
+				precio = precio*10;
+			}else {
+				precio *= 100;
+			}
+			String precioF = (String.valueOf(precio)).replace(".", "");
+			Long precioFinal = Long.parseLong(precioF);	
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 					.setCurrency("eur")
-					.setAmount(precio*100)
+					.setAmount(precioFinal)
 					.build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);

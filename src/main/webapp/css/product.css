@@ -43,7 +43,7 @@ input:focus+label {
 
 .container {
 	margin-left: 15px;
-	margin-bottom: 800px;
+	margin-bottom: 120px;
 }
 
 .boxs {
@@ -221,4 +221,12 @@ figcaption {
 }
 .scroll::-webkit-scrollbar-thumb{
 	background : #ff9d00;
+}
+
+#barraSuperior{
+	z-index: 999;
+	background: white;
+	position: -webkit-sticky; 
+    position: sticky;
+    top: 0; 
 }

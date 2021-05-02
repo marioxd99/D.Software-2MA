@@ -104,8 +104,6 @@ let precio = 0;
 			app.router.go( { path : "payment"} );
 		};
 		
-		
-
 		connected() {
 			accUtils.announce('Cart page loaded.');
 			document.title = "Cart";

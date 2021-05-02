@@ -86,7 +86,7 @@ let precio = sessionStorage.pago;
 						self.message("Cambios guardados");
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
-						document.getElementById("datosPersonales").style.display = 'none';	
+						document.getElementById("primerPaso").style.display = 'none';	
 						document.getElementById('precioApagar').innerHTML = response;
 						precio = response;	
 					},
@@ -108,6 +108,7 @@ let precio = sessionStorage.pago;
 					 	alert('Ingrese el email');
 				}else{
 					document.getElementById("continue").style.display = 'none';
+					document.getElementById("primerPaso").style.display = 'none';
 					document.getElementById("pagoFinal").style.display = 'block';
 					this.solicitarPreautorizacion();	
 				}
@@ -125,9 +126,8 @@ let precio = sessionStorage.pago;
 								if(response[i].categoria == 'Congelados'){
 									document.getElementById("casas").style.display = 'none';
 									document.getElementById("mensajeCongelados").style.display = 'block';
-								}											
+								}										
 						};
-						console.log(precio);
 					},
 					error : function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -139,6 +139,8 @@ let precio = sessionStorage.pago;
 			connected() {
 				accUtils.announce('Pay page loaded.');
 				document.title = "Pago";
+				precio = sessionStorage.pago;
+				console.log(precio);
 				this.precioCarrito();
 				document.getElementById("mensajeCongelados").style.display = 'none';pagoFinal
 				document.getElementById("pagoFinal").style.display = 'none';
