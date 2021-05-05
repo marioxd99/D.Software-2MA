@@ -220,6 +220,22 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
+		logout() {
+			let self = this;
+			let data = {
+				url : "user/logout",
+				type : "post",
+				contentType : 'application/json',
+				success : function(response) {
+					app.router.go( { path : "login" } );
+				},
+				error : function(response) {
+					self.error(response.responseJSON.errorMessage);
+				}
+			};
+			$.ajax(data);
+		}
+		
 		eliminarCarrito(id) {
 			let self = this;
 			let data = {

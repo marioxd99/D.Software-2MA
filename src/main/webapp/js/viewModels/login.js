@@ -1,5 +1,5 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
-		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
+		'jquery', 'ojs/ojarraydataprovider' ], function(ko, app, moduleUtils, accUtils, $, ArrayDataProvider) {
 
 	class LoginViewModel {
 		constructor() {
@@ -24,7 +24,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				})
 			})
 		}
-
+		
 		login() {
 			var self = this;
 			var info = {
@@ -38,7 +38,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					app.navDataMenu.push({ path: 'editarProducto', detail : { label : 'Editar Producto'} });    
-					//this.navDataProvider = new ArrayDataProvider(this.navData.slice(1), {keyAttributes: "path"});
+					//this.navDataProvider = new ArrayDataProvider(this.navData, {keyAttributes: "path"});
 					app.router.go( { path : "product"} );
 				},
 				error : function(response) {

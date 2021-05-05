@@ -8,7 +8,8 @@ let precio = sessionStorage.pago;
 				var self = this;
 
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
-
+				
+				self.pasoVisible = ko.observable(1);
 				self.pago = ko.observable(sessionStorage.pago);
 				self.email = ko.observable();
 				self.calle = ko.observable();
@@ -86,7 +87,7 @@ let precio = sessionStorage.pago;
 						self.message("Cambios guardados");
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
-						document.getElementById("primerPaso").style.display = 'none';	
+						self.pasoVisible(2);
 						document.getElementById('precioApagar').innerHTML = response;
 						precio = response;	
 					},

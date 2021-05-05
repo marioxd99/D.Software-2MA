@@ -92,6 +92,15 @@ public class UserController extends CookiesController {
 		}
 	}
 	
+	@PostMapping("/logout")
+	public void logout(HttpServletRequest request) {
+		try {
+			request.getSession().removeAttribute("userEmail");
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
+	
 	@PutMapping("/register")
 	public void register(@RequestBody Map<String, Object> info) {
 		try {
