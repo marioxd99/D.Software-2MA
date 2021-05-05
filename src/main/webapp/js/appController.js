@@ -19,7 +19,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
           self.message(event.detail.message);
           self.manner(event.detail.manner);
         }, 200);
-      };
+      }
 
       // Save the theme so we can perform platform specific navigational animations
       var platform = ThemeUtils.getThemeTargetPlatform();
