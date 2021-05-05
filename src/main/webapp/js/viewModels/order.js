@@ -10,6 +10,12 @@ let estadoPedido;
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
+			self.estado = ko.observable();
+			self.email = ko.observable();
+			self.calle = ko.observable();
+			self.ciudad = ko.observable();
+			self.cp = ko.observable();
+			
 			// Header Config
 			self.headerConfig = ko.observable({
 				'view' : [],
@@ -34,11 +40,11 @@ let estadoPedido;
 				contentType : 'application/json',
 				success : function(response) {		
 					console.log(response);		
-					document.getElementById('estadoPedido').innerHTML = response.state;
-					document.getElementById('email').innerHTML = response.email;
-					document.getElementById('ciudad').innerHTML = response.ciudad;
-					document.getElementById('calle').innerHTML = response.calle;
-					document.getElementById('cp').innerHTML = response.cp;
+					self.estado = self.estado(response.state);
+					self.email = self.email(response.email);
+					self.ciudad = self.ciudad(response.ciudad);
+					self.calle = self.calle(response.calle);
+					self.cp = self.cp(response.cp);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -53,7 +59,6 @@ let estadoPedido;
 			document.title = "Pedido";
 			var url = location.href;
 			url = url.substring(77)
-			//console.log("El id es ",url);
 			this.getPedido(url);			
 		};
 

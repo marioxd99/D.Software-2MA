@@ -26,12 +26,12 @@
     <!-- Footer-->
     <div style="margin:20px;">
         	<h3>Datos del pedido</h3>
-        	<label><b>Estado del Pedido: </b></label><label id="estadoPedido"></label>&nbsp;
-        	<label><b>Email: </b></label><label id="email"></label>&nbsp;&nbsp;<br/>
+        	<label><b>Estado del Pedido: </b></label><label data-bind="html : estado"></label>&nbsp;
+        	<label><b>Email: </b></label><label data-bind="html : email"></label>&nbsp;&nbsp;<br/>
         	<h5>Lugar de Destino</h5>
-        	<label><b>Ciudad: </b></label><label id="ciudad"></label>&nbsp;&nbsp;
-        	<label><b>Calle: </b></label><label id="calle"></label>&nbsp;&nbsp;
-        	<label><b>CP: </b></label><label id="cp"></label>
+        	<label><b>Ciudad: </b></label><label data-bind="html : ciudad"></label>&nbsp;&nbsp;
+        	<label><b>Calle: </b></label><label data-bind="html : calle"></label>&nbsp;&nbsp;
+        	<label><b>CP: </b></label><label data-bind="html : cp"></label>
         </div>
 	</div>
     </div>

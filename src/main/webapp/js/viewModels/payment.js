@@ -88,7 +88,7 @@ let precio = sessionStorage.pago;
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
 						self.pasoVisible(2);
-						document.getElementById('precioApagar').innerHTML = response;
+						self.precioApagar = self.precioApagar(response);
 						precio = response;	
 					},
 					error: function(response) {
@@ -143,7 +143,7 @@ let precio = sessionStorage.pago;
 				precio = sessionStorage.pago;
 				console.log(precio);
 				this.precioCarrito();
-				document.getElementById("mensajeCongelados").style.display = 'none';pagoFinal
+				document.getElementById("mensajeCongelados").style.display = 'none';
 				document.getElementById("pagoFinal").style.display = 'none';
 			};
 

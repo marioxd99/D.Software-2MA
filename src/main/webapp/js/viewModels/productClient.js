@@ -51,8 +51,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					//self.productos(response);
-					
 					 for (let i=0; i<response.length; i++) {
 						let producto = {
 							id : response[i].id,
@@ -205,8 +203,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {			
-					//app.carrito = response.products;
-					//console.log(app.carrito);
 					sessionStorage.carrito = JSON.stringify(response.products);
 					app.router.go( { path : "showCart"} );
 				},

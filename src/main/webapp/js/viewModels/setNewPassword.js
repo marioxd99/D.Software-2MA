@@ -59,10 +59,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			document.title = "Cambio de Contraseña";
 			
 			var url = location.href;
-			console.log("La ruta actual es ",url);
 			url = url.substring(86)
 			console.log("La ruta nueva es ",url);
-			// Implement further logic if needed
 		};
 
 		self.disconnected = function() {
