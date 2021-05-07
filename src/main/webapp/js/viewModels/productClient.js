@@ -5,6 +5,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		constructor() {
 			var self = this;
 			
+			self.nProductos = ko.observable();
+			self.precioCarro = ko.observable(0);
 			self.nombre = ko.observable("Detergente");
 			self.codigo = ko.observable("001");
 			self.precio = ko.observable("8,50 €");
@@ -73,7 +75,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						self.productos.push(producto);
 						var numeroProductos = response.length;
 						numeroProductos = numeroProductos.toString();
-						var numeroProductosHTML = document.getElementById('nProducto').innerHTML = numeroProductos;
+						self.nProductos(numeroProductos);
 					}
 				},
 				error : function(response) {
@@ -150,7 +152,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						self.productos.push(producto);
 						var numeroProductos = response.length;
 						numeroProductos = numeroProductos.toString();
-						document.getElementById('nProducto').innerHTML = numeroProductos;
+						self.nProductos(numeroProductos);
 					}
 					
 				}
@@ -183,11 +185,11 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				url : "product/precioCarrito/",
 				type : "get",
 				contentType : 'application/json',
-				success : function(response) {			
+				success : function(response) {		
 					for (let i=0; i<response.length; i++) {
 							precio += parseFloat(response[i].precio) *  (response[i].amount);										
 					};	
-					document.getElementById('precioTotal').innerHTML = precio;		
+					self.precioCarro(precio);			
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);

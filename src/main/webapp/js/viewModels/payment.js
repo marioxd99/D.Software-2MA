@@ -10,6 +10,11 @@ let precio = sessionStorage.pago;
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 				
 				self.pasoVisible = ko.observable(1);
+				self.continuarVisible = ko.observable(1);
+				self.pagoVisible = ko.observable(1);
+				self.congeladosVisible = ko.observable(1);
+				self.casasVisible = ko.observable(1);
+				
 				self.pago = ko.observable(sessionStorage.pago);
 				self.email = ko.observable();
 				self.calle = ko.observable();
@@ -54,19 +59,6 @@ let precio = sessionStorage.pago;
 				$.ajax(data);
 			};
 			
-			loading() {
-				document.querySelector("button").disabled = true;
-				document.querySelector("#spinner").classList.remove("hidden");
-				document.querySelector("#button-text").classList.add("hidden");	
-			};
-			
-			loading2() {
-					document.querySelector("button").disabled = false;
-					document.querySelector("#spinner").classList.add("hidden");
-					document.querySelector("#button-text").classList.remove("hidden");
-			};
-			
-
 			guardarCambios() {
 				var self = this;
 				let info = {
@@ -105,12 +97,13 @@ let precio = sessionStorage.pago;
 			
 			
 			continuar() {
+				var self = this;
 				if ($('#email').val().length == 0) {
 					 	alert('Ingrese el email');
 				}else{
-					document.getElementById("continue").style.display = 'none';
-					document.getElementById("primerPaso").style.display = 'none';
-					document.getElementById("pagoFinal").style.display = 'block';
+					self.continuarVisible = self.continuarVisible(2);
+					self.pasoVisible(2);
+					self.pagoVisible(2);
 					this.solicitarPreautorizacion();	
 				}
 			};
@@ -125,8 +118,8 @@ let precio = sessionStorage.pago;
 					success : function(response) {			
 						for (let i=0; i<response.length; i++) {
 								if(response[i].categoria == 'Congelados'){
-									document.getElementById("casas").style.display = 'none';
-									document.getElementById("mensajeCongelados").style.display = 'block';
+									self.casasVisible(2);
+									self.congeladosVisible(2);
 								}										
 						};
 					},
@@ -143,8 +136,6 @@ let precio = sessionStorage.pago;
 				precio = sessionStorage.pago;
 				console.log(precio);
 				this.precioCarrito();
-				document.getElementById("mensajeCongelados").style.display = 'none';
-				document.getElementById("pagoFinal").style.display = 'none';
 			};
 
 			solicitarPreautorizacion() {
@@ -210,6 +201,18 @@ let precio = sessionStorage.pago;
 					}
 				});
 			}
+			
+			loading() {
+				document.querySelector("button").disabled = true;
+				document.querySelector("#spinner").classList.remove("hidden");
+				document.querySelector("#button-text").classList.add("hidden");	
+			};
+			
+			loading2() {
+					document.querySelector("button").disabled = false;
+					document.querySelector("#spinner").classList.add("hidden");
+					document.querySelector("#button-text").classList.remove("hidden");
+			};
 
 			payWithCard(card) {
 				let self = this;

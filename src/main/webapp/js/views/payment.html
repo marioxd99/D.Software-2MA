@@ -16,9 +16,9 @@
         	 
 		      <div style="margin-bottom:10px;">
 		      <p><b>Tipo de envio</b></p>
-		      <p id="mensajeCongelados">Su carrito contiene congelados,por lo que el pedido a domicilio solo puede ser Express</p>
+		      <p id="mensajeCongelados" data-bind="visible : congeladosVisible()==2">Su carrito contiene congelados,por lo que el pedido a domicilio solo puede ser Express</p>
 		      	<div class="container">
-		      	<div id="casas">
+		      	<div id="casas" data-bind="visible : casasVisible()==1">
 			      	<input type="radio" name="size" id="casa" value="casa" data-bind="checked : shippingMode">
 			      	<label id="envios" for="casa">Domicilio (3.25&euro;)</label><br/>
 		      	</div>
@@ -52,11 +52,13 @@
 		      <div id="pagosForm" visibility="hidden" data-bind="visible : shippingMode()=='recogida' ">
 		      	  <label><b>Total a pagar :</b> </label><label id="precioApagar" data-bind="html : precioApagar"></label><label>&euro;</label><br /><br />
 		      	  <input type="text" id="email" placeholder="Email address" data-bind="value : email" />
-		      	  <oj-button id="continue" data-bind="click : continuar " chroming="callToAction" class="oj-button-lg" 
+		      	  <div data-bind="visible : continuarVisible()==1">
+		      	  <oj-button id="continue" data-bind="click : continuar" chroming="callToAction" class="oj-button-lg" 
 		      		style="margin-left:150px;margin-top:10px;">
 		     			 Continuar</oj-button>
+		     	  </div>
 		     </div>
-		     <div id="pagoFinal">
+		     <div id="pagoFinal" data-bind="visible : continuarVisible()==2">
 			      <div id="card-element"><!--Stripe.js injects the Card Element--></div>
 			      <button id="submit">
 			        <div class="spinner hidden" id="spinner"></div>

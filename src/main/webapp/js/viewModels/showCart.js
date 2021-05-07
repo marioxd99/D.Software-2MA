@@ -10,12 +10,11 @@ let precio = 0;
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
-			
+			self.precioCarro = ko.observable(0);
 			self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
 			//sessionStorage.removeItem("carrito");
 			//self.carrito = ko.observable(app.carrito);
 			
-			 
 			// Header Config
 			self.headerConfig = ko.observable({
 				'view' : [],
@@ -42,8 +41,7 @@ let precio = 0;
 					for (let i=0; i<response.length; i++) {
 							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	
-					
-					document.getElementById('precioTotal').innerHTML = precio;
+					self.precioCarro(precio);	
 					var checkout = document.getElementById('checkout');	
 					if(precio == 0){
 						checkout.style.display = 'none';
