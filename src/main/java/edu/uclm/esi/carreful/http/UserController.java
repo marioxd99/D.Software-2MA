@@ -1,7 +1,6 @@
 package edu.uclm.esi.carreful.http;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.dao.UserDao;
-import edu.uclm.esi.carreful.model.Carrito;
-import edu.uclm.esi.carreful.model.Product;
 import edu.uclm.esi.carreful.model.User;
 import edu.uclm.esi.carreful.tokens.Email;
 import edu.uclm.esi.carreful.tokens.Token;

@@ -1,6 +1,5 @@
 package edu.uclm.esi.carreful.model;
 
-import javax.persistence.Column;
 import javax.persistence.Lob;
 
 public class OrderedProduct {

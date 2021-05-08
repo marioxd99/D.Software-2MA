@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -53,7 +51,7 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
-			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+			//Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			JSONObject json = new JSONObject(info);
 			Double precio = Double.parseDouble(json.optString("precio"));
 			System.out.println(precio);

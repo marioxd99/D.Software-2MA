@@ -3,7 +3,6 @@ package edu.uclm.esi.carreful.http;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.CorderDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
-import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Corder;
 import edu.uclm.esi.carreful.tokens.Token;
 
