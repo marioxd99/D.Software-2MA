@@ -6,7 +6,18 @@ public class Domicilio extends TipoPedido {
 		super(gastosEnvio);
 	}
 
-	
+	public void changeEstado(Corder pedido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeEstado() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 	
 }

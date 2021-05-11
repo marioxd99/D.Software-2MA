@@ -34,7 +34,7 @@ public class CorderController extends CookiesController {
 			Optional<Corder> optOrder = orderDao.findById(orderId);
 			if (optOrder.isPresent())
 				return optOrder.get();
-			throw new Exception("No se encuentra el pedido");
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "No se encuentra el pedido");
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

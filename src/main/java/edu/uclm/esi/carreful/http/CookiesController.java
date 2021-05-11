@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class CookiesController {
-	public final String COOKIE_NAME = "laCookie";
-	public final String COOKIE_PATH = "/";
+	public static final String COOKIENAME = "laCookie";
+	public static final String COOKIEPATH = "/";
 
 	protected Cookie readOrCreateCookie(HttpServletRequest request, HttpServletResponse response) {
 		Cookie[] cookies = request.getCookies();
@@ -22,14 +22,14 @@ public abstract class CookiesController {
 
 	private Cookie findCookie(Cookie[] cookies) {
 		for (Cookie cookie : cookies)
-			if (cookie.getName().equals(COOKIE_NAME))
+			if (cookie.getName().equals(COOKIENAME))
 				return cookie;
 		return null;
 	}
 
 	private Cookie createCookie(HttpServletResponse response) {
-		Cookie cookie = new Cookie(COOKIE_NAME, UUID.randomUUID().toString());
-		cookie.setPath(COOKIE_PATH);
+		Cookie cookie = new Cookie(COOKIENAME, UUID.randomUUID().toString());
+		cookie.setPath(COOKIEPATH);
 		cookie.setMaxAge(30*24*60*60);
 		response.addCookie(cookie);
 		return cookie;

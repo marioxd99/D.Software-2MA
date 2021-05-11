@@ -11,7 +11,7 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils'],
  function(ko, app, moduleUtils, accUtils) {
 
-    function AboutViewModel() {
+    function InfoViewModel() {
       var self = this;
 
       // Header Config
@@ -33,7 +33,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils'],
        */
       self.connected = function() {
         accUtils.announce('About page loaded.');
-        document.title = "About";
+        document.title = "Info";
         // Implement further logic if needed
       };
 
@@ -58,6 +58,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils'],
      * return a constructor for the ViewModel so that the ViewModel is constructed
      * each time the view is displayed.
      */
-    return AboutViewModel;
+    return InfoViewModel;
   }
 );

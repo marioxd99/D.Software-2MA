@@ -1,15 +1,6 @@
-<!--
- Copyright (c) 2014, 2020, Oracle and/or its affiliates.
- Licensed under The Universal Permissive License (UPL), Version 1.0
- as shown at https://oss.oracle.com/licenses/upl/
- -->
+
 <div class="oj-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
-      <!--
-       ** Oracle JET V9.1.0 hybrid mobile application header pattern.
-       ** Please see the Oracle JET Cookbook App Shell: Hybrid Mobile demos for
-       ** more information on how to use this pattern.
-    -->
     <header role="banner" class="oj-hybrid-applayout-header">
       <oj-module config="[[headerConfig]]"></oj-module>
     </header>
@@ -18,10 +9,101 @@
   <div class="oj-applayout-content">
     <div role="main" class="oj-hybrid-applayout-content">
       <div class="oj-hybrid-padding">
-        <h1>About Content Area</h1>
-        <div>
-            To change the content of this section, you will make edits to the about.html file located in the /js/views folder.
+       <link href="css/about.css" rel="stylesheet" type="text/css">
+<section class="container ng-scope ng-fadeInLeftShort" style="">
+<!-- uiView:  --><div class="ng-fadeInLeftShort ng-scope" style="">
+<div class="container-overlap bg-blue-500 ng-scope">
+  <div class="media m0 pv">
+    <div class="media-left"><img src="img/carrefour.png" alt="User" style="width:auto;height:100px;position:center;margin-left:400px;"></div>
+  </div>
+</div>
+<div class="container-fluid ng-scope">
+  <div class="row">
+    <!-- Left column-->
+    <div class="col-md-7 col-lg-8">
+      <form class="card ng-pristine ng-valid">
+        <h5 class="card-heading pb0">
+            Descripcion
+        </h5>
+        <div class="card-body">
+          <p class="ng-scope ng-binding editable">
+			CARREFOURS.A. es una empresa con sede en Francia, que se dedica principalmente al sector de distribucion minorista. La Empresa opera una red de hipermercados, supermercados, tiendas de superdescuentos, tiendas multiservicio y terminales de autoservicio y ofrece servicios de e-commerce.
+          </p>
         </div>
+
+        <h5 class="card-heading pb0" >Informacion de contacto</h5>
+        <div class="card-body">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td><em class="ion-document-text icon-fw mr"></em><strong>Quienes Somos&nbsp;</strong></td>
+                <td class="ng-binding">Una tienda especializada con amplia experiencia</td>
+              </tr>
+              <tr>
+                <td><em class="ion-egg icon-fw mr"></em><strong>Que ofrecemos&nbsp;</strong></td>
+                <td><span class="ng-scope ng-binding editable">Todo tipo de productos</span></td>
+              </tr>
+              <tr>
+                <td><em class="ion-ios-body icon-fw mr"></em><strong>Telefono de contacto&nbsp;</strong></td>
+                <td><span class="ng-scope ng-binding editable">684395823</span></td>
+              </tr>
+              <tr>
+                <td><em class="ion-man icon-fw mr"></em><strong>Donde estamos</strong></td>
+                <td><span class="ng-scope ng-binding editable">Ciudad Real,Avenida Europa</span></td>
+              </tr>
+              <tr>
+                <td><em class="ion-android-home icon-fw mr"></em><strong>Email de Contacto</strong></td>
+                <td><span class="ng-scope ng-binding editable">carreful@carrefour.com</span></td>
+              </tr>
+              <tr>
+                <td><em class="ion-email icon-fw mr"></em><strong>Garantias</strong></td>
+                <td><span class="ng-scope editable">3 a&ntilde;os de garantia en todos los productos</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+    <!-- Right column-->
+    <div class="col-md-5 col-lg-4">
+      <div class="card">
+        <h5 class="card-heading">
+            Contactos
+        </h5>
+        <div class="mda-list">
+          <div class="mda-list-item"><img src="img/perez.jpg" alt="List user" class="mda-list-item-img">
+            <div class="mda-list-item-text mda-2-line">
+              <h3><a href="#">Mario Perez Galan</a></h3>
+              <div class="text-muted text-ellipsis">mario.perez@alu.uclm.es</div>
+            </div>
+          </div>
+          <div class="mda-list-item"><img src="img/ramos.jpg" alt="List user" class="mda-list-item-img">
+            <div class="mda-list-item-text mda-2-line">
+              <h3><a href="#">Mario Ramos Esquinas</a></h3>
+              <div class="text-muted text-ellipsis">mario.ramos2@alu.uclm.es</div>
+            </div>
+          </div>
+          <div class="mda-list-item"><img src="img/albetillo.jpg" alt="List user" class="mda-list-item-img">
+            <div class="mda-list-item-text mda-2-line">
+              <h3><a href="#">Alberto Sanchez Corral</a></h3>
+              <div class="text-muted text-ellipsis">alberto.sanchez35@alu.uclm.es</div>
+            </div>
+          </div>
+          <div class="mda-list-item"><img src="img/f1.jpg" alt="List user" class="mda-list-item-img">
+            <div class="mda-list-item-text mda-2-line">
+              <h3><a href="#">Macario Polo Usaola</a></h3>
+              <div class="text-muted text-ellipsis">macario.polo@uclm.es</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pv0 text-right"><a class="btn btn-flat btn-info">Participantes</a></div>
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div></section>
       </div>
     </div>
   </div>

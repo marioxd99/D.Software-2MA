@@ -51,10 +51,8 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
-			//Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			JSONObject json = new JSONObject(info);
 			Double precio = Double.parseDouble(json.optString("precio"));
-			System.out.println(precio);
 			if (String.valueOf(precio).contains(".")) {
 				precio = precio*10;
 			}else {
@@ -75,11 +73,12 @@ public class PaymentsController extends CookiesController {
 		}
 	}
 	
-	public void controlStock(HttpServletRequest request,Carrito carrito) {
+	public void controlStock(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		Collection<OrderedProduct> product = carrito.getProducts();
 		Iterator<OrderedProduct> it = product.iterator();
 		Iterator<OrderedProduct> it2 = product.iterator();
-		ArrayList<Integer> cantidades = new ArrayList<Integer>();
+		ArrayList<Integer> cantidades = new ArrayList<>();
 		int i=0;
 		while(it2.hasNext()) {
 			cantidades.add((int)it2.next().getAmount());
@@ -91,7 +90,8 @@ public class PaymentsController extends CookiesController {
 			optProduct.setStock(stockActual);
 			productDao.save(optProduct);
 			i++;
-		}	
+		}
+		request.getSession().removeAttribute("carrito");
 	}
 	
 
@@ -110,12 +110,12 @@ public class PaymentsController extends CookiesController {
 				oproduct.setState("Envio en 24h");			
 			}else if(modoEnvio.equals("casa")) {
 				precioFinal = Double.parseDouble(precio) + 3.25;
-				oproduct.setState("pendiente de envio");
+				oproduct.setState("Pendiente de envio");
 			}else {
 				oproduct.setState("Buscando en el almacen");
 			}
 			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
-				throw new Exception("Debes rellenar todos los campos");
+				throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos");
 			oproduct.setPrecioTotal(precioFinal);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
@@ -127,14 +127,12 @@ public class PaymentsController extends CookiesController {
 	}
 	
 	@GetMapping("/finalizarPago/{receipt_email}")
-	public void finalizarPago(HttpServletRequest request, @PathVariable String receipt_email) {
+	public void finalizarPago(HttpServletRequest request, @PathVariable String email) {
 		try {	
-			oproduct.setEmail(receipt_email);
+			oproduct.setEmail(email);
 			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
-			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-			controlStock(request,carrito);
-			request.getSession().removeAttribute("carrito");
+			controlStock(request);
 			//Enviar email al ususario para el seguimiento del pedido
 			Token token = new Token(oproduct.getId());
 			tokenDao.save(token);
