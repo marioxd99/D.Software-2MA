@@ -157,7 +157,13 @@ public class PaymentsController extends CookiesController {
 			JSONObject json = new JSONObject(info);
 			String email = json.optString("email");
 			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
-
+			
+			//Enviar email al ususario para el seguimiento del pedido
+			Token token = new Token();
+			Email smtp = new Email();
+			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
+				"http://localhost/orders/usarToken/" + token.getId() + "";
+			
 			Double precio = calcularPrecioTotal(request);
 			if (oproduct == null){
 				System.out.println("nulo");
@@ -165,21 +171,19 @@ public class PaymentsController extends CookiesController {
 				oproducts.setEmail(email);
 				oproducts.setPrecioTotal(precio);
 				corderDao.save(oproducts);
+				token = new Token(oproducts.getId());
+				smtp.send(oproducts.getEmail(), "Carreful: Seguimiento del pedido", texto);
 			}else {
 				Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 				oproduct.setEmail(email);
 				oproduct.setPrecioTotal(precioFinal);
 				corderDao.save(oproduct);
+				token = new Token(oproduct.getId());
+				smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);
 			}
+			tokenDao.save(token);
 			//Control de Stock de los pedidos
 			controlStock(request);
-			//Enviar email al ususario para el seguimiento del pedido
-			Token token = new Token(oproduct.getId());
-			tokenDao.save(token);
-			Email smtp = new Email();
-			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
-				"http://localhost/orders/usarToken/" + token.getId() + "";
-			smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
