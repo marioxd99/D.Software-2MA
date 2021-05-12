@@ -53,7 +53,7 @@
 		    </form>
 		    <form id="payment-form" >
 		      <h5>Datos de la Tarjeta</h5>
-		      <div id="pagosForm" visibility="hidden" data-bind="visible : shippingMode()=='recogida' ">
+		      <div id="pagosForm" visibility="hidden" data-bind="visible : precioPagoVisible()==2 ">
 		      	  <label><b>Total a pagar :</b> </label><label id="precioApagar" data-bind="html : precioApagar"></label><label>&euro;</label><br /><br />
 		      	  
 		      	  

@@ -53,9 +53,11 @@
                 </div>
               </div>
             </div>
-            <div class="float-right" style="padding:20px; margin-bottom:500px;">
+            <div class="float-right" style="padding:20px; margin-bottom:500px;display:flex;">
               <oj-button chroming="solid"  data-bind="click : volver">Back to shopping</oj-button>
-              <oj-button id="checkout" chroming="callToAction" style="margin-left:50px;" data-bind="click : aPagar">Checkout</oj-button>
+              <div data-bind="visible : botonVisible()==2">
+              	<oj-button id="checkout" chroming="callToAction" style="margin-left:50px;" data-bind="click : aPagar">Checkout</oj-button>
+              </div>
             </div>
         
           </div>

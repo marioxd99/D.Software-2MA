@@ -7,6 +7,7 @@ let precio = 0;
 		constructor() {
 			var self = this;
 			
+			self.botonVisible = ko.observable(2);
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
@@ -41,11 +42,10 @@ let precio = 0;
 							precio += parseFloat(response[i].precio) *  parseFloat(response[i].amount);									
 					};	
 					self.precioCarro(precio);	
-					var checkout = document.getElementById('checkout');	
 					if(precio == 0){
-						checkout.style.display = 'none';
+						self.botonVisible(1);
 					}else{
-						checkout.removeAttribute("display");
+						self.botonVisible(2);
 					}
 				},
 				error : function(response) {

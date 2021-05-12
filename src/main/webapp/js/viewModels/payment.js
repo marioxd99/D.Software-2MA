@@ -10,6 +10,7 @@ let precio = sessionStorage.pago;
 				self.stripe = Stripe('pk_test_51Idbt0JCT0Jnu2KVyUblcQGrEc6z1AkvRcfeQ0ZriuHepoGSqa7jhkotStsp3KT7Y7bkLl0W83AH73cMP9Xu9bxJ00CWoMvhBX');
 				
 				self.pasoVisible = ko.observable(1);
+				self.precioPagoVisible = ko.observable(1);
 				self.continuarVisible = ko.observable(1);
 				self.pagoVisible = ko.observable(1);
 				self.congeladosVisible = ko.observable(1);
@@ -43,11 +44,7 @@ let precio = sessionStorage.pago;
 
 			finalizarPago(receipt_email) {
 				var self = this;
-				let info = {
-					email: receipt_email
-				};
 				var data = {
-					data: JSON.stringify(info),
 					url: "payments/finalizarPago",
 					type: "put",
 					contentType: 'application/json',
@@ -81,8 +78,7 @@ let precio = sessionStorage.pago;
 					contentType: 'application/json',
 					success: function(response) {
 						self.message("Cambios guardados");
-						var formPago = document.getElementById('pagosForm');
-						formPago.style.display = 'block';
+						self.precioPagoVisible(2);
 						self.continuarVisible = self.continuarVisible(2);
 						self.pasoVisible(2);
 						self.pagoVisible(2);
