@@ -1,9 +1,5 @@
 package edu.uclm.esi.carreful.model;
 
-public class Estado {
-
-	enum Estados{ 
-		Preparado,Recibido,EnCamino,Entregado
-	}
-	
+public enum Estado { 
+	Preparado,Recibido,EnCamino,Entregado
 }

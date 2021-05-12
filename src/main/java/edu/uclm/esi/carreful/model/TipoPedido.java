@@ -5,11 +5,10 @@ public abstract class TipoPedido {
 	protected Estado estado;
 	
 	public TipoPedido(double gastosEnvio) {
-		super();
 		this.gastosEnvio = gastosEnvio;
 	}
 	
-	public abstract void changeEstado();
+	public abstract void changeEstado(Corder order);
 	
 	public Estado getEstado() {
 		return estado;

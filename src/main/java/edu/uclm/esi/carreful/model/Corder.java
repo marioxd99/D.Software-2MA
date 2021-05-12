@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Corder {
@@ -16,7 +17,12 @@ public class Corder {
 	private String cp;
 	private double precioTotal;
 	private String state;
-
+	@Transient
+	private TipoPedido tipo;
+	
+	public void changeEstado() {
+		this.tipo.changeEstado(this);
+	}
 
 	public String getEmail() {
 		return email;
@@ -73,5 +79,13 @@ public class Corder {
 	
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public TipoPedido getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(TipoPedido tipo) {
+		this.tipo = tipo;
 	}
 }

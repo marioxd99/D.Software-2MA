@@ -28,8 +28,12 @@ import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Corder;
+import edu.uclm.esi.carreful.model.DomicilioExpress;
+import edu.uclm.esi.carreful.model.DomicilioNormal;
+import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Product;
+import edu.uclm.esi.carreful.model.RecogidaCarreful;
 import edu.uclm.esi.carreful.tokens.Email;
 import edu.uclm.esi.carreful.tokens.Token;
 
@@ -46,7 +50,6 @@ public class PaymentsController extends CookiesController {
 	TokenDao tokenDao;
 	@Autowired
 	ProductDao productDao;
-	Corder oproduct = new Corder();	
 	
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
@@ -94,32 +97,53 @@ public class PaymentsController extends CookiesController {
 		request.getSession().removeAttribute("carrito");
 	}
 	
+	public Double calcularPrecioTotal(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Collection<OrderedProduct> product = carrito.getProducts();
+		Iterator<OrderedProduct> it = product.iterator();
+		Iterator<OrderedProduct> it2 = product.iterator();
+		ArrayList<Double> cantidades = new ArrayList<>();
+		ArrayList<Double> precios = new ArrayList<>();
+		Double precio = 0.0;
+		while(it.hasNext()) {
+			cantidades.add((it.next().getAmount()));
+		}
+		while(it2.hasNext()) {
+			precios.add(Double.parseDouble(it2.next().getPrecio()));
+		}
+		for(int i=0;i<cantidades.size();i++) {
+			precio += cantidades.get(i)*precios.get(i);
+		}
+		return precio;
+	}
+	
 
 	@PutMapping("/guardarCambios/")
 	public Double guardarCambios(HttpServletRequest request,@RequestBody Map<String, Object> info) {
 		JSONObject jso = new JSONObject(info);
+		Double precio = calcularPrecioTotal(request);
 		try {
 			String ciudad = jso.optString("ciudad");
 			String calle = jso.optString("calle");
 			String cp =  jso.optString("cp");
-			String precio =  jso.optString("precioTotal");
 			String modoEnvio = jso.optString("shippingMethod");
-			Double precioFinal = 0.0;
+			Corder oproduct = new Corder();
 			if(modoEnvio.equals("express")) {
-				precioFinal = Double.parseDouble(precio) + 5.5;
-				oproduct.setState("Envio en 24h");			
+				oproduct.setTipo(new DomicilioExpress());
 			}else if(modoEnvio.equals("casa")) {
-				precioFinal = Double.parseDouble(precio) + 3.25;
-				oproduct.setState("Pendiente de envio");
+				oproduct.setTipo(new DomicilioNormal());
 			}else {
-				oproduct.setState("Buscando en el almacen");
+				oproduct.setTipo(new RecogidaCarreful());
 			}
+			oproduct.setState(Estado.Recibido.name());
 			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
 				throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos");
+			Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 			oproduct.setPrecioTotal(precioFinal);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
 			oproduct.setCp(cp);	
+			request.getSession().setAttribute("corder", oproduct);
 			return precioFinal;
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
@@ -129,6 +153,7 @@ public class PaymentsController extends CookiesController {
 	@GetMapping("/finalizarPago/{receipt_email}")
 	public void finalizarPago(HttpServletRequest request, @PathVariable String email) {
 		try {	
+			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
 			oproduct.setEmail(email);
 			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
