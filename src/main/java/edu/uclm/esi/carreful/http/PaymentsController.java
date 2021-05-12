@@ -134,9 +134,10 @@ public class PaymentsController extends CookiesController {
 			}else if(modoEnvio.equals("casa")) {
 				oproduct.setTipo(new DomicilioNormal());
 			}
+			else {
+				oproduct.setTipo(new RecogidaCarreful());
+			}
 			oproduct.setState(Estado.Recibido.name());
-			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
-				throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos");
 			Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 			oproduct.setPrecioTotal(precioFinal);
 			oproduct.setCiudad(ciudad);
@@ -155,34 +156,18 @@ public class PaymentsController extends CookiesController {
 			JSONObject json = new JSONObject(info);
 			String email = json.optString("email");
 			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
-			
+			oproduct.setEmail(email);
+			corderDao.save(oproduct);
+			//Control de Stock de los pedidos
+			controlStock(request);
 			//Enviar email al ususario para el seguimiento del pedido
 			Token token = new Token();
 			Email smtp = new Email();
 			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
 				"http://localhost/orders/usarToken/" + token.getId() + "";
-			
-			Double precio = calcularPrecioTotal(request);
-			if (oproduct == null){
-				System.out.println("nulo");
-				Corder oproducts = new Corder();
-				oproducts.setEmail(email);
-				oproducts.setPrecioTotal(precio);
-				oproducts.setTipo(new RecogidaCarreful());
-				corderDao.save(oproducts);
-				token = new Token(oproducts.getId());
-				smtp.send(oproducts.getEmail(), "Carreful: Seguimiento del pedido", texto);
-			}else {
-				Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
-				oproduct.setEmail(email);
-				oproduct.setPrecioTotal(precioFinal);
-				corderDao.save(oproduct);
-				token = new Token(oproduct.getId());
-				smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);
-			}
+			token = new Token(oproduct.getId());
+			smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);	
 			tokenDao.save(token);
-			//Control de Stock de los pedidos
-			controlStock(request);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

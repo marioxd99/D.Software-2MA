@@ -83,6 +83,10 @@ let precio = sessionStorage.pago;
 						self.message("Cambios guardados");
 						var formPago = document.getElementById('pagosForm');
 						formPago.style.display = 'block';
+						self.continuarVisible = self.continuarVisible(2);
+						self.pasoVisible(2);
+						self.pagoVisible(2);
+						self.solicitarPreautorizacion();
 						self.pasoVisible(2);
 						self.precioApagar = self.precioApagar(response);
 						precio = response;	
@@ -98,21 +102,7 @@ let precio = sessionStorage.pago;
 			volver() {
 				app.router.go({ path: "showCart" });
 			};
-			
-			
-			continuar() {
-				var self = this;
-				if ($('#email').val().length == 0) {
-					 	alert('Ingrese el email');
-				}else{
-					self.continuarVisible = self.continuarVisible(2);
-					self.pasoVisible(2);
-					self.pagoVisible(2);
-					this.solicitarPreautorizacion();	
-				}
-			};
-			
-			
+				
 			precioCarrito() {
 				let self = this;
 				let data = {

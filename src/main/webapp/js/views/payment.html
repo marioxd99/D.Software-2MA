@@ -32,16 +32,21 @@
 		      	</div>
 		      	</div>
 		      </div>
-		      
+		      <div data-bind="visible : shippingMode()=='casa' || shippingMode()=='express' || shippingMode()=='recogida'">
+		      <input type="text" id="email" placeholder="Email address" data-bind="value : email" />
+		      </div>
 		      <div visibility="hidden" id="datosPersonales" data-bind="visible : shippingMode()=='casa' || shippingMode()=='express'">
 		       <h5>Datos Personales</h5>
 	 			  <input type="text" placeholder="Ciudad" data-bind="value : ciudad"/> 
 			      <input type="text" placeholder="Calle"  data-bind="value : calle"/> 
 			      <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"  placeholder="Codigo postal"  data-bind="value : cp"/>
-			      <oj-button data-bind="click : guardarCambios " chroming="callToAction" class="oj-button-lg" 
+			      
+		      </div>
+		      <div data-bind="visible : shippingMode()=='casa' || shippingMode()=='express' || shippingMode()=='recogida'">
+		      <oj-button data-bind="click : guardarCambios " chroming="callToAction" class="oj-button-lg" 
 		      		style="margin-left:150px;margin-top:10px;">
 		     			 Guardar</oj-button>
-		      </div>
+		     </div>
 		      <div class="oj-sm-12" data-bind="html : message" style="color: blue"></div>
 				<div class="oj-sm-12" data-bind="html : error" style="color: red"></div>
 		      
@@ -51,12 +56,8 @@
 		      <h5>Datos de la Tarjeta</h5>
 		      <div id="pagosForm" visibility="hidden" data-bind="visible : shippingMode()=='recogida' ">
 		      	  <label><b>Total a pagar :</b> </label><label id="precioApagar" data-bind="html : precioApagar"></label><label>&euro;</label><br /><br />
-		      	  <input type="text" id="email" placeholder="Email address" data-bind="value : email" />
-		      	  <div data-bind="visible : continuarVisible()==1">
-		      	  <oj-button id="continue" data-bind="click : continuar" chroming="callToAction" class="oj-button-lg" 
-		      		style="margin-left:150px;margin-top:10px;">
-		     			 Continuar</oj-button>
-		     	  </div>
+		      	  
+		      	  
 		     </div>
 		     <div id="pagoFinal" data-bind="visible : continuarVisible()==2">
 			      <div id="card-element"><!--Stripe.js injects the Card Element--></div>
