@@ -133,8 +133,6 @@ public class PaymentsController extends CookiesController {
 				oproduct.setTipo(new DomicilioExpress());
 			}else if(modoEnvio.equals("casa")) {
 				oproduct.setTipo(new DomicilioNormal());
-			}else {
-				oproduct.setTipo(new RecogidaCarreful());
 			}
 			oproduct.setState(Estado.Recibido.name());
 			if ( ciudad.length()==0 || calle.length()==0 || cp.length()==0)
@@ -170,6 +168,7 @@ public class PaymentsController extends CookiesController {
 				Corder oproducts = new Corder();
 				oproducts.setEmail(email);
 				oproducts.setPrecioTotal(precio);
+				oproducts.setTipo(new RecogidaCarreful());
 				corderDao.save(oproducts);
 				token = new Token(oproducts.getId());
 				smtp.send(oproducts.getEmail(), "Carreful: Seguimiento del pedido", texto);
