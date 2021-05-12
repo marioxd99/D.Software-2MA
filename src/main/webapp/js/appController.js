@@ -34,7 +34,7 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
    
 
       var navData = [
-        { path: '', redirect: 'product' },
+        { path: '', redirect: 'productClient' },
         { path: 'productClient', detail : { label : 'ProductoCliente'} },
         { path: 'product', detail : { label : 'Producto'} },
         { path: 'showCart', detail : { label : 'showCart'} },
