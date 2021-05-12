@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -150,12 +151,22 @@ public class PaymentsController extends CookiesController {
 		}
 	}
 	
-	@GetMapping("/finalizarPago/{receipt_email}")
-	public void finalizarPago(HttpServletRequest request, @PathVariable String email) {
+	@PutMapping("/finalizarPago")
+	public void finalizarPago(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {	
+			JSONObject json = new JSONObject(info);
+			String email = json.optString("email");
 			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
-			oproduct.setEmail(email);
-			corderDao.save(oproduct);
+			System.out.println(email);
+			if (oproduct == null){
+				System.out.println("nulo");
+				Corder oproducts = new Corder();
+				oproducts.setEmail(email);
+				corderDao.save(oproducts);
+			}else {
+				oproduct.setEmail(email);
+				corderDao.save(oproduct);
+			}
 			//Control de Stock de los pedidos
 			controlStock(request);
 			//Enviar email al ususario para el seguimiento del pedido

@@ -43,9 +43,13 @@ let precio = sessionStorage.pago;
 
 			finalizarPago(receipt_email) {
 				var self = this;
+				let info = {
+					email: receipt_email
+				};
 				var data = {
-					url: "payments/finalizarPago/" + receipt_email,
-					type: "get",
+					data: JSON.stringify(info),
+					url: "payments/finalizarPago",
+					type: "put",
 					contentType: 'application/json',
 					success: function(response) {
 						self.message("Pago realizado correctamente");
