@@ -125,6 +125,7 @@ public class PaymentsController extends CookiesController {
 		Double precio = calcularPrecioTotal(request);
 		try {
 			String ciudad = jso.optString("ciudad");
+			String email = jso.optString("email");
 			String calle = jso.optString("calle");
 			String cp =  jso.optString("cp");
 			String modoEnvio = jso.optString("shippingMethod");
@@ -137,12 +138,16 @@ public class PaymentsController extends CookiesController {
 			else {
 				oproduct.setTipo(new RecogidaCarreful());
 			}
+			if ( email.length()==0 )
+				throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos");
 			oproduct.setState(Estado.Recibido.name());
 			Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 			oproduct.setPrecioTotal(precioFinal);
 			oproduct.setCiudad(ciudad);
 			oproduct.setCalle(calle);
 			oproduct.setCp(cp);	
+			oproduct.setEmail(email);
+			corderDao.save(oproduct);
 			request.getSession().setAttribute("corder", oproduct);
 			return precioFinal;
 		} catch(Exception e) {
@@ -150,14 +155,11 @@ public class PaymentsController extends CookiesController {
 		}
 	}
 	
+	
 	@PutMapping("/finalizarPago")
-	public void finalizarPago(HttpServletRequest request, @RequestBody Map<String, Object> info) {
+	public void finalizarPago(HttpServletRequest request) {
 		try {	
-			JSONObject json = new JSONObject(info);
-			String email = json.optString("email");
 			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
-			oproduct.setEmail(email);
-			corderDao.save(oproduct);
 			//Control de Stock de los pedidos
 			controlStock(request);
 			//Enviar email al ususario para el seguimiento del pedido
