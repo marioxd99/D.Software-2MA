@@ -157,14 +157,18 @@ public class PaymentsController extends CookiesController {
 			JSONObject json = new JSONObject(info);
 			String email = json.optString("email");
 			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
-			System.out.println(email);
+
+			Double precio = calcularPrecioTotal(request);
 			if (oproduct == null){
 				System.out.println("nulo");
 				Corder oproducts = new Corder();
 				oproducts.setEmail(email);
+				oproducts.setPrecioTotal(precio);
 				corderDao.save(oproducts);
 			}else {
+				Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 				oproduct.setEmail(email);
+				oproduct.setPrecioTotal(precioFinal);
 				corderDao.save(oproduct);
 			}
 			//Control de Stock de los pedidos
