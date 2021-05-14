@@ -13,7 +13,6 @@ let precio = 0;
 			
 			self.precioCarro = ko.observable(0);
 			self.carrito = ko.observable(JSON.parse(sessionStorage.carrito));
-			//self.carrito = ko.observable(app.carrito);
 			
 			// Header Config
 			self.headerConfig = ko.observable({

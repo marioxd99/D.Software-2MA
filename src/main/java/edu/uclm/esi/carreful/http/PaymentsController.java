@@ -65,7 +65,6 @@ public class PaymentsController extends CookiesController {
 					.setCurrency("eur")
 					.setAmount(precioFinal)
 					.build();
-			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
 			JSONObject jso = new JSONObject(intent.toJson());
 			return jso.getString("client_secret");
