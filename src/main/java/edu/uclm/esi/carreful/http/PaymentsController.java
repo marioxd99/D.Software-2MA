@@ -50,10 +50,10 @@ public class PaymentsController extends CookiesController {
 	ProductDao productDao;
 	
 	@PostMapping("/solicitarPreautorizacion")
-	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
+	public String solicitarPreautorizacion(HttpServletRequest request) {
 		try {
-			JSONObject json = new JSONObject(info);
-			Double precio = Double.parseDouble(json.optString("precio"));
+			Corder oproduct = (Corder) request.getSession().getAttribute("corder");
+			Double precio = oproduct.getPrecioTotal();
 			if (String.valueOf(precio).contains(".")) {
 				precio = precio*10;
 			}else {

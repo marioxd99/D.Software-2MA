@@ -68,7 +68,6 @@ let precio = sessionStorage.pago;
 					calle: self.calle(),
 					cp: self.cp(),
 					shippingMethod: self.shippingMode(),
-					precioTotal: self.precioApagar()
 				};
 				
 				let data = {
@@ -130,12 +129,7 @@ let precio = sessionStorage.pago;
 
 			solicitarPreautorizacion() {
 				let self = this;
-				let compra = {
-					precio: precio
-				};
-
 				let data = {
-					data: JSON.stringify(compra),
 					url: "payments/solicitarPreautorizacion",
 					type: "post",
 					contentType: 'application/json',

@@ -13,34 +13,32 @@
         <h1>Pago</h1>
           <div style="display:flex;padding:10px;margin-left:100px;">
         	<form id="primerPaso" data-bind="visible : pasoVisible()==1" style="margin-right:40px;width:590px;">
-        	 
 		      <div style="margin-bottom:10px;">
 		      <p><b>Tipo de envio</b></p>
 		      <p id="mensajeCongelados" data-bind="visible : congeladosVisible()==2">Su carrito contiene congelados,por lo que el pedido a domicilio solo puede ser Express</p>
 		      	<div class="container">
-		      	<div id="casas" data-bind="visible : casasVisible()==1">
-			      	<input type="radio" name="size" id="casa" value="casa" data-bind="checked : shippingMode">
-			      	<label id="envios" for="casa">Domicilio (3.25&euro;)</label><br/>
-		      	</div>
-		      	<div>
-			      	<input type="radio" name="size" id="express" value="express" data-bind="checked : shippingMode">
-			      	<label id="envios" for="express">Domicilio Express (5.5&euro;)</label>
-		      	</div>
-		      	<div>
-			      	<input type="radio" name="size" id="recogida" value="recogida" data-bind="checked : shippingMode">
-			      	<label id="envios" for="recogida">Recogida en Carrefour (Gratis)</label>
-		      	</div>
+			      	<div id="casas" data-bind="visible : casasVisible()==1">
+				      	<input type="radio" name="size" id="casa" value="casa" data-bind="checked : shippingMode">
+				      	<label id="envios" for="casa">Domicilio (3.25&euro;)</label><br/>
+			      	</div>
+			      	<div>
+				      	<input type="radio" name="size" id="express" value="express" data-bind="checked : shippingMode">
+				      	<label id="envios" for="express">Domicilio Express (5.5&euro;)</label>
+			      	</div>
+			      	<div>
+				      	<input type="radio" name="size" id="recogida" value="recogida" data-bind="checked : shippingMode">
+				      	<label id="envios" for="recogida">Recogida en Carrefour (Gratis)</label>
+			      	</div>
 		      	</div>
 		      </div>
 		      <div data-bind="visible : shippingMode()=='casa' || shippingMode()=='express' || shippingMode()=='recogida'">
-		      <input type="text" id="email" placeholder="Email address" data-bind="value : email" />
+		      	<input type="text" id="email" placeholder="Email address" data-bind="value : email" />
 		      </div>
 		      <div visibility="hidden" id="datosPersonales" data-bind="visible : shippingMode()=='casa' || shippingMode()=='express'">
 		       <h5>Datos Personales</h5>
 	 			  <input type="text" placeholder="Ciudad" data-bind="value : ciudad"/> 
 			      <input type="text" placeholder="Calle"  data-bind="value : calle"/> 
-			      <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"  placeholder="Codigo postal"  data-bind="value : cp"/>
-			      
+			      <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"  placeholder="Codigo postal"  data-bind="value : cp"/>	      
 		      </div>
 		      <div data-bind="visible : shippingMode()=='casa' || shippingMode()=='express' || shippingMode()=='recogida'">
 		      		<oj-button data-bind="click : guardarCambios " chroming="callToAction" class="oj-button-lg" 
@@ -55,8 +53,6 @@
 		      <h5>Datos de la Tarjeta</h5>
 		      <div id="pagosForm" visibility="hidden" data-bind="visible : precioPagoVisible()==2 ">
 		      	  <label><b>Total a pagar :</b> </label><label id="precioApagar" data-bind="html : precioApagar"></label><label>&euro;</label><br /><br />
-		      	  
-		      	  
 		     </div>
 		     <div id="pagoFinal" data-bind="visible : continuarVisible()==2">
 			      <div id="card-element"><!--Stripe.js injects the Card Element--></div>
