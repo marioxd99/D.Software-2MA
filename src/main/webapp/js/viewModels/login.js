@@ -38,8 +38,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					app.navDataMenu.push({ path: 'editarProducto', detail : { label : 'Editar Producto'} });    
-					//this.navDataProvider = new ArrayDataProvider(this.navData, {keyAttributes: "path"});
 					app.router.go( { path : "product"} );
+					navDataMenu.updateWithNotification(app.navDataMenu);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);

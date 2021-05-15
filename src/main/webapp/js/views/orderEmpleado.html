@@ -1,5 +1,6 @@
 <div class="oj-hybrid-applayout-page">
   <div class="oj-applayout-fixed-top">
+  <link href="css/orderEmpleado.css" rel="stylesheet" type="text/css">
     <header role="banner" class="oj-hybrid-applayout-header">
       <oj-module config="[[headerConfig]]"></oj-module>
     </header>
@@ -9,32 +10,35 @@
       <div class="oj-hybrid-padding">
         <h1>Pedidos</h1>
         <div>
-        <table>
-        <thead>
+        
+        <table style="margin-left:280px;">
+		<div class="scroll">
+        <thead style="background-color: #86EAE7;border-collapse: collapse;justify-content:center; ">
            <tr>
-        	<th>Email</th>&nbsp;&nbsp;&nbsp;
-        	<th>Ciudad</th>&nbsp;&nbsp;&nbsp;
-        	<th>Calle</th>&nbsp;&nbsp;&nbsp;
-        	<th>Cp</th>&nbsp;&nbsp;&nbsp;
-        	<th>PrecioTotal</th>&nbsp;&nbsp;&nbsp;
-        	<th>Estado</th>&nbsp;&nbsp;&nbsp;
+        	<th>Email</th>
+        	<th>Ciudad</th>
+        	<th>Calle</th>
+        	<th>Cp</th>
+        	<th>PrecioTotal</th>
+        	<th>Estado</th>
         	<th>Cambiar Estado</th>
          </tr>
-        </thead >
+        </thead >      
         <tbody>
         <!-- ko foreach : pedidos -->
-	       <tr>
-	        	<td><p data-bind="html : email"></p></td>&nbsp;&nbsp;&nbsp;
-	        	<td><p data-bind="html : ciudad"></p></td>&nbsp;&nbsp;&nbsp;
-	        	<td><p data-bind="html : calle"></p></td>&nbsp;&nbsp;&nbsp;
-	        	<td><p data-bind="html : cp"></p></td>&nbsp;&nbsp;&nbsp;
-	        	<td><p data-bind="html : precioTotal"></p></td>&nbsp;&nbsp;&nbsp;
-	        	<td><p data-bind="html : state"></p></td> &nbsp;&nbsp;&nbsp; 	
+	       <tr style="justify-content:center; ">       
+	        	<td><p id="texto" data-bind="html : email"></p></td>
+	        	<td><p id="texto" data-bind="html : ciudad"></p></td>
+	        	<td><p id="texto" data-bind="html : calle"></p></td>
+	        	<td><p id="texto" data-bind="html : cp"></p></td>
+	        	<td><p id="texto" data-bind="html : precioTotal"></p></td>
+	        	<td><p id="texto" data-bind="html : state"></p></td>	
 	        	<td><oj-button style="margin-left:10px;" chroming="callToAction" class="oj-button-sm" 
-	        	data-bind="click : function() { $parent.changeEstado(id); }">Cambiar estado</oj-button></td>
-        </tr>
+	        	data-bind="click : function() { $parent.changeEstado(id); }">Actualizar estado</oj-button></td> 
+           </tr>
          <!-- /ko -->
         </tbody>
+        </div>
         </table>   
         </div> 
       </div>

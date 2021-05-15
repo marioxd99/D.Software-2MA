@@ -8,15 +8,21 @@ public class Domicilio extends TipoPedido {
 		super(gastosEnvio);
 	}
 
+	public void changeEstado(Optional<Corder> order) {
+		if(order.get().getState().equals(Estado.Recibido.name())) {
+			order.get().setState(Estado.Preparado.name());
+		}else if(order.get().getState().equals(Estado.Preparado.name())){
+			order.get().setState(Estado.EnCamino.name());
+		}else {
+			order.get().setState(Estado.Entregado.name());
+		}
+		System.out.println(order.get().getState());
+	}
+
 	@Override
 	public void changeEstado(Corder order) {
-		if(order.getState().equals(Estado.Recibido.name())) {
-			order.setState(Estado.Preparado.name());
-		}else if(order.getState().equals(Estado.Preparado.name())){
-			order.setState(Estado.EnCamino.name());
-		}else {
-			order.setState(Estado.Entregado.name());
-		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -18,6 +18,7 @@ import edu.uclm.esi.carreful.dao.CorderDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.model.Corder;
 import edu.uclm.esi.carreful.model.Domicilio;
+import edu.uclm.esi.carreful.model.RecogidaCarreful;
 import edu.uclm.esi.carreful.tokens.Token;
 
 @RestController
@@ -25,7 +26,7 @@ import edu.uclm.esi.carreful.tokens.Token;
 public class CorderController extends CookiesController {
 	
 	@Autowired
-	private CorderDao orderDao;
+	CorderDao orderDao;
 	
 	@Autowired
 	TokenDao tokenDao;
@@ -69,13 +70,18 @@ public class CorderController extends CookiesController {
 	}
 	
 	@GetMapping("/changeEstado/{id}")
-	public void changeEstado(@PathVariable String id) {
+	public String changeEstado(@PathVariable String id) {
 		try {	
-			//Corder order = orderDao.finbById(id);
-//			Domicilio d = new Domicilio(0);			
-//			d.changeEstado(order);
-//			orderDao.save(order);
-//			System.out.println(id);
+			Optional<Corder> optOrder = orderDao.findById(id);
+			if(optOrder.get().getCalle().equals("") ) {
+				RecogidaCarreful carre = new RecogidaCarreful();
+				carre.changeEstado(optOrder);
+			}else {
+				Domicilio d = new Domicilio(0);			
+				d.changeEstado(optOrder);
+			}
+			orderDao.save(optOrder.get());
+			return optOrder.get().getState();
 		} catch(NumberFormatException  e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
