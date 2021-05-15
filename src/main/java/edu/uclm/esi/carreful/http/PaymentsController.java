@@ -160,9 +160,10 @@ public class PaymentsController extends CookiesController {
 			//Enviar email al ususario para el seguimiento del pedido
 			Token token = new Token();
 			Email smtp = new Email();
+			token = new Token(oproduct.getId());
 			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
 				"http://localhost/orders/usarToken/" + token.getId() + "";
-			token = new Token(oproduct.getId());
+			
 			smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);	
 			tokenDao.save(token);
 		} catch(Exception e) {
