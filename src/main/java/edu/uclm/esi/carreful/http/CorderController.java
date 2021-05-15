@@ -1,6 +1,7 @@
 package edu.uclm.esi.carreful.http;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import edu.uclm.esi.carreful.dao.CorderDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.model.Corder;
+import edu.uclm.esi.carreful.model.Domicilio;
 import edu.uclm.esi.carreful.tokens.Token;
 
 @RestController
@@ -55,6 +57,28 @@ public class CorderController extends CookiesController {
 			response.sendError(404, "El token no existe");
 		}
 		return null;
+	}
+	
+	@GetMapping("/getPedidos")
+	public List<Corder> get() {
+		try {
+			return orderDao.findAll();
+		} catch(Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/changeEstado/{id}")
+	public void changeEstado(@PathVariable String id) {
+		try {	
+			//Corder order = orderDao.finbById(id);
+//			Domicilio d = new Domicilio(0);			
+//			d.changeEstado(order);
+//			orderDao.save(order);
+//			System.out.println(id);
+		} catch(NumberFormatException  e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 	
 }

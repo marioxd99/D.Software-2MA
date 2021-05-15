@@ -1,5 +1,7 @@
 package edu.uclm.esi.carreful.model;
 
+import java.util.Optional;
+
 public class Domicilio extends TipoPedido {
 	
 	public Domicilio(double gastosEnvio) {
@@ -7,17 +9,15 @@ public class Domicilio extends TipoPedido {
 	}
 
 	@Override
-	public void changeEstado(Corder pedido) {
-		if(pedido.getState().equals(Estado.Recibido.name())) {
-			pedido.setState(Estado.Preparado.name());
-		}else if(pedido.getState().equals(Estado.Preparado.name())){
-			pedido.setState(Estado.EnCamino.name());
+	public void changeEstado(Corder order) {
+		if(order.getState().equals(Estado.Recibido.name())) {
+			order.setState(Estado.Preparado.name());
+		}else if(order.getState().equals(Estado.Preparado.name())){
+			order.setState(Estado.EnCamino.name());
 		}else {
-			pedido.setState(Estado.Entregado.name());
+			order.setState(Estado.Entregado.name());
 		}
 	}
-	
 
-	
 	
 }
