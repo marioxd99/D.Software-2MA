@@ -70,18 +70,19 @@ public class CorderController extends CookiesController {
 	}
 	
 	@GetMapping("/changeEstado/{id}")
-	public String changeEstado(@PathVariable String id) {
+	public void changeEstado(@PathVariable String id) {
 		try {	
 			Optional<Corder> optOrder = orderDao.findById(id);
-			if(optOrder.get().getCalle().equals("") ) {
-				RecogidaCarreful carre = new RecogidaCarreful();
-				carre.changeEstado(optOrder);
-			}else {
-				Domicilio d = new Domicilio(0);			
-				d.changeEstado(optOrder);
-			}
-			orderDao.save(optOrder.get());
-			return optOrder.get().getState();
+			if (optOrder.isPresent()) {
+				if(optOrder.get().getCalle().equals("") ) {
+					RecogidaCarreful carre = new RecogidaCarreful();
+					carre.changeEstado(optOrder);
+				}else {
+					Domicilio d = new Domicilio(0);			
+					d.changeEstado(optOrder);
+				}
+				orderDao.save(optOrder.get());
+			}				
 		} catch(NumberFormatException  e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
