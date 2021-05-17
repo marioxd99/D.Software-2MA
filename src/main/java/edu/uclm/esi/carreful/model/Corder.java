@@ -14,7 +14,6 @@ public class Corder {
 	private String email;
 	private String ciudad;
 	private String calle;
-	@Column(length = 10)
 	private String cp;
 	private double precioTotal;
 	private String state;

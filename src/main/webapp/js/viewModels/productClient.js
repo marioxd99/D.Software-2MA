@@ -73,9 +73,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							},						
 						};
 						self.productos.push(producto);
-						var numeroProductos = response.length;
-						numeroProductos = numeroProductos.toString();
-						self.nProductos(numeroProductos);
+						self.nProductos(response.length);
 					}
 				},
 				error : function(response) {
@@ -150,9 +148,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							
 						};
 						self.productos.push(producto);
-						var numeroProductos = response.length;
-						numeroProductos = numeroProductos.toString();
-						self.nProductos(numeroProductos);
+						self.nProductos(response.length);
 					}
 					
 				}
@@ -170,6 +166,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					self.message("Producto añadido al carrito");
 					self.carrito(response.products);
 					self.precioCarrito();
+					self.error(null);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);

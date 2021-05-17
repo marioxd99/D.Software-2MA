@@ -9,10 +9,12 @@ public class RecogidaCarreful extends TipoPedido {
 	}
 	
 	public void changeEstado(Optional<Corder> pedido) {
-		if(pedido.get().getState().equals(Estado.Recibido.name())) {
-			pedido.get().setState(Estado.Preparado.name());
-		}else if(pedido.get().getState().equals(Estado.Preparado.name())){
-			pedido.get().setState(Estado.Entregado.name());
+		if (pedido.isPresent()) {
+			if(pedido.get().getState().equals(Estado.Recibido.name())) {
+				pedido.get().setState(Estado.Preparado.name());
+			}else if(pedido.get().getState().equals(Estado.Preparado.name())){
+				pedido.get().setState(Estado.Entregado.name());
+			}
 		}
 	}
 
@@ -21,6 +23,8 @@ public class RecogidaCarreful extends TipoPedido {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 	
 	

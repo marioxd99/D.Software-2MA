@@ -1,8 +1,16 @@
 package edu.uclm.esi.carreful.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Transient;
 
+@Entity
 public class OrderedProduct {
+	@Id @Column(length = 36)
+	private String id;
+	@Transient
 	private Product product;
 	private String nombre;
 	private double amount;
@@ -11,7 +19,18 @@ public class OrderedProduct {
 	@Lob
 	private String image;
 	
+	public OrderedProduct() {
+		
+	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getCategoria() {
 		return categoria;
 	}

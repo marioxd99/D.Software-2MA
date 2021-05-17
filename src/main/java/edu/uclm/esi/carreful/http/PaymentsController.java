@@ -22,6 +22,7 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
 import edu.uclm.esi.carreful.dao.CorderDao;
+import edu.uclm.esi.carreful.dao.OrderedProductDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.model.Carrito;
@@ -48,6 +49,8 @@ public class PaymentsController extends CookiesController {
 	TokenDao tokenDao;
 	@Autowired
 	ProductDao productDao;
+	@Autowired
+	OrderedProductDao orderedProductDao;
 	
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request) {
@@ -143,11 +146,18 @@ public class PaymentsController extends CookiesController {
 			oproduct.setCp(cp);	
 			oproduct.setEmail(email);
 			corderDao.save(oproduct);
+			guardarOrderedProduct(request);
 			request.getSession().setAttribute("corder", oproduct);
 			return precioFinal;
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
+	}
+	
+	public void guardarOrderedProduct(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		OrderedProduct order = new OrderedProduct();
+		
 	}
 	
 	
