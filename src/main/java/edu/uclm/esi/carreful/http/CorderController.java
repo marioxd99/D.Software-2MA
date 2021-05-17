@@ -70,7 +70,7 @@ public class CorderController extends CookiesController {
 	}
 	
 	@GetMapping("/changeEstado/{id}")
-	public void changeEstado(@PathVariable String id) {
+	public String changeEstado(@PathVariable String id) {
 		try {	
 			Optional<Corder> optOrder = orderDao.findById(id);
 			if (optOrder.isPresent()) {
@@ -82,7 +82,9 @@ public class CorderController extends CookiesController {
 					d.changeEstado(optOrder);
 				}
 				orderDao.save(optOrder.get());
-			}				
+				return optOrder.get().getState();
+			}	
+			return optOrder.get().getState();
 		} catch(NumberFormatException  e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}

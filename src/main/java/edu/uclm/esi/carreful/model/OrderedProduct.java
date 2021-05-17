@@ -17,6 +17,7 @@ public class OrderedProduct {
 	private String precio;
 	private String categoria;
 	@Lob
+	@Transient
 	private String image;
 	
 	public OrderedProduct() {

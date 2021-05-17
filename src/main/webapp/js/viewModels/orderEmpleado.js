@@ -28,6 +28,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
+					 self.pedidos([]);
 					 for (let i=0; i<response.length; i++) {
 						let pedido = {
 							id : response[i].id,
@@ -58,7 +59,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					location.reload();			
+					self.getPedidos();			
 				}
 			};
 			$.ajax(data);
