@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.glassfish.jersey.model.internal.RankedComparator.Order;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -146,8 +147,8 @@ public class PaymentsController extends CookiesController {
 			oproduct.setCp(cp);	
 			oproduct.setEmail(email);
 			corderDao.save(oproduct);
-			guardarOrderedProduct(request);
 			request.getSession().setAttribute("corder", oproduct);
+			guardarOrderedProduct(request);
 			return precioFinal;
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
@@ -156,11 +157,19 @@ public class PaymentsController extends CookiesController {
 	
 	public void guardarOrderedProduct(HttpServletRequest request) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-		OrderedProduct order = new OrderedProduct();
+		Collection<OrderedProduct> product = carrito.getProducts();
+		Iterator<OrderedProduct> it = product.iterator();
 		
+		Corder corder = (Corder) request.getSession().getAttribute("corder");
+		OrderedProduct order = new OrderedProduct();
+		order.setId(corder.getId());
+		
+		while(it.hasNext()) {
+			order.setNombre(it.next().getNombre());
+			orderedProductDao.save(order);
+		}
 	}
-	
-	
+
 	@PutMapping("/finalizarPago")
 	public void finalizarPago(HttpServletRequest request) {
 		try {	
