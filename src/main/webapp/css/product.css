@@ -209,7 +209,7 @@ figcaption {
 }
 
 .scroll{
-	height:600px;
+	height:350px;
 	overflow:hidden;
 	overflow-y : scroll;
 }

@@ -62,7 +62,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.message("Producto guardado");
-					location.reload();
+					self.getProductos();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -79,7 +79,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					//self.productos(response);
+					self.productos([]);
 					
 					 for (let i=0; i<response.length; i++) {
 						let producto = {
@@ -195,7 +195,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					self.message("Producto eliminado");
-					location.reload();
+					self.getProductos();
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -204,22 +204,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			$.ajax(data);
 		}
 		
-		addAlCarrito(nombre) {
-			let self = this;
-			let data = {
-				url : "product/addAlCarrito/" + nombre,
-				type : "post",
-				contentType : 'application/json',
-				success : function(response) {
-					self.message("Producto añadido al carrito");
-					self.carrito(response.products);
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
 		
 		logout() {
 			let self = this;
@@ -229,23 +213,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				contentType : 'application/json',
 				success : function(response) {
 					app.router.go( { path : "login" } );
-				},
-				error : function(response) {
-					self.error(response.responseJSON.errorMessage);
-				}
-			};
-			$.ajax(data);
-		}
-		
-		eliminarCarrito(id) {
-			let self = this;
-			let data = {
-				url : "product/eliminarCarrito/" + id,
-				type : "delete",
-				contentType : 'application/json',
-				success : function(response) {
-					self.message("Producto eliminado al carrito");
-					self.carrito(response.products);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
