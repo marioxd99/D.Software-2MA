@@ -157,15 +157,13 @@ public class PaymentsController extends CookiesController {
 	
 	public void guardarOrderedProduct(HttpServletRequest request) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Corder corder = (Corder) request.getSession().getAttribute("corder");
+		
 		Collection<OrderedProduct> product = carrito.getProducts();
 		Iterator<OrderedProduct> it = product.iterator();
-		
-		Corder corder = (Corder) request.getSession().getAttribute("corder");
-		OrderedProduct order = new OrderedProduct();
-		order.setId(corder.getId());
-		
 		while(it.hasNext()) {
-			order.setNombre(it.next().getNombre());
+			OrderedProduct order = it.next();
+			order.setCorder(corder);
 			orderedProductDao.save(order);
 		}
 	}
