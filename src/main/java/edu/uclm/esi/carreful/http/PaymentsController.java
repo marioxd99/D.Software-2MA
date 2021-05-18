@@ -175,12 +175,10 @@ public class PaymentsController extends CookiesController {
 			//Control de Stock de los pedidos
 			controlStock(request);
 			//Enviar email al ususario para el seguimiento del pedido
-			Token token = new Token();
 			Email smtp = new Email();
-			token = new Token(oproduct.getId());
+			Token token = new Token(oproduct.getId());
 			String texto = "Para seguir el estado del pedido, pulsa aquí: " + 
-				"http://localhost/orders/usarToken/" + token.getId() + "";
-			
+				"http://localhost/orders/usarToken/" + token.getId() + "";	
 			smtp.send(oproduct.getEmail(), "Carreful: Seguimiento del pedido", texto);	
 			tokenDao.save(token);
 		} catch(Exception e) {
