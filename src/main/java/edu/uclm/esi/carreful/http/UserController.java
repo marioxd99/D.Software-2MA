@@ -132,6 +132,9 @@ public class UserController extends CookiesController {
 			user.setEmail(email);
 			user.setPwd(pwd1);
 			user.setPicture(jso.optString("picture"));
+			if(userDao.findByEmail(email)!=null) {
+				throw new Exception("El usuario ya existe,prueba a iniciar sesion");
+			}
 			userDao.save(user);
 			Token token = new Token(email);
 			tokenDao.save(token);
