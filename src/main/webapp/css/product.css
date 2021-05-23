@@ -139,7 +139,6 @@ input:focus+label {
 	width: auto;
 	height: auto;
 	max-width: 90px;
-	max-width: 90px;
 }
 #carrito:hover{
 	transform: scale(1.2);

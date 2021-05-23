@@ -53,6 +53,22 @@ public class UserController extends CookiesController {
 		return null;
 	}
 	
+	@GetMapping("confirmarCuenta/{tokenId}")
+	public String confirmarCuenta(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
+		Optional<Token> optToken = tokenDao.findById(tokenId);
+		if (optToken.isPresent()) {
+			Token token = optToken.get();
+			if (token.isUsed())
+				response.sendError(409, "El token ya se utilizó");
+			else {
+				response.sendRedirect("http://localhost?ojr=confirmAccount&token="+tokenId+"&email="+token.getEmail());
+			}
+		} else {
+			response.sendError(404, "El token no existe");
+		}
+		return null;
+	}
+	
 	@GetMapping("/recoverPwd")
 	public void recoverPwd(@RequestParam String email) {
 		try {
@@ -117,14 +133,12 @@ public class UserController extends CookiesController {
 			user.setPwd(pwd1);
 			user.setPicture(jso.optString("picture"));
 			userDao.save(user);
-			if (user!=null) {
-				Token token = new Token(email);
-				tokenDao.save(token);
-				Email smtp = new Email();
-				String texto = "Para confirmar tu cuenta, pulsa aquí: " + 
-					"http://localhost/user/usarToken/" + token.getId() + "";
-				smtp.send(email, "Carreful: Confirmacion de Cuenta", texto);
-			}
+			Token token = new Token(email);
+			tokenDao.save(token);
+			Email smtp = new Email();
+			String texto = "Para confirmar tu cuenta, pulsa aquí: " + 
+					"http://localhost/user/confirmarCuenta/" + token.getId() + "";
+			smtp.send(email, "Carreful: Confirmacion de Cuenta", texto);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
@@ -135,7 +149,6 @@ public class UserController extends CookiesController {
 		try {
 			JSONObject jso = new JSONObject(info);
 			String email = jso.optString("email");
-			System.out.println("el email es "+email);
 			User user = userDao.findByEmail(email);
 			String pwd1 = jso.optString("pwd1");
 			String pwd2 = jso.optString("pwd2");

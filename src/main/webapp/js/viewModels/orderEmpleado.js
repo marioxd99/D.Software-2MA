@@ -4,7 +4,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	class OrderEmpleadoViewModel {
 		constructor() {
 			var self = this;
-						
+				
+
 			self.pedidos = ko.observableArray([]);
 			// Header Config
 			self.headerConfig = ko.observable({
@@ -21,6 +22,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			})
 		}
 		
+
 		getPedidos() {
 			let self = this;
 			let data = {
@@ -69,15 +71,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			accUtils.announce('Pedido page loaded.');
 			document.title = "Pedidos";
 			this.getPedidos();
-		};
+		}
 
 		disconnected() {
 			// Implement if needed
-		};
+		}
 
 		transitionCompleted() {
 			// Implement if needed
-		};
+		}
 	}
 
 	return OrderEmpleadoViewModel;

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.glassfish.jersey.model.internal.RankedComparator.Order;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -137,8 +136,14 @@ public class PaymentsController extends CookiesController {
 			}else {
 				oproduct.setTipo(new RecogidaCarreful());
 			}
-			if ( email.length()==0 )
-				throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos");
+			if(modoEnvio.equals("recogida")) {
+				if ( email.isEmpty())
+					throw new Exception("Debes rellenar todos los campos");
+			}
+			else {
+				if ( email.isEmpty() || calle.isEmpty() || cp.isEmpty() || ciudad.isEmpty())
+					throw new Exception("Debes rellenar todos los campos");
+			}
 			oproduct.setState(Estado.Recibido.name());
 			Double precioFinal = (precio + oproduct.getTipo().getGastosEnvio());
 			oproduct.setPrecioTotal(precioFinal);

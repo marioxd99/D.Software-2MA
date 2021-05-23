@@ -63,6 +63,8 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					self.message("Producto guardado");
 					self.getProductos();
+					self.error(null);
+					self.image(null);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -94,7 +96,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 								self.eliminarProducto(response[i].nombre); 
 							},
 							editar : function() {
-								//sessionStorage.producto = JSON.stringify(response[i]);
+								
 								app.producto = this;
 								console.log(response[i].id);
 								app.router.go( { path : "editarProducto"} );
@@ -137,7 +139,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		getImagen(categoria) {
-			let self = this;
 			let data = {
 				url : "product/getImagen/" + categoria.nombre,
 				type : "get",
@@ -169,8 +170,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							eliminar : function() {
 								self.eliminarProducto(response[i].nombre); 
 							},
-							editar : function() {
-								//sessionStorage.producto = JSON.stringify(response[i]);
+							editar : function() {				
 								app.producto = this;
 								console.log(response[i].id);
 								app.router.go( { path : "editarProducto"} );
@@ -196,6 +196,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				success : function(response) {
 					self.message("Producto eliminado");
 					self.getProductos();
+					self.error(null);
 				},
 				error : function(response) {
 					self.error(response.responseJSON.errorMessage);
@@ -231,15 +232,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			
 			this.getCategorias();
 			this.getProductos();
-		};
+		}
 
 		disconnected() {
 			// Implement if needed
-		};
+		}
 
 		transitionCompleted() {
 			// Implement if needed
-		};
+		}
 	}
 
 	return ProductViewModel;

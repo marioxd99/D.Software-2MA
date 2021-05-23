@@ -44,6 +44,11 @@ public class ProductController extends CookiesController {
 		String codigo = jso.optString("codigo");
 		String categoria =  jso.optString("categoria");
 		String stock =  jso.optString("stock");
+		String image = jso.optString("image");
+		if(nombre.isEmpty() || precio.isEmpty() || codigo.isEmpty() || categoria.isEmpty()
+				|| stock.isEmpty() || image.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Debes rellenar todos los campos del producto");
+		}
 		try {
 			Product product = new Product();
 			product.setNombre(nombre);
@@ -51,10 +56,10 @@ public class ProductController extends CookiesController {
 			product.setCodigo(codigo);
 			product.setCategoria(categoria);
 			product.setStock(stock);
-			product.setImage(jso.optString("image"));
+			product.setImage(image);
 			productDao.save(product);
 		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede insertar producto");
 		}
 	}
 	
@@ -148,8 +153,7 @@ public class ProductController extends CookiesController {
 			carrito = new Carrito();
 			request.getSession().setAttribute("carrito", carrito);
 		}
-		Collection<OrderedProduct> product = carrito.getProducts();
-		return product;
+		return carrito.getProducts();
 	}
 	
 	@Transactional
@@ -157,8 +161,7 @@ public class ProductController extends CookiesController {
 	public Carrito eliminarCarrito(HttpServletRequest request, @PathVariable Long id) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		if (carrito==null) {
-			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
+			request.getSession().setAttribute("carrito", new Carrito());
 		}
 		Product producto = productDao.findById(id);
 		carrito.delete(producto, 1);
@@ -196,7 +199,6 @@ public class ProductController extends CookiesController {
 			product.setCodigo(codigo);
 			product.setImage(image);
 			product.setStock(stock);
-			System.out.println("El imagen es "+image);
 			productDao.save(product);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());

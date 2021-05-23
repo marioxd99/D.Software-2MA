@@ -17,8 +17,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			self.productos = ko.observableArray([]);
 			
 			self.setImage = function(widget, event) {
-				console.log("dentro del setImage");
-				var dentroImagen = true;
 				var file = event.target.files[0];
 				var reader = new FileReader();
 				reader.onload = function () {
@@ -27,7 +25,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				reader.readAsBinaryString(file);
 			}
 
-			self.producto = ko.observable(app.producto); // ko.observable(JSON.parse(sessionStorage.producto));
+			self.producto = ko.observable(app.producto); 
 			sessionStorage.removeItem("producto");
 			
 			// Header Config
@@ -53,7 +51,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				type : "get",
 				contentType : 'application/json',
 				success : function(response) {
-					//self.productos(response);
 					
 					 for (let i=0; i<response.length; i++) {
 						let producto = {
@@ -87,7 +84,6 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}else{
 				info.image = this.image();
 			}
-			console.log(info.image);
 			let data = {
 				data : JSON.stringify(info),
 				url : "product/editar" ,
@@ -108,15 +104,15 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		connected() {
 			accUtils.announce('Edit Product page loaded.');
 			document.title = "Editar Producto";
-		};
+		}
 
 		disconnected() {
 			// Implement if needed
-		};
+		}
 
 		transitionCompleted() {
 			// Implement if needed
-		};
+		}
 	}
 
 	return EditarProductoViewModel;
